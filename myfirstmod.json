@@ -1,0 +1,11 @@
+{
+  "id": "myfirstmod",
+  "name": "MyFirstMod",
+  "author": "Niya",
+  "description": "My first Slay the Spire 2 mod",
+  "version": "v1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "dll_name": "MyFirstMod.dll",
+  "affects_gameplay": true
+}

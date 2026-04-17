@@ -1,0 +1,28 @@
+# Godot
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+
+# Mono
+.mono/
+data_*/
+mono_crash.*.json
+
+# Build
+bin/
+obj/
+packages/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+.DS_Store
+Thumbs.db

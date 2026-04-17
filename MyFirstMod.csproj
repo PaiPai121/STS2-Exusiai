@@ -1,0 +1,82 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DefaultItemExcludes>packages/**</DefaultItemExcludes>
+        <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+        <PathMap>$(AppOutputBase)=.\</PathMap>
+    </PropertyGroup>
+
+    <!-- OS Detection -->
+    <PropertyGroup>
+        <IsWindows>false</IsWindows>
+        <IsLinux>false</IsLinux>
+        <IsOSX>false</IsOSX>
+        <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
+        <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
+        <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
+    </PropertyGroup>
+
+    <!-- Windows -->
+    <PropertyGroup Condition="'$(IsWindows)' == 'true'">
+        <Sts2Path>C:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2</Sts2Path>
+        <ModsPath>$(Sts2Path)/mods/</ModsPath>
+        <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <!-- Linux -->
+    <PropertyGroup Condition="'$(IsLinux)' == 'true'">
+        <SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">$(HOME)/.local/share/Steam/steamapps</SteamLibraryPath>
+        <Sts2Path>$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
+        <ModsPath>$(Sts2Path)/mods/</ModsPath>
+        <Sts2DataDir>$(Sts2Path)/data_sts2_linuxbsd_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <!-- macOS -->
+    <PropertyGroup Condition="'$(IsOSX)' == 'true'">
+        <SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">$(HOME)/Library/Application Support/Steam/steamapps</SteamLibraryPath>
+        <Sts2Path>$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
+        <ModsPath>$(Sts2Path)/SlayTheSpire2.app/Contents/MacOS/mods/</ModsPath>
+        <Sts2DataDir>$(Sts2Path)/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn>$(NoWarn);MSB3270</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup Condition="Exists('$(Sts2DataDir)')">
+        <Reference Include="0Harmony">
+            <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="sts2">
+            <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.1" />
+        <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="*" />
+        <AdditionalFiles Include="myfirstmod/localization/**/*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="myfirstmod.json" />
+        <None Include="project.godot" />
+    </ItemGroup>
+
+    <Target Name="CheckDependencyPaths">
+        <Error Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'" Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
+    </Target>
+
+    <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
+        <Message Text="Copying .dll and manifest to mods folder." Importance="high" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
+        <Copy SourceFiles="myfirstmod.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName).pck" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).pck')" />
+    </Target>
+</Project>
