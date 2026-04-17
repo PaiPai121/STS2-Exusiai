@@ -21,8 +21,9 @@ namespace MyFirstMod.Code.Cards;
 /// 6. 添加本地化：myfirstmod/localization/zhs/cards.json
 /// 7. 重新编译和导出 PCK
 /// </summary>
-[Pool(typeof(ColorlessCardPool))]  // 修改卡池：ColorlessCardPool, IroncladCardPool, SilentCardPool 等
-public class CardTemplate : MyFirstModCardModel
+// [Pool(typeof(ColorlessCardPool))]  // 修改卡池：ColorlessCardPool, IroncladCardPool, SilentCardPool 等
+// 注意：模板文件不应该注册到卡池，使用时取消注释并重命名类
+public abstract class CardTemplate : MyFirstModCardModel
 {
     // ========== 基础属性 ==========
     private const int energyCost = 1;                           // 耗能
