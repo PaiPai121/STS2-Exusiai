@@ -1,0 +1,17 @@
+{
+    "MYFIRSTMOD-EXUSIAI.title": "能天使",
+    "MYFIRSTMOD-EXUSIAI.titleObject": "能天使",
+    "MYFIRSTMOD-EXUSIAI.description": "来自罗德岛的狙击干员。\n[gold]能天使[/gold]的枪火从不犹豫。",
+    "MYFIRSTMOD-EXUSIAI.pronounSubject": "她",
+    "MYFIRSTMOD-EXUSIAI.pronounObject": "她",
+    "MYFIRSTMOD-EXUSIAI.pronounPossessive": "她的",
+    "MYFIRSTMOD-EXUSIAI.possessiveAdjective": "她的",
+    "MYFIRSTMOD-EXUSIAI.goldMonologue": "[sine]这些……能买很多弹药。[/sine]",
+    "MYFIRSTMOD-EXUSIAI.eventDeathPrevention": "我还有弹药……不能倒在这里……",
+    "MYFIRSTMOD-EXUSIAI.aromaPrinciple": "[sine]……这个味道，让我想起罗德岛。[/sine]",
+    "MYFIRSTMOD-EXUSIAI.cardsModifierTitle": "能天使卡牌",
+    "MYFIRSTMOD-EXUSIAI.cardsModifierDescription": "能天使的卡牌现在会出现在奖励和商店中。",
+    "MYFIRSTMOD-EXUSIAI.banter.alive.endTurnPing": "还没完呢！",
+    "MYFIRSTMOD-EXUSIAI.banter.dead.endTurnPing": "……下次一定。",
+    "MYFIRSTMOD-EXUSIAI.unlockText": "用[pink]{Prerequisite}[/pink]进行一局游戏来解锁这个角色。"
+}

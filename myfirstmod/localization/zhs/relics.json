@@ -1,7 +1,7 @@
 {
-    "MYFIRSTMOD-TEST_RELIC.title": "测试遗物",
-    "MYFIRSTMOD-TEST_RELIC.description": "每回合开始时，抽[blue]{Cards}[/blue]张牌。",
-    "MYFIRSTMOD-TEST_RELIC.flavor": "觉得很眼熟？",
+    "MYFIRSTMOD-SNIPER_CHIPSET.title": "狙击芯片",
+    "MYFIRSTMOD-SNIPER_CHIPSET.description": "通过努力特训得来的素材，似乎能对日渐成熟的狙击干员有特别的指导。",
+    "MYFIRSTMOD-SNIPER_CHIPSET.flavor": "",
     "MYFIRSTMOD-RELIC_TEMPLATE.title": "遗物模板",
     "MYFIRSTMOD-RELIC_TEMPLATE.description": "每回合开始时，抽[blue]{Cards}[/blue]张牌。",
     "MYFIRSTMOD-RELIC_TEMPLATE.flavor": "这是一段风味文字。"

@@ -1,11 +1,12 @@
 {
   "id": "myfirstmod",
-  "name": "MyFirstMod",
+  "name": "MyFirstMod - Exusiai",
   "author": "Niya",
-  "description": "My first Slay the Spire 2 mod",
+  "description": "Exusiai from Arknights as a playable character",
   "version": "v1.0.0",
   "has_pck": true,
   "has_dll": true,
   "dll_name": "MyFirstMod.dll",
+  "dependencies": ["BaseLib"],
   "affects_gameplay": true
 }

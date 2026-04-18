@@ -1,0 +1,42 @@
+{
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.0-0.char": "这么多宝石！我可以拿一些做弹头吗？",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.0-0.next": "继续",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.0-1.ancient": "当然！随便挑，反正你看上去挺能打的！",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.1-0r.ancient": "又来了？这次要不要试试这个？很厉害的！",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.2-0.ancient": "看你表情这么认真……送你个好东西吧！",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.2-0.next": "回应",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.2-1.char": "谢啦！我保证会用得很好的！",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.2-1.next": "继续",
+    "DARV.talk.MYFIRSTMOD-EXUSIAI.2-2.ancient": "去吧去吧！下次再来啊！",
+
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.0-0.char": "我又回来了……这次有什么任务？",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.0-0.next": "继续",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.0-1.ancient": "[sine]...去... 塔里... 你... ..准备好了...[/sine]",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.1-0r.ancient": "[sine]...你的枪... ..还在响.....[/sine]",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.2-0.ancient": "[sine]...你.. 还缺... ..什么...？[/sine]",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.2-0.next": "祈求",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.2-1.char": "只要能让我继续战斗就行！",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.2-1.next": "继续",
+    "NEOW.talk.MYFIRSTMOD-EXUSIAI.2-2.ancient": "[sine]...去吧... ..枪火... ..不会灭.....[/sine]",
+
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-0r.char": "……你一直在看我？",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-0r.ancient": "你的枪声很吵。但你的决心……有意思。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-0r.next": "回答",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-1r.char": "吵？那是你还没听够！",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-1r.ancient": "继续吵下去吧。塔里太安静了。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-1r.next": "继续",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-2r.ancient": "那就继续开枪吧。我倒要看看你能走多远。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.0-attack": "vfx/vfx_attack_slash",
+
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.1-0r.ancient": "你又来了。这次，塔会给你更多考验。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.1-0r.next": "继续",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.1-1r.char": "考验？我只怕弹药不够用。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.1-1r.next": "继续",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.1-2r.ancient": "那就去找更多的弹药吧。塔里有的是。",
+
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.2-0r.ancient": "你还在打？那就别停。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.2-0r.next": "继续",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.2-1r.char": "停下来就不是我了。",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.2-1r.next": "继续",
+    "THE_ARCHITECT.talk.MYFIRSTMOD-EXUSIAI.2-2r.ancient": "那就继续。这塔，需要你这样的声音。"
+}

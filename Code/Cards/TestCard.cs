@@ -4,12 +4,12 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
+using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
 
-[Pool(typeof(ColorlessCardPool))]
+[Pool(typeof(ExusiaiCardPool))]
 public class TestCard : MyFirstModCardModel
 {
     private const int energyCost = 1;
