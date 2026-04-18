@@ -39,7 +39,7 @@ public abstract class CardTemplate : MyFirstModCardModel
     // - MagicNumberVar(value)                      // 魔法数字（通用数值）
     // - DrawVar(value)                             // 抽牌数
     // - DiscardVar(value)                          // 弃牌数
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
+    public override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(12, ValueProp.Move)  // 12点伤害
     ];
 
@@ -48,7 +48,7 @@ public abstract class CardTemplate : MyFirstModCardModel
     }
 
     // ========== 打出效果 ==========
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 空指针检查
         if (cardPlay.Target == null) return;
@@ -78,7 +78,7 @@ public abstract class CardTemplate : MyFirstModCardModel
     }
 
     // ========== 升级效果 ==========
-    protected override void OnUpgrade()
+    public override void OnUpgrade()
     {
         // 升级伤害 +4
         DynamicVars.Damage.UpgradeValueBy(4);

@@ -55,6 +55,8 @@
             <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <!-- Publicize sts2 to access CardModel, Creature, CombatRoom, and protected virtual methods -->
+        <Publicize Include="sts2" />
     </ItemGroup>
 
     <ItemGroup>

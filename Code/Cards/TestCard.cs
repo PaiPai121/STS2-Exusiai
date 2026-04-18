@@ -18,13 +18,13 @@ public class TestCard : MyFirstModCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
 
     public TestCard() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
 
@@ -34,7 +34,7 @@ public class TestCard : MyFirstModCardModel
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
+    public override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(4);
     }

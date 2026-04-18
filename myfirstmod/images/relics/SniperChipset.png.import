@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dguwifm7kcwyg"
-path="res://.godot/imported/char_select_exusiai_locked.png-fd0d55e06386202314dd532676bd2706.ctex"
+uid="uid://h435tgv3ybmn"
+path="res://.godot/imported/SniperChipset.png-35490420f70e4f105b17ad20ca35dd05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://myfirstmod/images/exusiai/char_select_exusiai_locked.png"
-dest_files=["res://.godot/imported/char_select_exusiai_locked.png-fd0d55e06386202314dd532676bd2706.ctex"]
+source_file="res://myfirstmod/images/relics/SniperChipset.png"
+dest_files=["res://.godot/imported/SniperChipset.png-35490420f70e4f105b17ad20ca35dd05.ctex"]
 
 [params]
 

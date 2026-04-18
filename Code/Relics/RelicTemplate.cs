@@ -34,7 +34,7 @@ public abstract class RelicTemplate : MyFirstModRelicModel
     // - DamageVar(value, prop)    // 伤害
     // - BlockVar(value, prop)     // 格挡
     // - MagicNumberVar(value)     // 魔法数字（通用数值）
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
+    public override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(1)  // 抽1张牌
     ];
 
