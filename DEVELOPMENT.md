@@ -293,7 +293,7 @@ deck
 ## 查看日志
 
 ```
-%AppData%\Roaming\SlayTheSpire2\logs\godot.log
+C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs\godot.log
 ```
 
 ## 参考资料

@@ -6,7 +6,7 @@ namespace MyFirstMod.Code;
 
 public abstract class MyFirstModCardModel : CustomCardModel
 {
-    public override string PortraitPath => $"res://myfirstmod/images/cards/{GetType().Name}.png";
+    public override string PortraitPath => $"res://myfirstmod/images/cards/{GetType().Name}.jpg";
 
     protected MyFirstModCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary)
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

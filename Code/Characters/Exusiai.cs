@@ -47,10 +47,18 @@ public class Exusiai : PlaceholderCharacterModel
 
     // ========== 初始卡组 ==========
     public override IEnumerable<CardModel> StartingDeck => [
-        ModelDb.Card<TestCard>(),
-        ModelDb.Card<TestCard>(),
-        ModelDb.Card<TestCard>(),
-        ModelDb.Card<TestCard>(),
+        // 5 打击
+        ModelDb.Card<ExusiaiStrike>(),
+        ModelDb.Card<ExusiaiStrike>(),
+        ModelDb.Card<ExusiaiStrike>(),
+        ModelDb.Card<ExusiaiStrike>(),
+        ModelDb.Card<ExusiaiStrike>(),
+        // 4 防御
+        ModelDb.Card<ExusiaiDefend>(),
+        ModelDb.Card<ExusiaiDefend>(),
+        ModelDb.Card<ExusiaiDefend>(),
+        ModelDb.Card<ExusiaiDefend>(),
+        // 1 占位卡
         ModelDb.Card<TestCard>(),
     ];
 
