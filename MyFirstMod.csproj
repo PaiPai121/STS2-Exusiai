@@ -57,6 +57,8 @@
         </Reference>
         <!-- Publicize sts2 to access CardModel, Creature, CombatRoom, and protected virtual methods -->
         <Publicize Include="sts2" />
+        <!-- Publicize BaseLib to access CustomEnumAttribute, KeywordPropertiesAttribute etc. -->
+        <Publicize Include="BaseLib" />
     </ItemGroup>
 
     <ItemGroup>

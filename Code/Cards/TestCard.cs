@@ -10,7 +10,7 @@ using MyFirstMod.Code.CardPools;
 namespace MyFirstMod.Code.Cards;
 
 [Pool(typeof(ExusiaiCardPool))]
-public class TestCard : MyFirstModCardModel
+public class TestCard : RapidFireCardModel
 {
     private const int energyCost = 1;
     private const CardType type = CardType.Attack;
@@ -32,6 +32,8 @@ public class TestCard : MyFirstModCardModel
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
+
+        await TryGenerateRapidFireCopy(choiceContext, cardPlay);
     }
 
     public override void OnUpgrade()

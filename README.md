@@ -1,109 +1,85 @@
-# MyFirstMod
+# MyFirstMod - Exusiai
 
-My first Slay the Spire 2 mod with a test card.
+杀戮尖塔2 MOD：明日方舟能天使（Exusiai）作为可选角色。
 
 ## 开发环境
 
-- Godot 4.5.1 Mono (Mobile 渲染器)
-- .NET 9.0
-- C#
+- Godot 4.5.1 Mono / MegaDot 4.5.1.m.9
+- .NET 9.0 / C#
+- BaseLib 3.0.1
+- Krafs.Publicizer 2.3.0
 
-## 编译
+## 编译和部署
 
 ```bash
+# 1. 编译 DLL（自动复制到 mods 目录）
 dotnet build
+
+# 2. 导出 PCK（打包资源：图片、本地化JSON等）
+megadot --headless --export-debug "BasicExport" MyFirstMod.pck
+
+# 3. 复制 PCK 到 mods 目录
+copy MyFirstMod.pck "C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod\"
 ```
 
-编译成功后，dll 和 json 会自动复制到游戏的 mods 目录：
-```
-C:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2/mods/MyFirstMod/
-```
-
-## 导出 PCK（可选）
-
-如果需要打包资源文件（图片、音频等），使用 Godot 导出：
-
-```bash
-dotnet publish
-```
-
-**注意**: 需要在 `.csproj` 中配置 `GodotPath` 才能自动导出 PCK。
-
-或者手动使用 Godot 编辑器导出：
-1. 用 Godot 4.5.1 打开项目
-2. 项目 → 导出 → 添加导出预设 → Windows Desktop
-3. 导出为 PCK 文件到 `mods/MyFirstMod/MyFirstMod.pck`
+> ⚠️ PCK 导出需要 MegaDot 导出模板已安装，详见 [DEVELOPMENT.md](DEVELOPMENT.md#⚠️-pck-导出模板问题)
 
 ## 项目结构
 
 ```
 MyFirstMod/
 ├── Code/
-│   ├── Entry.cs                    # MOD 入口
-│   ├── MyFirstModCardModel.cs      # 卡牌基类
-│   └── Cards/
-│       └── TestCard.cs             # 测试卡牌
-├── myfirstmod/                     # 资源目录（modid）
-│   ├── images/
-│   │   └── cards/
-│   │       └── TestCard.png        # 卡牌立绘
-│   └── localization/
-│       └── zhs/
-│           └── cards.json          # 中文本地化
-├── project.godot                   # Godot 项目配置
-├── MyFirstMod.csproj               # C# 项目配置
-└── myfirstmod.json                 # MOD 元数据
+│   ├── Entry.cs                       # MOD 入口
+│   ├── MyFirstModCardModel.cs         # 卡牌基类
+│   ├── MyFirstModRelicModel.cs        # 遗物基类
+│   ├── Cards/
+│   │   ├── RapidFireCardModel.cs      # 速射关键字卡牌基类
+│   │   └── TestCard.cs               # 速射攻击牌示例
+│   ├── Keywords/
+│   │   └── MyKeywords.cs             # 自定义关键字（速射）
+│   ├── Relics/
+│   │   └── SniperChipset.cs          # 初始遗物：狙击芯片
+│   ├── CardPools/                     # 卡池
+│   ├── RelicPools/                    # 遗物池
+│   └── PotionPools/                   # 药水池
+├── myfirstmod/
+│   ├── images/cards/                  # 卡图
+│   ├── images/relics/                 # 遗物图标
+│   └── localization/zhs/             # 中文本地化
+├── MyFirstMod.csproj
+├── myfirstmod.json
+└── DEVELOPMENT.md                     # ← 开发经验文档
 ```
 
-## 测试卡牌
+## 已实现功能
 
-已添加测试卡牌 `TestCard`：
-- **卡牌ID**: `MYFIRSTMOD-TEST_CARD`
-- **名称**: 测试卡牌
-- **类型**: 攻击牌
-- **稀有度**: 普通
-- **耗能**: 1
-- **效果**: 造成 12 点伤害（升级后 16 点）
-- **卡池**: 无色卡池
+| 功能 | 文件 | 说明 |
+|------|------|------|
+| Exusiai 角色 | `Code/CardPools/`, `Code/RelicPools/` | 专属卡池/遗物池/药水池 |
+| 速射关键字 | `Code/Keywords/MyKeywords.cs` | 打出时生成0费复制，复制不再触发 |
+| 狙击芯片（初始遗物） | `Code/Relics/SniperChipset.cs` | 首张攻击牌额外打出1次 |
+| TestCard | `Code/Cards/TestCard.cs` | 1费12伤速射攻击牌 |
 
-### 测试方法
+## 测试方法
 
-**方法1：战斗中获取卡牌**
+**战斗中获取卡牌**：
 1. 开始一场战斗
 2. 按 `~` 打开控制台
 3. 输入: `card MYFIRSTMOD-TEST_CARD`
 
-**方法2：在商店/奖励中查看**
-- 由于加入了无色卡池，可以在商店或战斗奖励中随机遇到
-
-**方法3：使用 event 命令**
-1. 按 `~` 打开控制台
-2. 输入: `event Falling` (进入掉落事件)
-3. 选择获得无色卡牌
-4. 可能会出现你的测试卡牌
-
 ### 常用控制台命令
 
 ```bash
-# 战斗相关
 fight                    # 开始随机战斗
-kill                     # 杀死所有敌人
-
-# 卡牌相关（需要在战斗中）
 card CARD_ID            # 获得指定卡牌
-hand 10                 # 抽10张牌
-
-# 资源相关
-gold 999                # 获得金币
-potion POTION_ID        # 获得药水
-
-# 事件相关
-event Falling           # 触发掉落事件（可获得无色卡）
-event Shop              # 触发商店事件
-
-# 其他
+kill                    # 杀死所有敌人
 deck                    # 查看当前牌组
+gold 999                # 获得金币
 ```
+
+## 详细开发文档
+
+👉 **[DEVELOPMENT.md](DEVELOPMENT.md)** — 包含完整的踩坑经验、Namespace地图、遗物Hook用法、PCK导出修复等
 
 ## 参考资料
 
