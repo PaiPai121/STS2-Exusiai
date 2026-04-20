@@ -1,7 +1,6 @@
 using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MyFirstMod.Code.Keywords;
@@ -35,9 +34,8 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
         if (!cardPlay.IsFirstInSeries)
             return;
 
-        // 克隆当前卡牌
-        Player owner = Owner;
-        CardModel copy = owner.RunState.CloneCard(this);
+        // 克隆当前卡牌（使用 CardModel.CreateClone，与原版遗物一致）
+        CardModel copy = CreateClone();
 
         // 移除速射关键字（复制不再触发，防套娃）
         copy.RemoveKeyword(MyKeywords.RapidFire);
