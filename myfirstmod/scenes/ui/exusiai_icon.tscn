@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5der1ck84ixn"]
 
-[ext_resource type="Texture2D" uid="uid://v1bu3kjuf3g7" path="res://myfirstmod/assets/ui/icon/character_icon_ines.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://v1bu3kjuf3g7" path="res://myfirstmod/images/exusiai/character_icon_exusiai.png" id="1"]
 
 [node name="CharacterIcon" type="TextureRect"]
 anchor_right = 1.0

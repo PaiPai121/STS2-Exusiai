@@ -5,14 +5,13 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
 
 /// <summary>
 /// 能天使专属防御 — 基础技能牌，带 Defend 标签
+/// Basic 牌不进入奖励池，不加 [Pool] 标签
 /// </summary>
-[Pool(typeof(ExusiaiCardPool))]
 public class ExusiaiDefend : MyFirstModCardModel
 {
     private const int energyCost = 1;
