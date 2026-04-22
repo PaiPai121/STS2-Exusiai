@@ -25,9 +25,9 @@ public class Exusiai : PlaceholderCharacterModel
 
     // ========== 场景路径（基于 InesSilent 场景） ==========
     public override string CustomVisualPath => "res://myfirstmod/scenes/character/exusiai_default.tscn";
-    public override string CustomEnergyCounterPath => "res://myfirstmod/scenes/exusiai_energy_counter.tscn";
+    public override string CustomEnergyCounterPath => "res://scenes/combat/energy_counters/ironclad_energy_counter.tscn";
     public override string CustomCharacterSelectBg => "res://myfirstmod/scenes/ui/char_select_bg_exusiai.tscn";
-    public override string CustomTrailPath => "res://myfirstmod/scenes/ui/card_trail_exusiai.tscn";
+    public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
     public override string CustomIconPath => "res://myfirstmod/scenes/ui/exusiai_icon.tscn";
     public override string CustomMerchantAnimPath => "res://myfirstmod/scenes/character/exusiai_merchant.tscn";
     public override string CustomRestSiteAnimPath => "res://myfirstmod/scenes/character/exusiai_rest_site.tscn";
@@ -58,8 +58,8 @@ public class Exusiai : PlaceholderCharacterModel
         ModelDb.Card<ExusiaiDefend>(),
         ModelDb.Card<ExusiaiDefend>(),
         ModelDb.Card<ExusiaiDefend>(),
-        // 1 占位卡
-        ModelDb.Card<TestCard>(),
+        // 1 交叉火力
+        ModelDb.Card<CardTemplate>(),
     ];
 
     // ========== 初始遗物 ==========

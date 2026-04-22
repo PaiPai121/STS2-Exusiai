@@ -5,6 +5,6 @@
     "MYFIRSTMOD-EXUSIAI_STRIKE.description": "造成{Damage:diff()}点伤害。",
     "MYFIRSTMOD-EXUSIAI_DEFEND.title": "防御",
     "MYFIRSTMOD-EXUSIAI_DEFEND.description": "获得{Block:diff()}点格挡。",
-    "MYFIRSTMOD-CARD_TEMPLATE.title": "卡牌模板",
-    "MYFIRSTMOD-CARD_TEMPLATE.description": "造成{Damage:diff()}点伤害。"
+    "MYFIRSTMOD-CARD_TEMPLATE.title": "交叉火力",
+    "MYFIRSTMOD-CARD_TEMPLATE.description": "速射。造成{Damage:diff()}点伤害。"
 }
