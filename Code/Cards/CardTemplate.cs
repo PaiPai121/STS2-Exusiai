@@ -49,3 +49,73 @@ public class CardTemplate : RapidFireCardModel
         DynamicVars.Damage.UpgradeValueBy(3);
     }
 }
+
+/// <summary>
+/// 覆盖射击 — 能天使专属普通攻击牌。
+/// 造成中等伤害，无特殊关键字，稳定的输出选择。
+/// </summary>
+[Pool(typeof(ExusiaiCardPool))]
+public class CoverFire : MyFirstModCardModel
+{
+    private const int energyCost = 1;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Common;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
+
+    public override IEnumerable<DynamicVar> CanonicalVars => [
+        new DamageVar(9, ValueProp.Move)
+    ];
+
+    public CoverFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    {
+    }
+
+    public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Target == null)
+            return;
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .Execute(choiceContext);
+    }
+
+    public override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3);
+    }
+}
+
+/// <summary>
+/// 战术撤退 — 能天使专属普通技能牌。
+/// 获得格挡并抽一张牌，兼顾防御与续航。
+/// </summary>
+[Pool(typeof(ExusiaiCardPool))]
+public class TacticalRetreat : MyFirstModCardModel
+{
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Common;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
+
+    public override IEnumerable<DynamicVar> CanonicalVars => [
+        new BlockVar(5, ValueProp.Move)
+    ];
+
+    public TacticalRetreat() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    {
+    }
+
+    public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+    }
+
+    public override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3);
+    }
+}
