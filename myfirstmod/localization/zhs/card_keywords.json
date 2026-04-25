@@ -1,4 +1,4 @@
-{
+﻿{
     "MYFIRSTMOD-RAPID_FIRE.title": "速射",
-    "MYFIRSTMOD-RAPID_FIRE.description": "打出时额外生成 1 张此牌的复制加入手牌（0 费）。复制不会再次触发速射。"
+    "MYFIRSTMOD-RAPID_FIRE.description": "打出时额外生成 1 张此牌的复制加入手牌。复制获得虚无和消耗，且不会再次触发速射。"
 }

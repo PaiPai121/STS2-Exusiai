@@ -1,4 +1,4 @@
-using BaseLib.Abstracts;
+﻿using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -12,7 +12,7 @@ namespace MyFirstMod.Code.Cards;
 
 /// <summary>
 /// 交叉火力 — 能天使专属普通攻击牌，带速射关键字。
-/// 打出时额外生成一张0费复制加入手牌，形成两连射效果。
+/// 打出时额外生成一张复制加入手牌，复制带虚无与消耗，不会再次触发速射。
 /// </summary>
 [Pool(typeof(ExusiaiCardPool))]
 public class CardTemplate : RapidFireCardModel
