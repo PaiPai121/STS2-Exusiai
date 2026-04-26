@@ -1,23 +1,54 @@
 extends Node2D
 
-@export var bob_height: float = 5.0
-@export var bob_speed: float = 1.6
-@export var breathe_scale_amount: float = 0.018
-@export var breathe_speed: float = 1.25
+const ATTACK_ANIMATION := &"attack"
+const IDLE_ANIMATION := &"idle"
+const DIE_ANIMATION := &"die"
 
-@onready var visuals: Node2D = $Visuals
-
-var _base_position: Vector2
-var _base_scale: Vector2
-var _time := 0.0
+@onready var visuals: AnimatedSprite2D = $Visuals
 
 func _ready() -> void:
-	_base_position = visuals.position
-	_base_scale = visuals.scale
+	print("[myfirstmod] exusiai visuals ready")
+	if visuals.sprite_frames == null:
+		print("[myfirstmod] exusiai visuals missing sprite_frames")
+		return
+	visuals.animation_finished.connect(_on_animation_finished)
+	play_idle()
 
-func _process(delta: float) -> void:
-	_time += delta
-	var bob_offset := sin(_time * TAU * 0.25 * bob_speed) * bob_height
-	var breathe := 1.0 + sin(_time * TAU * 0.25 * breathe_speed) * breathe_scale_amount
-	visuals.position = _base_position + Vector2(0, bob_offset)
-	visuals.scale = _base_scale * breathe
+func play_idle() -> void:
+	print("[myfirstmod] exusiai play_idle")
+	if visuals.sprite_frames == null:
+		return
+	_set_frames(IDLE_ANIMATION)
+	visuals.play(&"default")
+
+func play_attack() -> void:
+	print("[myfirstmod] exusiai play_attack")
+	if visuals.sprite_frames == null:
+		return
+	_set_frames(ATTACK_ANIMATION)
+	visuals.play(&"default")
+
+func play_die() -> void:
+	print("[myfirstmod] exusiai play_die")
+	if visuals.sprite_frames == null:
+		return
+	_set_frames(DIE_ANIMATION)
+	visuals.play(&"default")
+
+func _set_frames(anim_name: StringName) -> void:
+	var path := "res://myfirstmod/scenes/character/exusiai_%s_sprite_frames.tres" % String(anim_name)
+	print("[myfirstmod] exusiai set_frames ", path)
+	var frames := load(path) as SpriteFrames
+	if frames != null:
+		visuals.sprite_frames = frames
+	else:
+		print("[myfirstmod] exusiai failed to load frames ", path)
+
+func _on_animation_finished() -> void:
+	print("[myfirstmod] exusiai animation_finished")
+	if visuals.sprite_frames == null:
+		return
+	if visuals.sprite_frames.get_animation_loop(&"default"):
+		return
+	if visuals.sprite_frames.get_frame_count(&"default") <= 24:
+		play_idle()

@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Models;
 using MyFirstMod.Code.CardPools;
@@ -40,6 +41,8 @@ public class Exusiai : PlaceholderCharacterModel
     // ========== 音效（暂用铁甲战士的） ==========
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 
+    public override bool ShouldReceiveCombatHooks => true;
+
     // ========== 池子 ==========
     public override CardPoolModel CardPool => ModelDb.CardPool<ExusiaiCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<ExusiaiRelicPool>();
@@ -75,4 +78,26 @@ public class Exusiai : PlaceholderCharacterModel
         "vfx/vfx_bloody_impact",
         "vfx/vfx_rock_shatter"
     ];
+
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCardPlayed(MegaCrit.Sts2.Core.GameActions.Multiplayer.PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterAttack(MegaCrit.Sts2.Core.Commands.Builders.AttackCommand command)
+    {
+        GD.Print($"[myfirstmod] Exusiai AfterAttack attacker={(command.Attacker?.Player?.Character == this)}");
+        return Task.CompletedTask;
+    }
+
+    public override Task BeforeDeath(Creature creature)
+    {
+        GD.Print($"[myfirstmod] Exusiai BeforeDeath player={(creature.Player?.Character == this)}");
+        return Task.CompletedTask;
+    }
 }

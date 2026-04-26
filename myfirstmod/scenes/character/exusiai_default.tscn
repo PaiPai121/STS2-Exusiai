@@ -1,8 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkx1yh2d3gj"]
+[gd_scene load_steps=5 format=3 uid="uid://dkx1yh2d3gj"]
 
 [ext_resource type="SpriteFrames" path="res://myfirstmod/scenes/character/exusiai_idle_sprite_frames.tres" id="1"]
+[ext_resource type="Script" path="res://Code/Animation/ExusiaiBattleVisualsBridge.cs" id="3"]
 
 [node name="Exusiai" type="Node2D"]
+
+[node name="Bridge" type="Node" parent="."]
+script = ExtResource("3")
 
 [node name="Visuals" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1")
