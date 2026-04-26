@@ -1,3 +1,22 @@
+### 当前项目增量记录（2026-04-26）
+
+- **已验证 build 入口**：`D:\work_console\MyFirstMod\MyFirstMod.csproj`
+- **已验证导出器**：`D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe`
+- **已验证日志目录**：`C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs`
+- **已验证部署目录**：`C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod`
+- **本次新增规则文件**：`RUNBOOK.md`、`CLAUDE_NOTES.md`
+- **商店黑屏根因（本轮）**：卡池稀有度覆盖不足，导致 merchant card generation 无法生成合法选项。
+- **本轮修复策略**：新增 Uncommon/Rare 正式最简卡 + 多张 placeholder 补池卡，先恢复商店与奖励流转，再逐步替换为正式设计卡。
+- **本轮结果**：用户实测商店恢复可进入。
+- **执行纪律更新**：后续 build / export / deploy 必须先复用已验证命令，不得猜测工程入口或导出链路。
+- **战斗动态素材需求澄清**：目标不是伪动态呼吸/浮动，而是把现有 webm 动态资产本体接入战斗角色显示链路。
+- **关键动态资产路径**：
+  - `D:\work_console\workspaceforexusuai\assests\能天使-午夜邮差-正面-Idle-x1.webm`
+  - `D:\work_console\workspaceforexusuai\assests\能天使-午夜邮差-正面-Attack-x1.webm`
+  - `D:\work_console\workspaceforexusuai\assests\能天使-午夜邮差-正面-Die-x1.webm`
+- **已排除方案**：直接引用 `res://InesSilent/scenes/character/ines_default.tscn` 作为战斗场景来源不可行；build 可过，但 export 无法解析外部 mod 资源链。
+- **当前推荐实施顺序**：先做 `Idle-x1.webm -> 序列帧 / sprite sheet -> exusiai_default.tscn`，待待机成功后再接 Attack / Die。
+
 # 杀戮尖塔2 MOD 开发经验记录
 
 ## 项目搭建要点
