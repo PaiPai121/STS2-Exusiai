@@ -1,4 +1,14 @@
-﻿# MyFirstMod 当前进度
+# MyFirstMod 当前进度
+
+## 开工前必须检查
+- [ ] 先读取 `RUNBOOK.md`
+- [ ] 先读取 `CLAUDE_NOTES.md`
+- [ ] 确认真实 csproj/sln 路径，不允许猜
+- [ ] 确认当前 shell 环境（bash / powershell）
+- [ ] 复用上一次成功的 build 命令
+- [ ] 复用上一次成功的 export 命令
+- [ ] 复用上一次成功的 deploy 路径
+- [ ] 只有旧链路失效时，才允许新增命令
 
 ## 已完成
 - 修复速射复制牌的核心逻辑：复制牌现在会正确获得**虚无**与**消耗**。
