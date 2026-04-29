@@ -3,7 +3,9 @@ using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
@@ -29,6 +31,24 @@ public class DeliveryGuaranteed : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        IEnumerable<CardModel> selected = await CommonActions.SelectCards(
+            this,
+            new LocString("使命必达！", "从弃牌堆选择至多{Cards}张牌，将复制加入手牌，本回合费用变为0。"),
+            choiceContext,
+            PileType.Discard,
+            0,
+            DynamicVars.Cards.IntValue);
+
+        foreach (CardModel card in selected)
+        {
+            CardModel copy = card.CreateClone();
+            copy.SetStarCostThisTurn(0);
+            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+        }
+    }
+
+    public override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

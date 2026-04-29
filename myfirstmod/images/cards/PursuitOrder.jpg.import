@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djj00fdoo1aa8"
-path="res://.godot/imported/TestCard.png-af4c3d872719066aff608514a19e82c5.ctex"
+uid="uid://cyiw7xd47npww"
+path="res://.godot/imported/PursuitOrder.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://myfirstmod/images/cards/TestCard.png"
-dest_files=["res://.godot/imported/TestCard.png-af4c3d872719066aff608514a19e82c5.ctex"]
+source_file="res://myfirstmod/images/cards/PursuitOrder.jpg"
+dest_files=["res://.godot/imported/PursuitOrder.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"]
 
 [params]
 
