@@ -64,7 +64,8 @@ public class CoverFire : MyFirstModCardModel
     private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(9, ValueProp.Move)
+        new DamageVar(9, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     public CoverFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -80,6 +81,8 @@ public class CoverFire : MyFirstModCardModel
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
+
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
     }
 
     public override void OnUpgrade()
@@ -102,7 +105,8 @@ public class TacticalRetreat : MyFirstModCardModel
     private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(5, ValueProp.Move)
+        new BlockVar(5, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     public TacticalRetreat() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -112,6 +116,7 @@ public class TacticalRetreat : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
     }
 
     public override void OnUpgrade()
