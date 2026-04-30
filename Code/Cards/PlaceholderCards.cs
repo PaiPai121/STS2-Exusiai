@@ -43,7 +43,11 @@ public class TacticalSidestep : MyFirstModCardModel
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+
+        CardModel spark = ModelDb.Card<Gunspark>();
+        spark.AddKeyword(CardKeyword.Ethereal);
+        spark.AddKeyword(CardKeyword.Exhaust);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
