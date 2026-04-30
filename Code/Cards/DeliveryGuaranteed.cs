@@ -19,9 +19,12 @@ public class DeliveryGuaranteed : MyFirstModCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(2)
     ];
+
+    public override List<(string, string)> Localization => [("title", "使命必达！"), ("description", "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌，本回合费用变为0，并获得虚无。消耗。")];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -43,6 +46,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
         {
             CardModel copy = card.CreateClone();
             copy.SetStarCostThisTurn(0);
+            copy.AddKeyword(CardKeyword.Ethereal);
             await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
         }
     }

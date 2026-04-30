@@ -14,7 +14,7 @@
   "MYFIRSTMOD-OVERCLOCK.title": "过载模式",
   "MYFIRSTMOD-OVERCLOCK.description": "虚无。抽[blue]{Cards}[/blue]张牌。本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌打出前费用变为0。",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "使命必达！",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌，本回合费用变为0。消耗。",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌，本回合费用变为0，并获得虚无。消耗。",
   "MYFIRSTMOD-PLACEHOLDER_COMMON_SHOT_A.title": "占位连射A",
   "MYFIRSTMOD-PLACEHOLDER_COMMON_SHOT_A.description": "造成[red]{Damage}[/red]点伤害。",
   "MYFIRSTMOD-PLACEHOLDER_COMMON_SHOT_B.title": "占位连射B",

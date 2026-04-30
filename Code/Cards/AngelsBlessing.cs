@@ -19,9 +19,12 @@ public class AngelsBlessing : MyFirstModCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(1)
     ];
+
+    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每回合中，你每打出5张牌，抽[blue]{Cards}[/blue]张牌。打出时先抽[blue]{Cards}[/blue]张牌。")];
 
     public AngelsBlessing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

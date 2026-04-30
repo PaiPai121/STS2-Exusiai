@@ -21,8 +21,10 @@ public class ExusiaiDefend : MyFirstModCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
     public override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
+    public override List<(string, string)> Localization => [("title", "防御"), ("description", "获得[green]{Block}[/green]点格挡。")];
 
     public ExusiaiDefend() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

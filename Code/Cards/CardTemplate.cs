@@ -23,9 +23,12 @@ public class CardTemplate : RapidFireCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
+
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(7, ValueProp.Move)
     ];
+
+    public override List<(string, string)> Localization => [("title", "交叉火力"), ("description", "造成[red]{Damage}[/red]点伤害。打出时额外生成1张此牌的复制加入手牌。复制获得虚无和消耗，且不会再次触发速射。")];
 
     public CardTemplate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -68,6 +71,8 @@ public class CoverFire : MyFirstModCardModel
         new CardsVar(1)
     ];
 
+    public override List<(string, string)> Localization => [("title", "覆盖射击"), ("description", "造成[red]{Damage}[/red]点伤害。抽[blue]{Cards}[/blue]张牌。")];
+
     public CoverFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -108,6 +113,8 @@ public class TacticalRetreat : MyFirstModCardModel
         new BlockVar(5, ValueProp.Move),
         new CardsVar(1)
     ];
+
+    public override List<(string, string)> Localization => [("title", "战术撤退"), ("description", "获得[green]{Block}[/green]点格挡。抽[blue]{Cards}[/blue]张牌。")];
 
     public TacticalRetreat() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

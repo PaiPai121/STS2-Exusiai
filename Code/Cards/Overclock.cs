@@ -13,6 +13,7 @@ namespace MyFirstMod.Code.Cards;
 public class Overclock : MyFirstModCardModel
 {
     private int _remainingEmpoweredAttacks;
+    private bool _overclockActive;
 
     private const int energyCost = 2;
     private const CardType type = CardType.Skill;
@@ -20,9 +21,12 @@ public class Overclock : MyFirstModCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(2)
     ];
+
+    public override List<(string, string)> Localization => [("title", "过载模式"), ("description", "虚无。抽[blue]{Cards}[/blue]张牌。本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌打出前费用变为0。")];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
@@ -33,11 +37,27 @@ public class Overclock : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _remainingEmpoweredAttacks = DynamicVars.Cards.IntValue;
+        _overclockActive = true;
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+    }
+
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Players.Player player)
+    {
+        if (Owner == player)
+        {
+            _remainingEmpoweredAttacks = 0;
+            _overclockActive = false;
+        }
+
+        return Task.CompletedTask;
     }
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
+        if (!_overclockActive)
+            return Task.CompletedTask;
+
         if (_remainingEmpoweredAttacks <= 0)
             return Task.CompletedTask;
 
@@ -64,6 +84,8 @@ public class Overclock : MyFirstModCardModel
             if (_remainingEmpoweredAttacks > 0 && cardPlay.Card?.Owner == Owner && cardPlay.Card.Type == CardType.Attack)
             {
                 _remainingEmpoweredAttacks--;
+                if (_remainingEmpoweredAttacks <= 0)
+                    _overclockActive = false;
             }
             return Task.CompletedTask;
         }
