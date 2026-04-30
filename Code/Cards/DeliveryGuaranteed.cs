@@ -36,7 +36,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
     {
         IEnumerable<CardModel> selected = await CommonActions.SelectCards(
             this,
-            new LocString("使命必达！", "从弃牌堆选择至多{Cards}张牌，将复制加入手牌，本回合费用变为0。"),
+            new LocString("使命必达！", "从弃牌堆选择至多{Cards}张牌，将复制加入手牌，本回合费用变为0，并获得虚无。"),
             choiceContext,
             PileType.Discard,
             0,
@@ -47,6 +47,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
             CardModel copy = card.CreateClone();
             copy.SetStarCostThisTurn(0);
             copy.AddKeyword(CardKeyword.Ethereal);
+            copy.AddKeyword(CardKeyword.Exhaust);
             await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
         }
     }

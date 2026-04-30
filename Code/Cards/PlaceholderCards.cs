@@ -51,8 +51,10 @@ public class TacticalSidestep : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class ChainReaction : MyFirstModCardModel
 {
+    private bool _chainReactionActive;
+
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "连锁反应"), ("description", "造成[red]{Damage}[/red]点伤害。你本回合的攻击牌打出前费用至少为1。")];
+    public override List<(string, string)> Localization => [("title", "连锁反应"), ("description", "造成[red]{Damage}[/red]点伤害。本回合中，你打出的攻击牌费用至少为1。")];
     public ChainReaction() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -61,20 +63,38 @@ public class ChainReaction : MyFirstModCardModel
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
         }
 
-        if (Owner?.Deck?.Cards == null)
-            return;
-
-        foreach (CardModel card in Owner.Deck.Cards)
-        {
-            if (card == null || card == this)
-                continue;
-
-            if (card.Type != CardType.Attack)
-                continue;
-
-            card.SetStarCostThisTurn(1);
-        }
+        _chainReactionActive = true;
     }
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext c, MegaCrit.Sts2.Core.Entities.Players.Player player)
+    {
+        if (Owner == player)
+            _chainReactionActive = false;
+
+        return Task.CompletedTask;
+    }
+
+    public override Task BeforeCardPlayed(CardPlay p)
+    {
+        if (!_chainReactionActive)
+            return Task.CompletedTask;
+
+        if (p.Card == null)
+            return Task.CompletedTask;
+
+        if (p.Card == this)
+            return Task.CompletedTask;
+
+        if (p.Card.Owner != Owner)
+            return Task.CompletedTask;
+
+        if (p.Card.Type != CardType.Attack)
+            return Task.CompletedTask;
+
+        p.Card.SetStarCostUntilPlayed(1);
+        return Task.CompletedTask;
+    }
+
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }
 
@@ -177,7 +197,11 @@ public class QuickMagazine : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+
+        CardModel spark = ModelDb.Card<Gunspark>();
+        spark.AddKeyword(CardKeyword.Ethereal);
+        spark.AddKeyword(CardKeyword.Exhaust);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -216,6 +240,8 @@ public class PiercingRound : MyFirstModCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>() : ModelDb.Card<StrikeCopy>();
+        copy.AddKeyword(CardKeyword.Ethereal);
+        copy.AddKeyword(CardKeyword.Exhaust);
         await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5);
@@ -233,7 +259,11 @@ public class PursuitOrder : MyFirstModCardModel
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+
+        CardModel spark = ModelDb.Card<Gunspark>();
+        spark.AddKeyword(CardKeyword.Ethereal);
+        spark.AddKeyword(CardKeyword.Exhaust);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
 }
@@ -270,8 +300,16 @@ public class BulletHell : MyFirstModCardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+
+        CardModel firstSpark = ModelDb.Card<Gunspark>();
+        firstSpark.AddKeyword(CardKeyword.Ethereal);
+        firstSpark.AddKeyword(CardKeyword.Exhaust);
+        await CardPileCmd.AddGeneratedCardToCombat(firstSpark, PileType.Hand, addedByPlayer: true);
+
+        CardModel secondSpark = ModelDb.Card<Gunspark>();
+        secondSpark.AddKeyword(CardKeyword.Ethereal);
+        secondSpark.AddKeyword(CardKeyword.Exhaust);
+        await CardPileCmd.AddGeneratedCardToCombat(secondSpark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }

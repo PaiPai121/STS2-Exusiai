@@ -41,7 +41,6 @@ public class Overclock : MyFirstModCardModel
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
     }
 
-
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Players.Player player)
     {
         if (Owner == player)
@@ -79,16 +78,24 @@ public class Overclock : MyFirstModCardModel
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card != this)
-        {
-            if (_remainingEmpoweredAttacks > 0 && cardPlay.Card?.Owner == Owner && cardPlay.Card.Type == CardType.Attack)
-            {
-                _remainingEmpoweredAttacks--;
-                if (_remainingEmpoweredAttacks <= 0)
-                    _overclockActive = false;
-            }
+        if (cardPlay.Card == this)
             return Task.CompletedTask;
-        }
+
+        if (!_overclockActive)
+            return Task.CompletedTask;
+
+        if (_remainingEmpoweredAttacks <= 0)
+            return Task.CompletedTask;
+
+        if (cardPlay.Card?.Owner != Owner)
+            return Task.CompletedTask;
+
+        if (cardPlay.Card.Type != CardType.Attack)
+            return Task.CompletedTask;
+
+        _remainingEmpoweredAttacks--;
+        if (_remainingEmpoweredAttacks <= 0)
+            _overclockActive = false;
 
         return Task.CompletedTask;
     }
