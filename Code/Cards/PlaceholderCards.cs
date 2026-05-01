@@ -44,10 +44,7 @@ public class TacticalSidestep : MyFirstModCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>();
-        spark.AddKeyword(CardKeyword.Ethereal);
-        spark.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
@@ -202,10 +199,7 @@ public class QuickMagazine : MyFirstModCardModel
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>();
-        spark.AddKeyword(CardKeyword.Ethereal);
-        spark.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -243,10 +237,7 @@ public class PiercingRound : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>() : ModelDb.Card<StrikeCopy>();
-        copy.AddKeyword(CardKeyword.Ethereal);
-        copy.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(IsUpgraded ? ModelDb.Card<StrikeCopyPlus>() : ModelDb.Card<StrikeCopy>(), PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5);
 }
@@ -302,15 +293,8 @@ public class BulletHell : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        CardModel firstSpark = ModelDb.Card<Gunspark>();
-        firstSpark.AddKeyword(CardKeyword.Ethereal);
-        firstSpark.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(firstSpark, PileType.Hand, addedByPlayer: true);
-
-        CardModel secondSpark = ModelDb.Card<Gunspark>();
-        secondSpark.AddKeyword(CardKeyword.Ethereal);
-        secondSpark.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(secondSpark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
