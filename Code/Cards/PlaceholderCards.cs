@@ -264,10 +264,7 @@ public class PursuitOrder : MyFirstModCardModel
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>();
-        spark.AddKeyword(CardKeyword.Ethereal);
-        spark.AddKeyword(CardKeyword.Exhaust);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
 }
