@@ -44,7 +44,8 @@ public class TacticalSidestep : MyFirstModCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
@@ -199,7 +200,8 @@ public class QuickMagazine : MyFirstModCardModel
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -237,7 +239,8 @@ public class PiercingRound : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        await CardPileCmd.AddGeneratedCardToCombat(IsUpgraded ? ModelDb.Card<StrikeCopyPlus>() : ModelDb.Card<StrikeCopy>(), PileType.Hand, addedByPlayer: true);
+        CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>().CreateClone() : ModelDb.Card<StrikeCopy>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5);
 }
@@ -255,7 +258,8 @@ public class PursuitOrder : MyFirstModCardModel
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
 }
@@ -293,8 +297,11 @@ public class BulletHell : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
-        await CardPileCmd.AddGeneratedCardToCombat(ModelDb.Card<Gunspark>(), PileType.Hand, addedByPlayer: true);
+        CardModel firstSpark = ModelDb.Card<Gunspark>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(firstSpark, PileType.Hand, addedByPlayer: true);
+
+        CardModel secondSpark = ModelDb.Card<Gunspark>().CreateClone();
+        await CardPileCmd.AddGeneratedCardToCombat(secondSpark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
