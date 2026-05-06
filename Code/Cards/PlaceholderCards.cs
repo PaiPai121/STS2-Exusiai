@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
 
@@ -44,8 +45,10 @@ public class TacticalSidestep : MyFirstModCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
+        spark.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] token add fallback start id={spark.Id} owner_null={spark.Owner == null} combat_null={spark.Owner?.Creature?.CombatState == null}");
+        await CardPileCmd.Add(spark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
@@ -200,8 +203,10 @@ public class QuickMagazine : MyFirstModCardModel
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
+        spark.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] token add fallback start id={spark.Id} owner_null={spark.Owner == null} combat_null={spark.Owner?.Creature?.CombatState == null}");
+        await CardPileCmd.Add(spark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -239,8 +244,10 @@ public class PiercingRound : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>().CreateClone() : ModelDb.Card<StrikeCopy>().CreateClone();
-        await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+        CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>().ToMutable() : ModelDb.Card<StrikeCopy>().ToMutable();
+        copy.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] token add fallback start id={copy.Id} owner_null={copy.Owner == null} combat_null={copy.Owner?.Creature?.CombatState == null}");
+        await CardPileCmd.Add(copy, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5);
 }
@@ -253,12 +260,16 @@ public class PursuitOrder : MyFirstModCardModel
     public PursuitOrder() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
+        Godot.GD.Print($"[myfirstmod] PursuitOrder OnPlay start owner_null={Owner == null} owner_creature_null={Owner?.Creature == null}");
         if (p.Target != null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
-        CardModel spark = ModelDb.Card<Gunspark>().CreateClone();
+        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
+        Godot.GD.Print($"[myfirstmod] PursuitOrder spark mutable created isMutable={spark.IsMutable} owner_before_null={spark.Owner == null}");
+        spark.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] PursuitOrder spark owner assigned owner_after_null={spark.Owner == null} owner_combat_null={spark.Owner?.Creature?.CombatState == null}");
         await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
@@ -297,16 +308,20 @@ public class BulletHell : MyFirstModCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        CardModel firstSpark = ModelDb.Card<Gunspark>().CreateClone();
-        await CardPileCmd.AddGeneratedCardToCombat(firstSpark, PileType.Hand, addedByPlayer: true);
+        CardModel firstSpark = ModelDb.Card<Gunspark>().ToMutable();
+        firstSpark.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] token add fallback start id={firstSpark.Id} owner_null={firstSpark.Owner == null} combat_null={firstSpark.Owner?.Creature?.CombatState == null}");
+        await CardPileCmd.Add(firstSpark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
 
-        CardModel secondSpark = ModelDb.Card<Gunspark>().CreateClone();
-        await CardPileCmd.AddGeneratedCardToCombat(secondSpark, PileType.Hand, addedByPlayer: true);
+        CardModel secondSpark = ModelDb.Card<Gunspark>().ToMutable();
+        secondSpark.Owner = Owner;
+        Godot.GD.Print($"[myfirstmod] token add fallback start id={secondSpark.Id} owner_null={secondSpark.Owner == null} combat_null={secondSpark.Owner?.Creature?.CombatState == null}");
+        await CardPileCmd.Add(secondSpark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
 
-[Pool(typeof(ExusiaiCardPool))]
+[Pool(typeof(TokenCardPool))]
 public class Gunspark : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move)];
@@ -317,7 +332,7 @@ public class Gunspark : MyFirstModCardModel
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }
 
-[Pool(typeof(ExusiaiCardPool))]
+[Pool(typeof(TokenCardPool))]
 public class StrikeCopy : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
@@ -328,7 +343,7 @@ public class StrikeCopy : MyFirstModCardModel
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }
 
-[Pool(typeof(ExusiaiCardPool))]
+[Pool(typeof(TokenCardPool))]
 public class StrikeCopyPlus : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
