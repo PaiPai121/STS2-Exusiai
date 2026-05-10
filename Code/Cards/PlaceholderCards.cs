@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
@@ -10,6 +12,38 @@ using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
+
+static class GeneratedTokenHelper
+{
+    public static async Task AddTokenToHandAndRegister(CardModel token, MyFirstModCardModel source)
+    {
+        token.Owner = source.Owner;
+        await CardPileCmd.Add(token, PileType.Hand, CardPilePosition.Top, source, skipVisuals: false);
+        var combatState = source.Owner?.Creature?.CombatState;
+        Godot.GD.Print($"[myfirstmod] token register start type={token.GetType().Name} id={token.Id} combatState_null={combatState == null}");
+        if (combatState != null)
+        {
+            try
+            {
+                var addMethod = combatState.GetType().GetMethods(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic)
+                    .FirstOrDefault(m => m.Name.Contains("Add") && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(CardModel)));
+                if (addMethod != null)
+                {
+                    addMethod.Invoke(combatState, [token]);
+                    Godot.GD.Print($"[myfirstmod] token register invoked method={addMethod.Name} type={token.GetType().Name} id={token.Id}");
+                }
+                else
+                {
+                    Godot.GD.Print("[myfirstmod] token register add method not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                Godot.GD.Print($"[myfirstmod] token register exception {ex}");
+            }
+        }
+    }
+}
 
 [Pool(typeof(ExusiaiCardPool))]
 public class GunslingerRush : RapidFireCardModel
@@ -46,9 +80,7 @@ public class TacticalSidestep : MyFirstModCardModel
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
         CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        spark.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] token add fallback start id={spark.Id} owner_null={spark.Owner == null} combat_null={spark.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.Add(spark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
+        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
@@ -204,9 +236,7 @@ public class QuickMagazine : MyFirstModCardModel
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
         CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        spark.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] token add fallback start id={spark.Id} owner_null={spark.Owner == null} combat_null={spark.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.Add(spark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
+        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -234,8 +264,9 @@ public class SweepMode : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class PiercingRound : MyFirstModCardModel
 {
+    public override string PortraitPath => "res://myfirstmod/images/cards/PiercingRound.png";
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "穿甲弹"), ("description", "造成[red]{Damage}[/red]点伤害。将1张打击复制加入手牌。该牌获得虚无与消耗。")];
+    public override List<(string, string)> Localization => [("title", "穿甲弹"), ("description", "造成[red]{Damage}[/red]点伤害。")];
     public PiercingRound() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -243,11 +274,6 @@ public class PiercingRound : MyFirstModCardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-
-        CardModel copy = IsUpgraded ? ModelDb.Card<StrikeCopyPlus>().ToMutable() : ModelDb.Card<StrikeCopy>().ToMutable();
-        copy.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] token add fallback start id={copy.Id} owner_null={copy.Owner == null} combat_null={copy.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.Add(copy, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5);
 }
@@ -260,17 +286,13 @@ public class PursuitOrder : MyFirstModCardModel
     public PursuitOrder() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        Godot.GD.Print($"[myfirstmod] PursuitOrder OnPlay start owner_null={Owner == null} owner_creature_null={Owner?.Creature == null}");
         if (p.Target != null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
 
         CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        Godot.GD.Print($"[myfirstmod] PursuitOrder spark mutable created isMutable={spark.IsMutable} owner_before_null={spark.Owner == null}");
-        spark.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] PursuitOrder spark owner assigned owner_after_null={spark.Owner == null} owner_combat_null={spark.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
 }
@@ -309,14 +331,10 @@ public class BulletHell : MyFirstModCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         CardModel firstSpark = ModelDb.Card<Gunspark>().ToMutable();
-        firstSpark.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] token add fallback start id={firstSpark.Id} owner_null={firstSpark.Owner == null} combat_null={firstSpark.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.Add(firstSpark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
+        await GeneratedTokenHelper.AddTokenToHandAndRegister(firstSpark, this);
 
         CardModel secondSpark = ModelDb.Card<Gunspark>().ToMutable();
-        secondSpark.Owner = Owner;
-        Godot.GD.Print($"[myfirstmod] token add fallback start id={secondSpark.Id} owner_null={secondSpark.Owner == null} combat_null={secondSpark.Owner?.Creature?.CombatState == null}");
-        await CardPileCmd.Add(secondSpark, PileType.Hand, CardPilePosition.Top, this, skipVisuals: false);
+        await GeneratedTokenHelper.AddTokenToHandAndRegister(secondSpark, this);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
@@ -330,25 +348,4 @@ public class Gunspark : MyFirstModCardModel
     public Gunspark() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p) { if (p.Target != null) await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c); }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
-}
-
-[Pool(typeof(TokenCardPool))]
-public class StrikeCopy : MyFirstModCardModel
-{
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "打击复制"), ("description", "造成[red]{Damage}[/red]点伤害。虚无。消耗。")];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
-    public StrikeCopy() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
-    public override async Task OnPlay(PlayerChoiceContext c, CardPlay p) { if (p.Target != null) await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c); }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
-}
-
-[Pool(typeof(TokenCardPool))]
-public class StrikeCopyPlus : MyFirstModCardModel
-{
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "打击复制+"), ("description", "造成[red]{Damage}[/red]点伤害。虚无。消耗。")];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
-    public StrikeCopyPlus() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
-    public override async Task OnPlay(PlayerChoiceContext c, CardPlay p) { if (p.Target != null) await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c); }
 }
