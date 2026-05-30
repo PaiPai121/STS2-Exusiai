@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfmy38a5b76ul"]
+
+[ext_resource type="SpriteFrames" path="res://myfirstmod/scenes/character/exusiai_idle_sprite_frames.tres" id="1"]
+
+[node name="ExusiaiRestSite" type="Node2D"]
+
+[node name="Visuals" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1")
+animation = &"default"
+autoplay = "default"
+position = Vector2(0, -135)
+scale = Vector2(1.0, 1.0)

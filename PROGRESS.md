@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 01:18 Asia/Shanghai
+更新时间：2026-05-31 01:30 Asia/Shanghai
 
 ## 开工前检查
 
@@ -48,6 +48,7 @@
   - `SparkCircuitPower.png`
   - `FireControlPower.png`
 - 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
+- 休息/篝火角色显示已从铁甲战士场景切换为 `myfirstmod/scenes/character/exusiai_rest_site.tscn`。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
 - `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
@@ -110,6 +111,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已重新导出 `MyFirstMod.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
 - 已重新导出 `MyFirstMod.pck`，正式 Power 的独立状态图标已进入 PCK。
 - 已重新导出 `MyFirstMod.pck`，遗物与 Power 图标缩放修正已进入 PCK。
+- 已重新导出 `MyFirstMod.pck`，能天使休息场景已进入 PCK。
 
 ## 当前暂存状态
 
@@ -142,6 +144,9 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 6. 游戏内检查 4 个正式 Power 的状态图标：
    - `天使祝福`、`扫射模式`、`火花回路`、`火控校准` 是否显示各自独立图标。
    - 小图标和详情大图标是否都不再显示能天使头像。
+7. 游戏内检查休息/篝火界面：
+   - 休息场景是否显示能天使而不是铁甲战士。
+   - 能天使位置、缩放是否适合篝火界面。
 
 ## 下一步建议
 
