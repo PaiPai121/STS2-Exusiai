@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 00:26 Asia/Shanghai
+更新时间：2026-05-31 00:55 Asia/Shanghai
 
 ## 开工前检查
 
@@ -32,6 +32,11 @@
   - `AngelicReload` / 天使装填
   - `TerminalVolley` / 终端齐射
 - 新增卡牌图片资源已放入 `myfirstmod/images/cards/`，并生成对应 `.import`。
+- 新增 3 个专属遗物并接入遗物池：
+  - `SparkCapacitor` / 火花电容：每场战斗第一个玩家回合开始时，将 1 张 `枪火火花` 加入手牌。
+  - `TacticalMagazine` / 战术弹匣：每场战斗中首次打出 `枪火火花` 时，抽 1 张牌。
+  - `ReticleCalibrator` / 准星校准器：每打出 3 张攻击牌，获得 3 点格挡。
+- 新增遗物图标资源已放入 `myfirstmod/images/relics/`，并生成对应 `.import`。
 - 能力系统已扩展：
   - `AngelsBlessingPower`
   - `SweepModePower`
@@ -79,6 +84,11 @@
   - 天使装填
   - 终端齐射
   - 华法琳特调
+- 当前专属遗物：
+  - `SniperChipset` / 狙击芯片（起始）
+  - `SparkCapacitor` / 火花电容（普通）
+  - `TacticalMagazine` / 战术弹匣（罕见）
+  - `ReticleCalibrator` / 准星校准器（罕见）
 
 ## 最近验证
 
@@ -88,23 +98,17 @@
 dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 ```
 
-- 结果：成功，3 个既有 Publicizer/Godot 生成警告，0 error。
+- 结果：成功，0 warning，0 error。
 - build 后 DLL 和 manifest 已由项目构建流程复制到游戏 mod 目录。
 - 飞书文档同步命令已成功执行，并回读确认 revision `46`。
+- 已重新导出 `MyFirstMod.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
 
 ## 当前暂存状态
 
-- 扩展卡、Power、文档、PCK、新卡图片资源已加入暂存区。
-- 以下 `.import` 仍是旧资源噪音，当前保持未暂存，除非后续确认需要一起清理或接受：
-  - `myfirstmod/images/cards/PlaceholderCommonShotA.jpg.import`
-  - `myfirstmod/images/cards/PlaceholderCommonShotB.jpg.import`
-  - `myfirstmod/images/cards/PlaceholderRareBurstA.jpg.import`
-  - `myfirstmod/images/cards/PlaceholderRareTacticsA.jpg.import`
-  - `myfirstmod/images/cards/PlaceholderUncommonGuardA.jpg.import`
-  - `myfirstmod/images/cards/PlaceholderUncommonShotA.jpg.import`
-  - `myfirstmod/images/cards/StrikeCopy.jpg.import`
-  - `myfirstmod/images/cards/StrikeCopyPlus.jpg.import`
-- 当前尚未提交 commit，等待用户完成实机验证后再提交更稳。
+- 扩展卡、Power、文档、PCK、新卡图片资源已提交。
+- `cards.json` 本地化同步已提交。
+- 旧卡图 `.import` 噪音已清理出工作区。
+- 当前遗物扩展仍待提交。
 
 ## 待验证
 
@@ -123,6 +127,10 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
    - `SparkCircuit` 是否按每 3 张 `Gunspark` 抽 1 张牌触发。
    - `FireControl` 是否每回合固定生成 1 张 `Gunspark`。
 4. 再次观察 `Overclock`、`DeliveryGuaranteed`、`AngelsBlessing` 的实战强度。
+5. 游戏内测试新增 3 个遗物：
+   - `火花电容` 是否在战斗第一个玩家回合开始时生成 1 张 `枪火火花`。
+   - `战术弹匣` 是否每场战斗只在首次打出 `枪火火花` 时抽 1 张牌。
+   - `准星校准器` 是否每 3 张攻击牌获得 3 点格挡。
 
 ## 下一步建议
 
