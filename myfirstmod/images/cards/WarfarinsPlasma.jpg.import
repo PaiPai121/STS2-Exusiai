@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyiw7xd47npww"
-path="res://.godot/imported/WarfarinsPlasma.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"
+path="res://.godot/imported/WarfarinsPlasma.jpg-58835692585ec0f5873660a1025522d9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://myfirstmod/images/cards/WarfarinsPlasma.jpg"
-dest_files=["res://.godot/imported/WarfarinsPlasma.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"]
+dest_files=["res://.godot/imported/WarfarinsPlasma.jpg-58835692585ec0f5873660a1025522d9.ctex"]
 
 [params]
 

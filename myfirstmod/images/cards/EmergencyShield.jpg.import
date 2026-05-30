@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyiw7xd47npww"
-path="res://.godot/imported/EmergencyShield.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"
+path="res://.godot/imported/EmergencyShield.jpg-74b10d82721eac51b28d5e617e6d295e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://myfirstmod/images/cards/EmergencyShield.jpg"
-dest_files=["res://.godot/imported/EmergencyShield.jpg-be2d21e3f0869a94560cb8b7b549b2c6.ctex"]
+dest_files=["res://.godot/imported/EmergencyShield.jpg-74b10d82721eac51b28d5e617e6d295e.ctex"]
 
 [params]
 
