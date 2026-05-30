@@ -13,8 +13,8 @@ public class FireControlPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
-    public override string CustomBigIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/FireControlPower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/FireControlPower.png";
     public override List<(string, string)> Localization => [
         ("title", "火控校准"),
         ("description", "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。"),

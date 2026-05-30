@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 00:55 Asia/Shanghai
+更新时间：2026-05-31 01:06 Asia/Shanghai
 
 ## 开工前检查
 
@@ -42,6 +42,11 @@
   - `SweepModePower`
   - `SparkCircuitPower`
   - `FireControlPower`
+- 4 个正式 Power 已补齐独立状态图标，资源位于 `myfirstmod/images/powers/`，不再共用角色头像：
+  - `AngelsBlessingPower.png`
+  - `SweepModePower.png`
+  - `SparkCircuitPower.png`
+  - `FireControlPower.png`
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
 - `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
@@ -102,13 +107,14 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - build 后 DLL 和 manifest 已由项目构建流程复制到游戏 mod 目录。
 - 飞书文档同步命令已成功执行，并回读确认 revision `46`。
 - 已重新导出 `MyFirstMod.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
+- 已重新导出 `MyFirstMod.pck`，正式 Power 的独立状态图标已进入 PCK。
 
 ## 当前暂存状态
 
 - 扩展卡、Power、文档、PCK、新卡图片资源已提交。
 - `cards.json` 本地化同步已提交。
 - 旧卡图 `.import` 噪音已清理出工作区。
-- 当前遗物扩展仍待提交。
+- 新增遗物扩展已提交，当前 Power 图标补齐仍待提交。
 
 ## 待验证
 
@@ -131,6 +137,9 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
    - `火花电容` 是否在战斗第一个玩家回合开始时生成 1 张 `枪火火花`。
    - `战术弹匣` 是否每场战斗只在首次打出 `枪火火花` 时抽 1 张牌。
    - `准星校准器` 是否每 3 张攻击牌获得 3 点格挡。
+6. 游戏内检查 4 个正式 Power 的状态图标：
+   - `天使祝福`、`扫射模式`、`火花回路`、`火控校准` 是否显示各自独立图标。
+   - 小图标和详情大图标是否都不再显示能天使头像。
 
 ## 下一步建议
 

@@ -12,8 +12,8 @@ public class AngelsBlessingPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
-    public override string CustomBigIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。"), ("smartDescription", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。")];
 
     private int _cardsPlayedThisTurn;

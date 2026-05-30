@@ -10,8 +10,8 @@ public class SweepModePower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
-    public override string CustomBigIconPath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/SweepModePower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/SweepModePower.png";
     public override List<(string, string)> Localization => [
         ("title", "扫射模式"),
         ("description", "每当你打出攻击牌，对所有敌人造成[red]{Amount}[/red]点伤害。"),
