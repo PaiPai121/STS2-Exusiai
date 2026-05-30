@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 01:30 Asia/Shanghai
+更新时间：2026-05-31 01:42 Asia/Shanghai
 
 ## 开工前检查
 
@@ -32,6 +32,7 @@
   - `AngelicReload` / 天使装填
   - `TerminalVolley` / 终端齐射
 - 新增卡牌图片资源已放入 `myfirstmod/images/cards/`，并生成对应 `.import`。
+- 卡牌图片资源已从 `1024x1024` 统一裁切为 `1024x768` 横向比例：裁掉上方 160px、下方 96px，使卡面在游戏较宽的美术窗口中减少两侧空窗并略微上移；原图备份在项目外 `D:\work_console\MyFirstMod_asset_backups\asset_backups\cards_20260531_013149`。
 - 新增 3 个专属遗物并接入遗物池：
   - `SparkCapacitor` / 火花电容：每场战斗第一个玩家回合开始时，将 1 张 `枪火火花` 加入手牌。
   - `TacticalMagazine` / 战术弹匣：每场战斗中首次打出 `枪火火花` 时，抽 1 张牌。
@@ -112,6 +113,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已重新导出 `MyFirstMod.pck`，正式 Power 的独立状态图标已进入 PCK。
 - 已重新导出 `MyFirstMod.pck`，遗物与 Power 图标缩放修正已进入 PCK。
 - 已重新导出 `MyFirstMod.pck`，能天使休息场景已进入 PCK。
+- 已重新导出 `MyFirstMod.pck`，40 张卡图的横向裁切版本已进入 PCK。
 
 ## 当前暂存状态
 
@@ -147,6 +149,10 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 7. 游戏内检查休息/篝火界面：
    - 休息场景是否显示能天使而不是铁甲战士。
    - 能天使位置、缩放是否适合篝火界面。
+8. 游戏内检查卡牌边框适配：
+   - 卡面美术是否不再显得细长。
+   - 两侧空窗是否明显减少。
+   - 顶部/底部是否有关键人物、武器或特效被裁掉。
 
 ## 下一步建议
 
