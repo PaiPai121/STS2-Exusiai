@@ -20,13 +20,16 @@ public class AngelsBlessingPower : CustomPowerModel
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        _cardsPlayedThisTurn = 0;
+        if (Owner.Player == player)
+            _cardsPlayedThisTurn = 0;
+
         return Task.CompletedTask;
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Card == null) return;
+        if (cardPlay.Card.Owner != Owner.Player) return;
 
         _cardsPlayedThisTurn++;
         if (_cardsPlayedThisTurn % 5 != 0) return;

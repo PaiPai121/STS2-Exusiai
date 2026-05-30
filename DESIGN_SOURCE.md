@@ -8,8 +8,8 @@ The current playable implementation has diverged intentionally in several places
 - Feishu title: 能天使 MOD - 卡牌设计
 - URL: https://feishu.cn/docx/E1hHd1rnrovTJGxkXUYcwRJfnUb
 - Document ID: E1hHd1rnrovTJGxkXUYcwRJfnUb
-- Last fetched: 2026-05-30 17:42 Asia/Shanghai
-- Revision ID at last fetch: 10
+- Last fetched: 2026-05-30 23:15 Asia/Shanghai
+- Revision ID at last fetch: 35
 
 ## Current Canonical Decisions
 
@@ -31,6 +31,7 @@ These local decisions override the stale Feishu document:
 ## Current Design Scope
 
 - Current target: a playable Exusiai rapid-fire deck focused on frequent card play, temporary copies, and generated `Gunspark`.
+- Current expansion batch: 2026-05-30 added a small 9-card package focused on low-cost play count, defensive token generation, rapid-fire token bridges, `Gunspark` draw engines, and rare finishers.
 - Deferred: the old ammo-flow / B-flow ideas remain out of scope unless explicitly reintroduced.
 - Current card library status is maintained in `CARD_LIBRARY.md`.
 

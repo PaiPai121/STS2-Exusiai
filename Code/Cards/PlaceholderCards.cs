@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
+using MyFirstMod.Code.Powers;
 
 namespace MyFirstMod.Code.Cards;
 
@@ -52,13 +53,12 @@ public class GunslingerRush : RapidFireCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class TacticalSidestep : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "战术侧闪"), ("description", "获得[green]{Block}[/green]点格挡。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "战术侧闪"), ("description", "获得[green]{Block}[/green]点格挡。将1张枪火火花加入手牌。")];
     public TacticalSidestep() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
         await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
@@ -128,14 +128,13 @@ public class EmergencyShield : MyFirstModCardModel
     public override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(3);
-        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class RapidStance : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new BlockVar(3, ValueProp.Move)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(4, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "速射架势"), ("description", "抽[blue]{Cards}[/blue]张牌。获得[green]{Block}[/green]点格挡。")];
     public RapidStance() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -191,23 +190,23 @@ public class SuppressiveFire : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class WarfarinsPlasma : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(13, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "华法琳特调"), ("description", "造成[red]{Damage}[/red]点伤害。抽[blue]{Cards}[/blue]张牌。")];
-    public WarfarinsPlasma() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
+    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+    public override List<(string, string)> Localization => [("title", "华法琳特调"), ("description", "失去[red]2[/red]点生命。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
+    public WarfarinsPlasma() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        if (p.Target != null)
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+        await CreatureCmd.Damage(c, Owner.Creature, 2, ValueProp.Unblockable | ValueProp.Unpowered, Owner.Creature, this);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
+    public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class QuickMagazine : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
     public QuickMagazine() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -221,21 +220,14 @@ public class QuickMagazine : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class SweepMode : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(14, ValueProp.Move), new BlockVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "扫射模式"), ("description", "造成[red]{Damage}[/red]点伤害。获得[green]{Block}[/green]点格挡。")];
-    public SweepMode() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "扫射模式"), ("description", "每当你打出攻击牌，对所有敌人造成[red]{Damage}[/red]点伤害。")];
+    public SweepMode() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        if (p.Target != null)
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
+        await PowerCmd.Apply<SweepModePower>(Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
     }
-    public override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(4);
-        DynamicVars.Block.UpgradeValueBy(2);
-    }
+    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
@@ -257,18 +249,17 @@ public class PiercingRound : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class PursuitOrder : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "追猎指令"), ("description", "造成[red]{Damage}[/red]点伤害。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "追猎指令"), ("description", "造成[red]{Damage}[/red]点伤害。将1张枪火火花加入手牌。")];
     public PursuitOrder() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         if (p.Target != null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
         await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
+    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
