@@ -1,5 +1,12 @@
 ﻿# MyFirstMod 卡牌库
 
+## 设计来源
+
+- 当前本地设计记录在 [DESIGN_SOURCE.md](DESIGN_SOURCE.md)。
+- 飞书文档 `https://feishu.cn/docx/E1hHd1rnrovTJGxkXUYcwRJfnUb` 已记录为历史设计源，不再直接作为当前实现真相。
+- 已确认本地当前方案优先：`速射·打击` 废弃，`交叉火力` 起手方案、当前速射 clone 机制、当前 `Gunspark` 设计均为准。
+- 修改卡牌机制、卡池、起始卡组前，先阅读 `DESIGN_SOURCE.md` 和本文件，再决定是更新代码还是更新本地设计记录。
+
 ## 当前卡池总览
 
 ### 起始卡组
@@ -47,16 +54,16 @@
 - 当前起始卡组：5 张打击、4 张防御、1 张交叉火力
 - 第一轮新增通用卡池已接入代码；`Gunspark` token 生成链已恢复，当前实现使用 `Owner.Creature.CombatState.CreateCard<Gunspark>(Owner)` 创建战斗内 token，再通过 `CardPileCmd.AddGeneratedCardToCombat` 加入手牌
 - `StrikeCopy` / `StrikeCopyPlus` 类已从代码中清理，当前不再是实际卡牌
-- `AngelsBlessing` 已进入首版回合计数实现阶段，但仍需继续校准为正式能力效果
-- `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，进入首版机制实现阶段，但仍需继续校准到设计稿
-- 当前新卡大多仍为**首版数值/骨架实现**，尚未完整还原你之前给的全部机制设计
+- `AngelsBlessing` 已进入正式 Power 系统；当前“每 5 张牌抽牌”的实现作为本地当前方案保留
+- `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿
+- 当前新卡大多仍为**首版数值/骨架实现**，后续调整以 `DESIGN_SOURCE.md` 的本地设计判断为准
 - 新卡肖像资源已增加 `CardTemplate.jpg` 动态后备逻辑，但真实卡面资源仍建议继续补齐
 - `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
 
 ## 后续替换优先级
 1. 游戏内验证 `PursuitOrder` 等 token 生成牌：确认 `Gunspark` 能正常加入手牌并可被打出，不再因 token 绑定异常卡死
-2. 继续校准 `AngelsBlessing`、`Overclock`、`DeliveryGuaranteed` 的作用范围与回合逻辑
-3. 将已接入的新通用卡从“骨架版效果”升级为设计稿版本
+2. 继续观察 `AngelsBlessing`、`Overclock`、`DeliveryGuaranteed` 的实战强度，再决定是否微调数值和持续时间
+3. 将已接入的新通用卡从“骨架版效果”升级为本地当前设计版本；旧飞书稿只作为参考
 4. 为新增卡补齐真实 portrait 资源，减少 fallback 日志
 
 ## 维护规则
