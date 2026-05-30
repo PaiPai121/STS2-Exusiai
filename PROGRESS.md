@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 01:06 Asia/Shanghai
+更新时间：2026-05-31 01:18 Asia/Shanghai
 
 ## 开工前检查
 
@@ -47,6 +47,7 @@
   - `SweepModePower.png`
   - `SparkCircuitPower.png`
   - `FireControlPower.png`
+- 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
 - `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
@@ -108,6 +109,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 飞书文档同步命令已成功执行，并回读确认 revision `46`。
 - 已重新导出 `MyFirstMod.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
 - 已重新导出 `MyFirstMod.pck`，正式 Power 的独立状态图标已进入 PCK。
+- 已重新导出 `MyFirstMod.pck`，遗物与 Power 图标缩放修正已进入 PCK。
 
 ## 当前暂存状态
 
