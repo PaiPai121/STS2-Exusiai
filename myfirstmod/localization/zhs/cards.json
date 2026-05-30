@@ -58,6 +58,6 @@
   "MYFIRSTMOD-GUNSPARK.title": "枪火火花",
   "MYFIRSTMOD-GUNSPARK.description": "造成[red]{Damage}[/red]点伤害。虚无。消耗。",
   "MYFIRSTMOD-ANGELS_BLESSING_POWER.title": "天使祝福",
-  "MYFIRSTMOD-ANGELS_BLESSING_POWER.description": "每打出5张牌，抽{Cards}张牌。",
-  "MYFIRSTMOD-ANGELS_BLESSING_POWER.smartDescription": "每打出5张牌，抽{Cards}张牌。"
+  "MYFIRSTMOD-ANGELS_BLESSING_POWER.description": "每打出5张牌，抽[blue]{Amount}[/blue]张牌。",
+  "MYFIRSTMOD-ANGELS_BLESSING_POWER.smartDescription": "每打出5张牌，抽[blue]{Amount}[/blue]张牌。"
 }

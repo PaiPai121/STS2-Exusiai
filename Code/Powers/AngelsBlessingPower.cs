@@ -12,7 +12,7 @@ public class AngelsBlessingPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出5张牌，抽[blue]{Cards}[/blue]张牌。"), ("smartDescription", "每打出5张牌，抽[blue]{Cards}[/blue]张牌。")];
+    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。"), ("smartDescription", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。")];
 
     private int _cardsPlayedThisTurn;
 
@@ -29,7 +29,9 @@ public class AngelsBlessingPower : CustomPowerModel
         _cardsPlayedThisTurn++;
         if (_cardsPlayedThisTurn % 5 != 0) return;
 
-        var drawAmount = DynamicVars[nameof(AngelsBlessingPower)].BaseValue;
-        await CardPileCmd.Draw(choiceContext, drawAmount, Owner.Player);
+        if (Owner.Player == null)
+            return;
+
+        await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
     }
 }
