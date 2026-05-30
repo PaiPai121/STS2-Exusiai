@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Reflection;
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,33 +14,15 @@ namespace MyFirstMod.Code.Cards;
 
 static class GeneratedTokenHelper
 {
-    public static async Task AddTokenToHandAndRegister(CardModel token, MyFirstModCardModel source)
+    public static async Task AddGunsparkToHand(MyFirstModCardModel source)
     {
-        token.Owner = source.Owner;
-        await CardPileCmd.Add(token, PileType.Hand, CardPilePosition.Top, source, skipVisuals: false);
-        var combatState = source.Owner?.Creature?.CombatState;
-        Godot.GD.Print($"[myfirstmod] token register start type={token.GetType().Name} id={token.Id} combatState_null={combatState == null}");
-        if (combatState != null)
-        {
-            try
-            {
-                var addMethod = combatState.GetType().GetMethods(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic)
-                    .FirstOrDefault(m => m.Name.Contains("Add") && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(CardModel)));
-                if (addMethod != null)
-                {
-                    addMethod.Invoke(combatState, [token]);
-                    Godot.GD.Print($"[myfirstmod] token register invoked method={addMethod.Name} type={token.GetType().Name} id={token.Id}");
-                }
-                else
-                {
-                    Godot.GD.Print("[myfirstmod] token register add method not found");
-                }
-            }
-            catch (Exception ex)
-            {
-                Godot.GD.Print($"[myfirstmod] token register exception {ex}");
-            }
-        }
+        var owner = source.Owner;
+        var combatState = owner?.Creature?.CombatState;
+        if (owner == null || combatState == null)
+            return;
+
+        CardModel spark = combatState.CreateCard<Gunspark>(owner);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
     }
 }
 
@@ -72,15 +53,13 @@ public class GunslingerRush : RapidFireCardModel
 public class TacticalSidestep : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "战术侧闪"), ("description", "获得[green]{Block}[/green]点格挡。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。该牌获得虚无与消耗。")];
+    public override List<(string, string)> Localization => [("title", "战术侧闪"), ("description", "获得[green]{Block}[/green]点格挡。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
     public TacticalSidestep() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-
-        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }
@@ -229,14 +208,12 @@ public class WarfarinsPlasma : MyFirstModCardModel
 public class QuickMagazine : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。该牌获得虚无与消耗。")];
+    public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
     public QuickMagazine() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-
-        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -264,7 +241,6 @@ public class SweepMode : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class PiercingRound : MyFirstModCardModel
 {
-    public override string PortraitPath => "res://myfirstmod/images/cards/PiercingRound.png";
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "穿甲弹"), ("description", "造成[red]{Damage}[/red]点伤害。")];
     public PiercingRound() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
@@ -282,7 +258,7 @@ public class PiercingRound : MyFirstModCardModel
 public class PursuitOrder : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "追猎指令"), ("description", "造成[red]{Damage}[/red]点伤害。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。该牌获得虚无与消耗。")];
+    public override List<(string, string)> Localization => [("title", "追猎指令"), ("description", "造成[red]{Damage}[/red]点伤害。抽[blue]{Cards}[/blue]张牌。将1张枪火火花加入手牌。")];
     public PursuitOrder() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -290,9 +266,7 @@ public class PursuitOrder : MyFirstModCardModel
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-
-        CardModel spark = ModelDb.Card<Gunspark>().ToMutable();
-        await GeneratedTokenHelper.AddTokenToHandAndRegister(spark, this);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4);
 }
@@ -320,7 +294,7 @@ public class FullAuto : RapidFireCardModel
 public class BulletHell : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪林弹雨"), ("description", "造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。它们获得虚无与消耗。消耗。")];
+    public override List<(string, string)> Localization => [("title", "枪林弹雨"), ("description", "造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。消耗。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public BulletHell() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -329,12 +303,8 @@ public class BulletHell : MyFirstModCardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-
-        CardModel firstSpark = ModelDb.Card<Gunspark>().ToMutable();
-        await GeneratedTokenHelper.AddTokenToHandAndRegister(firstSpark, this);
-
-        CardModel secondSpark = ModelDb.Card<Gunspark>().ToMutable();
-        await GeneratedTokenHelper.AddTokenToHandAndRegister(secondSpark, this);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
@@ -346,6 +316,10 @@ public class Gunspark : MyFirstModCardModel
     public override List<(string, string)> Localization => [("title", "枪火火花"), ("description", "造成[red]{Damage}[/red]点伤害。虚无。消耗。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
     public Gunspark() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
-    public override async Task OnPlay(PlayerChoiceContext c, CardPlay p) { if (p.Target != null) await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c); }
+    public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
+    {
+        if (p.Target != null)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+    }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }
