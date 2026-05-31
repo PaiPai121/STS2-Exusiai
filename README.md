@@ -9,6 +9,24 @@ Exusiai is a Slay the Spire 2 character mod built around fast attacks, Rapid Fir
 - Godot/MegaDot 4.5.1 Mono
 - .NET SDK compatible with the project
 
+## Installation
+
+For players, install the release files into:
+
+```text
+Slay the Spire 2/mods/Exusiai
+```
+
+The folder should contain exactly these mod files:
+
+```text
+Exusiai.dll
+Exusiai.json
+Exusiai.pck
+```
+
+BaseLib must also be installed and enabled. Do not rename the `Exusiai` folder or the three release files.
+
 ## Build
 
 ```powershell
@@ -44,6 +62,12 @@ The exporter currently prints known Godot noise about `sts2` assembly lookup. Tr
 - Custom relics: Sniper's Chipset, Spark Capacitor, Tactical Magazine, and Reticle Calibrator.
 - Chinese and English localization.
 - Custom card art, relic icons, power icons, character select visuals, battle visuals, merchant visuals, and rest-site visuals.
+
+## Release Status
+
+Current manifest version: `v1.0.0`.
+
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Important Notes
 

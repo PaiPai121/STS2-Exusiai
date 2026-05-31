@@ -46,6 +46,7 @@ Exusiai.pck
 - Character, card portrait, energy, rest-site, relic, and Power assets are preloaded to reduce runtime cache warnings.
 - Feishu design documentation was synced from the local current design. Remote revision recorded earlier: `46`.
 - README was rewritten from template content into the current Exusiai project documentation.
+- Release-facing README installation notes, changelog, and release checklist were added for `v1.0.0`.
 - Stale template leftovers were removed:
   - deleted unused `RelicTemplate.cs`
   - deleted unused `RelicTemplate.cs.uid`
