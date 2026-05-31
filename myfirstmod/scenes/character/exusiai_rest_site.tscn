@@ -1,12 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfmy38a5b76ul"]
+[gd_scene load_steps=4 format=3 uid="uid://cfmy38a5b76ul"]
 
-[ext_resource type="SpriteFrames" path="res://myfirstmod/scenes/character/exusiai_idle_sprite_frames.tres" id="1"]
+[ext_resource type="Script" path="res://src/Core/Nodes/RestSite/NRestSiteCharacter.cs" id="1_rest"]
+[ext_resource type="SpineSkeletonDataResource" path="res://myfirstmod/assets/character/ines_rest.tres" id="2_rest"]
+[ext_resource type="PackedScene" path="res://scenes/ui/selection_reticle.tscn" id="3_rest"]
 
 [node name="ExusiaiRestSite" type="Node2D"]
+position = Vector2(-2, 42)
+scale = Vector2(0.760006, 0.760006)
+script = ExtResource("1_rest")
 
-[node name="Visuals" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("1")
-animation = &"default"
-autoplay = "default"
-position = Vector2(0, -135)
-scale = Vector2(1.0, 1.0)
+[node name="SpineSprite" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_rest")
+preview_skin = "Default"
+preview_animation = "glory_loop"
+preview_frame = false
+preview_time = 0.0
+position = Vector2(-65.48, -12.63)
+scale = Vector2(1.505, 1.505)
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 68.4205
+offset_top = -9.21045
+offset_right = 68.4205
+offset_bottom = -9.21045
+
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_rest")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -294.629
+offset_top = -409.523
+offset_right = 100.371
+offset_bottom = 280.477
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -302.629
+offset_top = -410.523
+offset_right = 102.371
+offset_bottom = 284.477
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 44.7365
+offset_top = -313.155
+offset_right = 44.7365
+offset_bottom = -313.155
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -218.419
+offset_top = -315.787
+offset_right = -218.419
+offset_bottom = -315.787
