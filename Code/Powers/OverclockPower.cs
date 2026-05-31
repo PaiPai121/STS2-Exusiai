@@ -52,7 +52,7 @@ public class OverclockPower : CustomPowerModel
         return false;
     }
 
-    public override Task AfterApplied(Creature source, CardModel card)
+    public override Task AfterApplied(Creature? source, CardModel? card)
     {
         if (card is Overclock)
         {

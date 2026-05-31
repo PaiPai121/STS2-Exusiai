@@ -85,12 +85,11 @@ Latest build:
 dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 ```
 
-Result: success, 5 existing warnings, 0 errors.
+Result: success, 3 existing warnings, 0 errors.
 
 Known recurring build warnings:
 
 - `IgnoresAccessChecksToAttribute` duplicate warnings from Publicizer/BaseLib.
-- `OverclockPower` nullability mismatch warnings on the overridden cost modifier method.
 - Generated Godot `Main` type warning.
 
 ## Export Command

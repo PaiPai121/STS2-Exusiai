@@ -35,7 +35,6 @@ The build copies `Exusiai.dll` and `Exusiai.json` to the game mod folder.
 Known recurring warnings:
 
 - Publicizer/BaseLib duplicate `IgnoresAccessChecksToAttribute`.
-- `OverclockPower` nullability mismatch on the overridden cost modifier method.
 - Generated Godot `Main` type warning.
 
 These are currently expected if the build exits with 0 errors.
