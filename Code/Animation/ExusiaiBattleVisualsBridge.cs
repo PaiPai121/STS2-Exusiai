@@ -4,23 +4,12 @@ namespace MyFirstMod.Code.Animation;
 
 public partial class ExusiaiBattleVisualsBridge : Node
 {
-    public override void _Ready()
-    {
-        GD.Print("[myfirstmod] Exusiai bridge ready");
-    }
-
-    public override void _ExitTree()
-    {
-        GD.Print("[myfirstmod] Exusiai bridge exit");
-    }
-
     public void Trigger(StringName method)
     {
-        GD.Print($"[myfirstmod] Exusiai bridge trigger {method}");
         Node? parent = GetParent();
         if (parent == null)
         {
-            GD.Print("[myfirstmod] Exusiai bridge missing parent");
+            GD.PrintErr("[exusiai] bridge missing parent");
             return;
         }
 

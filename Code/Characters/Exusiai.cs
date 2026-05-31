@@ -91,13 +91,11 @@ public class Exusiai : PlaceholderCharacterModel
 
     public override Task AfterAttack(MegaCrit.Sts2.Core.Commands.Builders.AttackCommand command)
     {
-        GD.Print($"[myfirstmod] Exusiai AfterAttack attacker={(command.Attacker?.Player?.Character == this)}");
         return Task.CompletedTask;
     }
 
     public override Task BeforeDeath(Creature creature)
     {
-        GD.Print($"[myfirstmod] Exusiai BeforeDeath player={(creature.Player?.Character == this)}");
         return Task.CompletedTask;
     }
 }

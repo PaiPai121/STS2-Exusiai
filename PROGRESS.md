@@ -138,23 +138,24 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 结果：成功，5 个既有 warning，0 error。
 - build 后 DLL 和 manifest 已由项目构建流程复制到游戏 mod 目录。
 - 飞书文档同步命令已成功执行，并回读确认 revision `46`。
-- 已重新导出 `MyFirstMod.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
-- 已重新导出 `MyFirstMod.pck`，正式 Power 的独立状态图标已进入 PCK。
-- 已重新导出 `MyFirstMod.pck`，遗物与 Power 图标缩放修正已进入 PCK。
-- 已重新导出 `MyFirstMod.pck`，能天使休息场景已进入 PCK。
-- 已重新导出 `MyFirstMod.pck`，40 张卡图的横向裁切版本已进入 PCK。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，14 张二次校准卡图已进入 PCK。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，4 张三次校准卡图已进入 PCK。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`ChainReaction` 与 `RapidStance` 卡图修正已进入 PCK。
+- 已重新导出 `Exusiai.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
+- 已重新导出 `Exusiai.pck`，正式 Power 的独立状态图标已进入 PCK。
+- 已重新导出 `Exusiai.pck`，遗物与 Power 图标缩放修正已进入 PCK。
+- 已重新导出 `Exusiai.pck`，能天使休息视觉已进入 PCK；运行时由 `ExusiaiRestSiteCreatePatch` 动态创建 `NRestSiteCharacter`，避免旧场景根节点类型导致休息点卡死。
+- 已重新导出 `Exusiai.pck`，40 张卡图的横向裁切版本已进入 PCK。
+- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，14 张二次校准卡图已进入 PCK。
+- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，4 张三次校准卡图已进入 PCK。
+- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，`ChainReaction` 与 `RapidStance` 卡图修正已进入 PCK。
 - 已执行 `dotnet build`，`OverclockPower` 编译通过；过载模式描述已去掉手写“虚无”，避免和关键字栏重复。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
+- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
 - 已补充 `OverclockPower.TryModifyEnergyCostInCombat` 与 `SetToFreeThisTurn()` 兜底；临时 mod 输出目录构建通过。当前运行中的 `SlayTheSpire2.exe` 锁住游戏 mod 目录 DLL，需要退出游戏后才能覆盖到实际游戏目录。
 - 已执行 `dotnet build`，DLL/manifest 已覆盖到游戏 mod 目录。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录；当前游戏目录仅保留 `MyFirstMod.dll`、`myfirstmod.json`、`MyFirstMod.pck` 和旧 PCK 备份，不再保留会覆盖 PCK 的松散 `myfirstmod/` 目录。
-- 休息点卡死最新日志原因已定位：旧松散 `mods/MyFirstMod/myfirstmod/scenes/character/exusiai_rest_site.tscn` 覆盖了 PCK，且根节点仍为 `Node2D`，触发 `NRestSiteCharacter` 强制转换异常。
-- 已执行 `dotnet build` 并重新导出/复制 `MyFirstMod.pck`；休息点坐姿朝向修正、略微放大、坐点定位、弱脚底阴影与环境色调制已进入游戏 mod 目录，待实机观察融合效果。
-- 已执行 `dotnet build` 并重新导出/复制 `MyFirstMod.pck`；`SparkCircuit.jpg` 能天使卡面修正已进入游戏 mod 目录。
+- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录；当前游戏目录应仅保留 `Exusiai.dll`、`Exusiai.json`、`Exusiai.pck`，不再保留会覆盖 PCK 的松散 `myfirstmod/` 目录。
+- 休息点卡死历史原因已定位：旧松散 `mods/MyFirstMod/myfirstmod/scenes/character/exusiai_rest_site.tscn` 覆盖了 PCK，且根节点仍为 `Node2D`，触发 `NRestSiteCharacter` 强制转换异常；当前使用 `ExusiaiRestSiteCreatePatch` 动态创建正确节点。
+- 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；休息点坐姿朝向修正、略微放大、坐点定位、弱脚底阴影与环境色调制已进入游戏 mod 目录，待实机观察融合效果。
+- 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`SparkCircuit.jpg` 能天使卡面修正已进入游戏 mod 目录。
 - 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`天使祝福` 与 `交错射击` 的机制和本地化改动已进入游戏 mod 目录。
+- 完成一次完成度清理：英文 `Crossfire` 描述已与速射复制实装对齐；普通动画调试日志已收敛为必要错误日志；Harmony id 已改为 `exusiai`；卡牌图片、遗物图标、Power 图标资源存在性检查通过。
 
 ## 当前暂存状态
 

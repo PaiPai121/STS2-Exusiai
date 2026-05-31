@@ -4,7 +4,7 @@
   "MYFIRSTMOD-EXUSIAI_DEFEND.title": "Defend",
   "MYFIRSTMOD-EXUSIAI_DEFEND.description": "Gain [green]{Block}[/green] Block.",
   "MYFIRSTMOD-CARD_TEMPLATE.title": "Crossfire",
-  "MYFIRSTMOD-CARD_TEMPLATE.description": "Deal [red]{Damage}[/red] damage. Rapid Fire.",
+  "MYFIRSTMOD-CARD_TEMPLATE.description": "Deal [red]{Damage}[/red] damage. When played, create an extra copy of this card in your hand. The copy gains Ethereal and Exhaust, and cannot trigger Rapid Fire again.",
   "MYFIRSTMOD-COVER_FIRE.title": "Cover Fire",
   "MYFIRSTMOD-COVER_FIRE.description": "Deal [red]{Damage}[/red] damage. Draw [blue]{Cards}[/blue] card.",
   "MYFIRSTMOD-TACTICAL_RETREAT.title": "Tactical Retreat",

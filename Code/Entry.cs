@@ -8,7 +8,7 @@ namespace MyFirstMod.Code;
 [ModInitializer(nameof(Init))]
 public partial class Entry : Node
 {
-    public const string ModId = "myfirstmod";
+    public const string ModId = "exusiai";
 
     public static void Init()
     {

@@ -13,11 +13,10 @@ public partial class ExusiaiBattleVisualsController : Node2D
 
     public override void _Ready()
     {
-        GD.Print("[myfirstmod] Exusiai C# visuals controller ready");
         _visuals = GetNodeOrNull<AnimatedSprite2D>("Visuals");
         if (_visuals == null)
         {
-            GD.Print("[myfirstmod] Exusiai C# visuals controller missing Visuals node");
+            GD.PrintErr("[exusiai] visuals controller missing Visuals node");
             return;
         }
 
@@ -33,7 +32,6 @@ public partial class ExusiaiBattleVisualsController : Node2D
 
     public void PlayIdle()
     {
-        GD.Print("[myfirstmod] Exusiai C# play_idle");
         if (!EnsureVisuals())
             return;
 
@@ -43,7 +41,6 @@ public partial class ExusiaiBattleVisualsController : Node2D
 
     public void PlayAttack()
     {
-        GD.Print("[myfirstmod] Exusiai C# play_attack");
         if (!EnsureVisuals())
             return;
 
@@ -53,7 +50,6 @@ public partial class ExusiaiBattleVisualsController : Node2D
 
     public void PlayDie()
     {
-        GD.Print("[myfirstmod] Exusiai C# play_die");
         if (!EnsureVisuals())
             return;
 
@@ -70,11 +66,10 @@ public partial class ExusiaiBattleVisualsController : Node2D
     private void SetFrames(StringName animName)
     {
         string path = $"res://myfirstmod/scenes/character/exusiai_{animName}_sprite_frames.tres";
-        GD.Print($"[myfirstmod] Exusiai C# set_frames {path}");
         SpriteFrames? frames = ResourceLoader.Load<SpriteFrames>(path);
         if (frames == null)
         {
-            GD.Print($"[myfirstmod] Exusiai C# failed to load frames {path}");
+            GD.PrintErr($"[exusiai] failed to load frames {path}");
             return;
         }
 
@@ -83,7 +78,6 @@ public partial class ExusiaiBattleVisualsController : Node2D
 
     private void OnAnimationFinished()
     {
-        GD.Print("[myfirstmod] Exusiai C# animation_finished");
         if (_visuals?.SpriteFrames == null)
             return;
 

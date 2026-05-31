@@ -23,11 +23,11 @@ public abstract class MyFirstModCardModel : CustomCardModel
         const string fallback = "res://myfirstmod/images/cards/CardTemplate.jpg";
         if (ResourceLoader.Exists(fallback))
         {
-            GD.Print($"[myfirstmod] portrait fallback card={GetType().Name} missing={preferred} using={fallback}");
+            GD.Print($"[exusiai] portrait fallback card={GetType().Name} missing={preferred} using={fallback}");
             return fallback;
         }
 
-        GD.PrintErr($"[myfirstmod] portrait missing card={GetType().Name} preferred={preferred} fallback={fallback}");
+        GD.PrintErr($"[exusiai] portrait missing card={GetType().Name} preferred={preferred} fallback={fallback}");
         return preferred;
     }
 }

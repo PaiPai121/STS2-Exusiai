@@ -22,7 +22,6 @@ internal static class ExusiaiCombatRuntime
         if (attacker?.Player?.Character is not Exusiai)
             return;
 
-        GD.Print("[myfirstmod] runtime TryTriggerAttack matched Exusiai attacker");
         if (!TryGetAnimatedSprite(attacker, out AnimatedSprite2D? sprite))
             return;
 
@@ -40,7 +39,6 @@ internal static class ExusiaiCombatRuntime
         if (creature.Player?.Character is not Exusiai)
             return;
 
-        GD.Print("[myfirstmod] runtime TryTriggerDeath matched Exusiai creature");
         if (!TryGetAnimatedSprite(creature, out AnimatedSprite2D? sprite))
             return;
 
@@ -60,7 +58,6 @@ internal static class ExusiaiCombatRuntime
 
         if (sprite == null || !GodotObject.IsInstanceValid(sprite))
         {
-            GD.Print("[myfirstmod] runtime missing AnimatedSprite2D");
             sprite = null;
             return false;
         }
@@ -74,7 +71,7 @@ internal static class ExusiaiCombatRuntime
         SpriteFrames? frames = ResourceLoader.Load<SpriteFrames>(path);
         if (frames == null)
         {
-            GD.Print($"[myfirstmod] runtime failed to load frames {path}");
+            GD.PrintErr($"[exusiai] runtime failed to load frames {path}");
             return null;
         }
 
@@ -83,8 +80,6 @@ internal static class ExusiaiCombatRuntime
 
     private static void ApplyFrames(AnimatedSprite2D sprite, SpriteFrames frames, StringName animationName)
     {
-        string path = $"res://myfirstmod/scenes/character/exusiai_{animationName}_sprite_frames.tres";
-        GD.Print($"[myfirstmod] runtime applying frames {path} to {sprite.GetPath()}");
         sprite.SpriteFrames = frames;
         sprite.Play(DefaultClip);
     }
@@ -92,8 +87,6 @@ internal static class ExusiaiCombatRuntime
     private static async void ScheduleIdleRestore(AnimatedSprite2D sprite, ulong playbackVersion, SpriteFrames attackFrames)
     {
         double durationSeconds = ComputeAnimationDurationSeconds(attackFrames);
-        GD.Print($"[myfirstmod] runtime scheduling idle restore in {durationSeconds:0.###} sec version={playbackVersion}");
-
         SceneTree? tree = sprite.GetTree();
         if (tree == null)
             return;
@@ -104,16 +97,12 @@ internal static class ExusiaiCombatRuntime
             return;
 
         if (playbackVersion != _attackPlaybackVersion)
-        {
-            GD.Print($"[myfirstmod] runtime skip idle restore due to newer attack version current={_attackPlaybackVersion} expected={playbackVersion}");
             return;
-        }
 
         SpriteFrames? idleFrames = LoadFrames(IdleAnimation);
         if (idleFrames == null)
             return;
 
-        GD.Print("[myfirstmod] runtime restoring idle after attack delay");
         ApplyFrames(sprite, idleFrames, IdleAnimation);
     }
 
@@ -136,7 +125,6 @@ internal static class ExusiaiAttackCommandExecutePatch
 {
     private static void Prefix(AttackCommand __instance)
     {
-        GD.Print("[myfirstmod] harmony AttackCommand.Execute prefix");
         ExusiaiCombatRuntime.TryTriggerAttack(__instance);
     }
 }
@@ -146,7 +134,6 @@ internal static class ExusiaiCreatureInvokeDiedEventPatch
 {
     private static void Prefix(Creature __instance)
     {
-        GD.Print("[myfirstmod] harmony Creature.InvokeDiedEvent prefix");
         ExusiaiCombatRuntime.TryTriggerDeath(__instance);
     }
 }
