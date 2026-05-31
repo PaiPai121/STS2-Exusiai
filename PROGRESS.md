@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 14:25 Asia/Shanghai
+更新时间：2026-05-31 15:40 Asia/Shanghai
 
 ## 开工前检查
 
@@ -70,12 +70,14 @@
 - 普通牌过牌强度已收敛：`战术侧闪` 去掉抽牌，`应急护盾` 升级不再增加抽牌，`速射架势` 降为抽 1/2。
 - `SparkCircuit.jpg` / `火花回路` 卡面已重做为能天使主体：红发、光环、黑蓝战术服、枪械与橙色火花回路均保留，旧的泛用机械天使图已备份到 `D:\work_console\MyFirstMod_asset_backups\cards\SparkCircuit_before_exusiai_fix.jpg`。
 - `使命必达！` 已修复弃牌堆选择后卡死：选择弹窗改为引用 `cards/MYFIRSTMOD-DELIVERY_GUARANTEED.select` 本地化 key，不再把中文标题误当 loc table；选中牌与复制牌也先固化为列表后再加入手牌，避免改牌堆时碰到延迟枚举。
+- `使命必达！` 复制牌 0 费已补完整费用路径：复制后同时调用 `SetToFreeThisTurn()` 与 `SetStarCostUntilPlayed(0)`，加入手牌后刷新费用显示，不再只改星费临时值。
 - 已补齐英文 `eng` 本地化：卡牌/Power、关键词、角色、遗物、远古者对白均与 `zhs` key 对齐；英文模式下不应再出现缺失 key 或中文文本。
 - 已清理未使用的占位暴露面：移除 `PLACEHOLDER_*` 卡牌本地化、`RELIC_TEMPLATE` 遗物本地化，以及旧 `Placeholder*` / `StrikeCopy*` 卡图资源；`zhs` 与 `eng` key 已重新对齐。
 - 当前实际注册卡池统计：31 张牌，其中基础 2、普通 13、罕见 10、稀有 6；攻击 15、技能 12、能力 4。普通牌数量已经偏多，后续扩池优先补罕见/稀有机制牌。
 - 已补一层战斗结束保护：`Gunspark` 生成、出牌后抽牌、扫射 AOE、遗物触发格挡等后续动作会先确认仍有存活敌人，降低击杀最后敌人后继续追加异步动作导致卡住的风险。
+- `过载模式` 已从一次性技能改为持续能力：2 费能力，本回合前 2/3 张攻击牌费用变为 0；之后每隔 1 个回合，回合开始时再次获得该过载窗口；未用完次数在回合结束清零。
 - `天使祝福` Power 已补出牌者检查，只统计拥有者本人的出牌。
-- `过载模式` 当前设计保留：2 费技能，虚无；抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0。当前已改为临时 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
+- `过载模式` 当前设计保留：2 费能力；本回合前 2/3 张攻击牌费用变为 0；之后每隔 1 个回合，回合开始时再次获得该过载窗口。当前由 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
 - `CARD_LIBRARY.md` 已更新为当前卡池真相。
 - `DESIGN_SOURCE.md` 已记录飞书文档状态与本地优先原则。
 - 飞书文档已用当前 `CARD_LIBRARY.md` 覆盖同步，回读 revision 为 `46`。

@@ -50,7 +50,8 @@ public class DeliveryGuaranteed : MyFirstModCardModel
         foreach (CardModel card in selected)
         {
             CardModel copy = card.CreateClone();
-            copy.SetStarCostThisTurn(0);
+            copy.SetToFreeThisTurn();
+            copy.SetStarCostUntilPlayed(0);
             copy.AddKeyword(CardKeyword.Ethereal);
             copy.AddKeyword(CardKeyword.Exhaust);
             copies.Add(copy);
@@ -59,6 +60,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
         foreach (CardModel copy in copies)
         {
             await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+            copy.InvokeEnergyCostChanged();
         }
     }
 

@@ -12,7 +12,7 @@
   "MYFIRSTMOD-ANGELS_BLESSING.title": "Angel's Blessing",
   "MYFIRSTMOD-ANGELS_BLESSING.description": "Each turn, whenever you play 5 cards, draw [blue]{Cards}[/blue] card. When played, draw [blue]{Cards}[/blue] card first.",
   "MYFIRSTMOD-OVERCLOCK.title": "Overclock",
-  "MYFIRSTMOD-OVERCLOCK.description": "Draw [blue]{Cards}[/blue] cards. This turn, the next [blue]{Cards}[/blue] Attacks you play cost 0.",
+  "MYFIRSTMOD-OVERCLOCK.description": "This turn, the next [blue]{Cards}[/blue] Attacks you play cost 0. Every other turn, gain this effect again at the start of your turn.",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "Guaranteed Delivery!",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "Choose up to [blue]{Cards}[/blue] cards from your discard pile and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust. Exhaust.",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "Choose up to [blue]{Cards}[/blue] cards from your discard pile.",
@@ -77,6 +77,6 @@
   "MYFIRSTMOD-FIRE_CONTROL_POWER.description": "At the start of each turn, add [blue]{Amount}[/blue] Gunspark to your hand.",
   "MYFIRSTMOD-FIRE_CONTROL_POWER.smartDescription": "At the start of each turn, add [blue]{Amount}[/blue] Gunspark to your hand.",
   "MYFIRSTMOD-OVERCLOCK_POWER.title": "Overclock",
-  "MYFIRSTMOD-OVERCLOCK_POWER.description": "The next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Removed at end of turn.",
-  "MYFIRSTMOD-OVERCLOCK_POWER.smartDescription": "The next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Removed at end of turn."
+  "MYFIRSTMOD-OVERCLOCK_POWER.description": "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn.",
+  "MYFIRSTMOD-OVERCLOCK_POWER.smartDescription": "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn."
 }

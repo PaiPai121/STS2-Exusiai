@@ -4,22 +4,29 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MyFirstMod.Code.Cards;
 
 namespace MyFirstMod.Code.Powers;
 
 public class OverclockPower : CustomPowerModel
 {
+    private const int RechargeInterval = 2;
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/cards/Overclock.jpg";
     public override string CustomBigIconPath => "res://myfirstmod/images/cards/Overclock.jpg";
     public override List<(string, string)> Localization => [
         ("title", "过载模式"),
-        ("description", "你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。回合结束时移除。"),
-        ("smartDescription", "你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。回合结束时移除。")
+        ("description", "本回合中，你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。之后每隔1个回合，回合开始时再次获得此效果。"),
+        ("smartDescription", "本回合中，你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。之后每隔1个回合，回合开始时再次获得此效果。")
     ];
+
+    private int _freeAttacksPerOverload;
+    private int _turnsUntilRecharge = RechargeInterval;
 
     public override bool TryModifyStarCost(CardModel card, decimal currentCost, out decimal modifiedCost)
     {
@@ -47,6 +54,32 @@ public class OverclockPower : CustomPowerModel
 
     public override Task AfterApplied(Creature source, CardModel card)
     {
+        if (card is Overclock)
+        {
+            _freeAttacksPerOverload = card.DynamicVars.Cards.IntValue;
+            Amount = _freeAttacksPerOverload;
+            _turnsUntilRecharge = RechargeInterval;
+        }
+
+        RefreshHandAttackCosts();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (Owner.Player != player)
+            return Task.CompletedTask;
+
+        if (_freeAttacksPerOverload <= 0)
+            return Task.CompletedTask;
+
+        _turnsUntilRecharge--;
+        if (_turnsUntilRecharge > 0)
+            return Task.CompletedTask;
+
+        Amount = _freeAttacksPerOverload;
+        _turnsUntilRecharge = RechargeInterval;
+        Flash();
         RefreshHandAttackCosts();
         return Task.CompletedTask;
     }
@@ -67,14 +100,19 @@ public class OverclockPower : CustomPowerModel
         if (!IsAffectedAttack(cardPlay.Card))
             return;
 
-        await PowerCmd.Decrement(this);
+        Amount = Math.Max(0, Amount - 1);
         RefreshHandAttackCosts();
     }
 
-    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (Owner.Side == side)
-            await PowerCmd.Remove(this);
+        {
+            Amount = 0;
+            RefreshHandAttackCosts();
+        }
+
+        return Task.CompletedTask;
     }
 
     public override Task AfterRemoved(Creature source)

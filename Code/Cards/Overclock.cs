@@ -14,7 +14,7 @@ namespace MyFirstMod.Code.Cards;
 public class Overclock : MyFirstModCardModel
 {
     private const int energyCost = 2;
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
@@ -24,9 +24,7 @@ public class Overclock : MyFirstModCardModel
         new CardsVar(2)
     ];
 
-    public override List<(string, string)> Localization => [("title", "过载模式"), ("description", "抽[blue]{Cards}[/blue]张牌。本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌费用变为0。")];
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    public override List<(string, string)> Localization => [("title", "过载模式"), ("description", "本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌费用变为0。之后每隔1个回合，回合开始时再次获得此效果。")];
 
     public Overclock() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -34,7 +32,6 @@ public class Overclock : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
         await PowerCmd.Apply<OverclockPower>(
             Owner.Creature,
             DynamicVars.Cards.IntValue,
