@@ -62,6 +62,7 @@ Exusiai.pck
 - Removed unused legacy Spine and card-trail assets that were only producing export warnings.
 - Removed unused legacy card-frame assets that referenced external `InesSilent` resources and missing exported `.res` files.
 - Renamed character-select assets from stale Ines names to Exusiai names and removed duplicate/unused stale portrait and icon assets.
+- Removed unused raw character animation frame exports and the unused idle sheet; runtime animation now keeps only the cropped frame resources referenced by scenes.
 - Fixed duplicate card-image Godot import UIDs.
 - Added the missing `export_files` key to `export_presets.cfg`, leaving only the known `sts2` assembly lookup noise during export.
 
