@@ -26,6 +26,21 @@ function Assert-KeyParity($Name) {
     "localization parity ok: $Name ($($zhs.Count) keys)"
 }
 
+function Assert-RootLocalizationMirror($Name) {
+    foreach ($locale in @('zhs', 'eng')) {
+        $rootPath = "localization\$locale\$Name.json"
+        $modPath = "myfirstmod\localization\$locale\$Name.json"
+        $rootText = Get-Content -Raw -Encoding UTF8 (Join-Path $Root $rootPath)
+        $modText = Get-Content -Raw -Encoding UTF8 (Join-Path $Root $modPath)
+
+        if ($rootText -ne $modText) {
+            Write-Error "Root localization mirror mismatch: $rootPath differs from $modPath"
+        }
+    }
+
+    "root localization mirror ok: $Name"
+}
+
 function Assert-EnglishHasNoCjk {
     $issues = @()
     Get-ChildItem -Recurse -LiteralPath (Join-Path $Root 'myfirstmod\localization\eng') -Filter *.json | ForEach-Object {
@@ -98,6 +113,16 @@ function Assert-ConcreteResourcePaths {
 }
 
 foreach ($file in @(
+    'localization\zhs\cards.json',
+    'localization\zhs\relics.json',
+    'localization\zhs\characters.json',
+    'localization\zhs\ancients.json',
+    'localization\zhs\card_keywords.json',
+    'localization\eng\cards.json',
+    'localization\eng\relics.json',
+    'localization\eng\characters.json',
+    'localization\eng\ancients.json',
+    'localization\eng\card_keywords.json',
     'myfirstmod\localization\zhs\cards.json',
     'myfirstmod\localization\zhs\relics.json',
     'myfirstmod\localization\zhs\characters.json',
@@ -115,6 +140,7 @@ foreach ($file in @(
 
 foreach ($name in @('cards', 'relics', 'characters', 'ancients', 'card_keywords')) {
     Assert-KeyParity $name
+    Assert-RootLocalizationMirror $name
 }
 
 Assert-EnglishHasNoCjk

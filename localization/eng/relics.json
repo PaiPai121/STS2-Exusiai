@@ -1,0 +1,14 @@
+{
+  "MYFIRSTMOD-SNIPER_CHIPSET.title": "Sniper's Chipset",
+  "MYFIRSTMOD-SNIPER_CHIPSET.description": "Each combat, the 1st Attack you play is played 1 additional time.",
+  "MYFIRSTMOD-SNIPER_CHIPSET.flavor": "",
+  "MYFIRSTMOD-SPARK_CAPACITOR.title": "Spark Capacitor",
+  "MYFIRSTMOD-SPARK_CAPACITOR.description": "At the start of each combat, add 1 Gunspark to your hand.",
+  "MYFIRSTMOD-SPARK_CAPACITOR.flavor": "Short, bright, and enough to ignite the first volley.",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.title": "Tactical Magazine",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.description": "The first time you play a Gunspark each combat, draw 1 card.",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "A spare magazine is always one more than planned.",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "Reticle Calibrator",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "Whenever you play 3 Attacks, gain [green]{Block}[/green] Block.",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "Every recoil lines up the next breath."
+}

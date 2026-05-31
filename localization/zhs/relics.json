@@ -1,0 +1,14 @@
+{
+  "MYFIRSTMOD-SNIPER_CHIPSET.title": "狙击芯片",
+  "MYFIRSTMOD-SNIPER_CHIPSET.description": "每场战斗中，你打出的第1张攻击牌额外再打出1次。",
+  "MYFIRSTMOD-SNIPER_CHIPSET.flavor": "",
+  "MYFIRSTMOD-SPARK_CAPACITOR.title": "火花电容",
+  "MYFIRSTMOD-SPARK_CAPACITOR.description": "每场战斗开始时，将1张枪火火花加入手牌。",
+  "MYFIRSTMOD-SPARK_CAPACITOR.flavor": "短促、明亮，足够点燃第一轮火力。",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.title": "战术弹匣",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.description": "每场战斗中，你首次打出枪火火花时，抽1张牌。",
+  "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "备用弹匣总是比计划多一个。",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "准星校准器",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "每当你打出3张攻击牌，获得[green]{Block}[/green]点格挡。",
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "每一次后坐力，都在校准下一次呼吸。"
+}

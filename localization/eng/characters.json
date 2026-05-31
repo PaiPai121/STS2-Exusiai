@@ -1,0 +1,17 @@
+{
+  "MYFIRSTMOD-EXUSIAI.title": "Exusiai",
+  "MYFIRSTMOD-EXUSIAI.titleObject": "Exusiai",
+  "MYFIRSTMOD-EXUSIAI.description": "A Rhodes Island sniper Operator.\n[gold]Exusiai[/gold] never hesitates when the guns start singing.",
+  "MYFIRSTMOD-EXUSIAI.pronounSubject": "she",
+  "MYFIRSTMOD-EXUSIAI.pronounObject": "her",
+  "MYFIRSTMOD-EXUSIAI.pronounPossessive": "hers",
+  "MYFIRSTMOD-EXUSIAI.possessiveAdjective": "her",
+  "MYFIRSTMOD-EXUSIAI.goldMonologue": "[sine]All these gems... I could turn some into ammo.[/sine]",
+  "MYFIRSTMOD-EXUSIAI.eventDeathPrevention": "Still got ammo... I am not dropping here...",
+  "MYFIRSTMOD-EXUSIAI.aromaPrinciple": "[sine]...This smell reminds me of Rhodes Island.[/sine]",
+  "MYFIRSTMOD-EXUSIAI.cardsModifierTitle": "Exusiai Cards",
+  "MYFIRSTMOD-EXUSIAI.cardsModifierDescription": "Exusiai's cards can now appear in rewards and shops.",
+  "MYFIRSTMOD-EXUSIAI.banter.alive.endTurnPing": "Not done yet!",
+  "MYFIRSTMOD-EXUSIAI.banter.dead.endTurnPing": "...Next time.",
+  "MYFIRSTMOD-EXUSIAI.unlockText": "Complete a run with [pink]{Prerequisite}[/pink] to unlock this character."
+}

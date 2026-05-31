@@ -69,6 +69,7 @@
         <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.1" />
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All" />
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="*" />
+        <AdditionalFiles Include="localization/**/*.json" />
         <AdditionalFiles Include="myfirstmod/localization/**/*.json" />
     </ItemGroup>
 

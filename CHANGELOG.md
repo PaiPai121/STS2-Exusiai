@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.2 - 2026-05-31
+
+### Fixed
+
+- Packaged localization tables under the root `localization` path so custom keyword titles and descriptions, including Rapid Fire, resolve in-game.
+- Added validation for the root localization mirror used by the exported PCK.
+
 ## v1.0.1 - 2026-05-31
 
 ### Fixed
