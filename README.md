@@ -59,17 +59,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 ```
 
 ```powershell
-$files = @(
-  'myfirstmod\localization\zhs\cards.json',
-  'myfirstmod\localization\eng\cards.json',
-  'myfirstmod\localization\zhs\relics.json',
-  'myfirstmod\localization\eng\relics.json',
-  'Exusiai.json'
-)
-foreach ($f in $files) {
-  Get-Content -Raw -Encoding UTF8 $f | ConvertFrom-Json | Out-Null
-  Write-Output "OK $f"
-}
+.\tools\Validate-Exusiai.ps1
 ```
 
 ## Runtime Logs

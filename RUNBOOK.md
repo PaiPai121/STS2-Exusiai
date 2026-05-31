@@ -35,10 +35,11 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 
 ### Deploy
 需要同步以下内容到游戏 mods 目录：
-- `bin/Debug/net8.0/Exusiai.dll`
-- `Exusiai.pck`
-- `myfirstmod/`
+- `Exusiai.dll`
 - `Exusiai.json`
+- `Exusiai.pck`
+
+`dotnet build` 会按 `MyFirstMod.csproj` 的 `CopyToModsFolderOnBuild` 目标复制 DLL、manifest，并在 `Exusiai.pck` 存在时一并复制。资源变更后仍需先执行 Export PCK，再覆盖部署 `Exusiai.pck`。
 
 ## 故障分层
 1. 入口层：路径、shell、工作目录、命令入口是否正确
