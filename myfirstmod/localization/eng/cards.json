@@ -15,7 +15,7 @@
   "MYFIRSTMOD-OVERCLOCK.description": "This turn, the next [blue]{Cards}[/blue] Attacks you play cost 0. Every other turn, gain this effect again at the start of your turn.",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "Guaranteed Delivery!",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "Choose up to [blue]{Cards}[/blue] cards from your discard pile and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust. Exhaust.",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "Choose up to [blue]{Cards}[/blue] cards from your discard pile.",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "Choose up to [blue]{MaxCount}[/blue] cards from your discard pile.",
   "MYFIRSTMOD-GUNSLINGER_RUSH.title": "Gunslinger Rush",
   "MYFIRSTMOD-GUNSLINGER_RUSH.description": "Deal [red]{Damage}[/red] damage. Gain [green]{Block}[/green] Block. Rapid Fire.",
   "MYFIRSTMOD-TACTICAL_SIDESTEP.title": "Tactical Sidestep",

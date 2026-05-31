@@ -15,7 +15,7 @@
   "MYFIRSTMOD-OVERCLOCK.description": "本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌费用变为0。之后每隔1个回合，回合开始时再次获得此效果。",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "使命必达！",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。消耗。",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "从弃牌堆选择至多[blue]{Cards}[/blue]张牌。",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "从弃牌堆选择至多[blue]{MaxCount}[/blue]张牌。",
   "MYFIRSTMOD-GUNSLINGER_RUSH.title": "枪手突进",
   "MYFIRSTMOD-GUNSLINGER_RUSH.description": "造成[red]{Damage}[/red]点伤害。获得[green]{Block}[/green]点格挡。速射。",
   "MYFIRSTMOD-TACTICAL_SIDESTEP.title": "战术侧闪",
