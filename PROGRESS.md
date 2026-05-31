@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 11:12 Asia/Shanghai
+更新时间：2026-05-31 11:20 Asia/Shanghai
 
 ## 开工前检查
 
@@ -66,7 +66,7 @@
 - `终端齐射` 已降为生成 2 张 `枪火火花`，避免单卡直接推满火花回路触发。
 - 普通牌过牌强度已收敛：`战术侧闪` 去掉抽牌，`应急护盾` 升级不再增加抽牌，`速射架势` 降为抽 1/2。
 - `天使祝福` Power 已补出牌者检查，只统计拥有者本人的出牌。
-- `过载模式` 当前设计保留：2 费技能，虚无；抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0。当前已改为临时 `OverclockPower` 承载，费用修改走 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
+- `过载模式` 当前设计保留：2 费技能，虚无；抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0。当前已改为临时 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
 - `CARD_LIBRARY.md` 已更新为当前卡池真相。
 - `DESIGN_SOURCE.md` 已记录飞书文档状态与本地优先原则。
 - 飞书文档已用当前 `CARD_LIBRARY.md` 覆盖同步，回读 revision 为 `46`。
@@ -125,6 +125,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`ChainReaction` 与 `RapidStance` 卡图修正已进入 PCK。
 - 已执行 `dotnet build`，`OverclockPower` 编译通过；过载模式描述已去掉手写“虚无”，避免和关键字栏重复。
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
+- 已补充 `OverclockPower.TryModifyEnergyCostInCombat` 与 `SetToFreeThisTurn()` 兜底；临时 mod 输出目录构建通过。当前运行中的 `SlayTheSpire2.exe` 锁住游戏 mod 目录 DLL，需要退出游戏后才能覆盖到实际游戏目录。
 
 ## 当前暂存状态
 

@@ -32,10 +32,25 @@ public class OverclockPower : CustomPowerModel
         return false;
     }
 
+    public override bool TryModifyEnergyCostInCombat(CardModel card, decimal currentCost, out decimal modifiedCost)
+    {
+        if (IsAffectedAttack(card))
+        {
+            modifiedCost = 0;
+            return true;
+        }
+
+        modifiedCost = currentCost;
+        return false;
+    }
+
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         if (IsAffectedAttack(cardPlay.Card))
+        {
+            cardPlay.Card.SetToFreeThisTurn();
             cardPlay.Card.SetStarCostUntilPlayed(0);
+        }
 
         return Task.CompletedTask;
     }
