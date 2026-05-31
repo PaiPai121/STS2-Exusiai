@@ -12,7 +12,7 @@
   "MYFIRSTMOD-ANGELS_BLESSING.title": "天使祝福",
   "MYFIRSTMOD-ANGELS_BLESSING.description": "每回合中，你每打出5张牌，抽[blue]{Cards}[/blue]张牌。打出时先抽[blue]{Cards}[/blue]张牌。",
   "MYFIRSTMOD-OVERCLOCK.title": "过载模式",
-  "MYFIRSTMOD-OVERCLOCK.description": "虚无。抽[blue]{Cards}[/blue]张牌。本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌打出前费用变为0。",
+  "MYFIRSTMOD-OVERCLOCK.description": "抽[blue]{Cards}[/blue]张牌。本回合中，你接下来打出的[blue]{Cards}[/blue]张攻击牌费用变为0。",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "使命必达！",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌，本回合费用变为0，并获得虚无与消耗。消耗。",
   "MYFIRSTMOD-PLACEHOLDER_COMMON_SHOT_A.title": "占位连射A",
@@ -86,5 +86,8 @@
   "MYFIRSTMOD-SPARK_CIRCUIT_POWER.smartDescription": "每打出[blue]3[/blue]张枪火火花，抽[blue]1[/blue]张牌。",
   "MYFIRSTMOD-FIRE_CONTROL_POWER.title": "火控校准",
   "MYFIRSTMOD-FIRE_CONTROL_POWER.description": "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。",
-  "MYFIRSTMOD-FIRE_CONTROL_POWER.smartDescription": "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。"
+  "MYFIRSTMOD-FIRE_CONTROL_POWER.smartDescription": "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。",
+  "MYFIRSTMOD-OVERCLOCK_POWER.title": "过载模式",
+  "MYFIRSTMOD-OVERCLOCK_POWER.description": "你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。回合结束时移除。",
+  "MYFIRSTMOD-OVERCLOCK_POWER.smartDescription": "你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。回合结束时移除。"
 }

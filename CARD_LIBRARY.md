@@ -37,7 +37,7 @@
 | 类名 | 游戏内名称 | 类型 | 稀有度 | 费用 | 目标 | 关键字/标签 | 效果摘要 | 备注 |
 |---|---|---|---|---:|---|---|---|---|
 | AngelsBlessing | 天使祝福 | 能力 | 罕见 | 1 | 自身 | 无 | 打出时抽 1/2 张牌；获得天使祝福能力，每回合每打出5张牌再抽 1/2 张牌 | 已重构为正式 Power 系统，能力持久附着于角色，不再依赖卡实例残留状态 |
-| Overclock | 过载模式 | 技能 | 罕见 | 2 | 自身 | 虚无 | 抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌打出前费用变为 0 | 已校准为限次攻击减费逻辑，消耗计数只在拥有者打出攻击时递减 |
+| Overclock | 过载模式 | 技能 | 罕见 | 2 | 自身 | 虚无 | 抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0 | 已改为临时 `OverclockPower` 承载，用 `TryModifyStarCost` 影响手牌费用、可打出判断和支付；描述不再手写“虚无” |
 | WarfarinsPlasma | 华法琳特调 | 技能 | 罕见 | 1 | 自身 | 自损、生成 Gunspark | 失去 2 点生命，抽 1/2 张牌并将 1 张枪火火花加入手牌 | 已进一步降档为带代价的资源转换牌，避免 1 费抽 2 加生成牌的过强效率 |
 | QuickMagazine | 快速换弹 | 技能 | 罕见 | 0 | 自身 | 生成 Gunspark | 抽 1/2 张牌并将 1 张枪火火花加入手牌 | 从 0 费抽 2/3 降档，保留免费换弹衔接但避免成为过强过牌引擎 |
 | SweepMode | 扫射模式 | 能力 | 罕见 | 1 | 自身 | Power、AOE | 每当你打出攻击牌，对所有敌人造成 2/3 点伤害 | 已从一次性攻击改为更符合“模式”的持续扫射能力 |
@@ -64,7 +64,7 @@
 - 第一轮新增通用卡池已接入代码；`Gunspark` token 生成链已恢复，当前实现使用 `Owner.Creature.CombatState.CreateCard<Gunspark>(Owner)` 创建战斗内 token，再通过 `CardPileCmd.AddGeneratedCardToCombat` 加入手牌
 - `StrikeCopy` / `StrikeCopyPlus` 类已从代码中清理，当前不再是实际卡牌
 - `AngelsBlessing`、`SweepMode`、`SparkCircuit`、`FireControl` 已进入正式 Power 系统；当前“打牌次数抽牌”“攻击触发扫射”“Gunspark 过牌”“每回合生成 Gunspark”作为本地当前方案保留
-- `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿
+- `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿；`Overclock` 的限次减费不再依赖卡实例残留状态
 - 当前新卡大多仍为**首版数值/骨架实现**，后续调整以 `DESIGN_SOURCE.md` 的本地设计判断为准；2026-05-30 已新增 9 张小扩展卡，覆盖低费连击、防御 token、速射 token、Gunspark 引擎和稀有终端
 - 新卡肖像资源已增加 `CardTemplate.jpg` 动态后备逻辑，但真实卡面资源仍建议继续补齐
 - `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
