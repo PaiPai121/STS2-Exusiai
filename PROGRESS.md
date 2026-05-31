@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 13:45 Asia/Shanghai
+更新时间：2026-05-31 14:05 Asia/Shanghai
 
 ## 开工前检查
 
@@ -70,6 +70,7 @@
 - 普通牌过牌强度已收敛：`战术侧闪` 去掉抽牌，`应急护盾` 升级不再增加抽牌，`速射架势` 降为抽 1/2。
 - `SparkCircuit.jpg` / `火花回路` 卡面已重做为能天使主体：红发、光环、黑蓝战术服、枪械与橙色火花回路均保留，旧的泛用机械天使图已备份到 `D:\work_console\MyFirstMod_asset_backups\cards\SparkCircuit_before_exusiai_fix.jpg`。
 - `使命必达！` 已修复弃牌堆选择后卡死：选择弹窗改为引用 `cards/MYFIRSTMOD-DELIVERY_GUARANTEED.select` 本地化 key，不再把中文标题误当 loc table；选中牌与复制牌也先固化为列表后再加入手牌，避免改牌堆时碰到延迟枚举。
+- 已补齐英文 `eng` 本地化：卡牌/Power、关键词、角色、遗物、远古者对白均与 `zhs` key 对齐；英文模式下不应再出现缺失 key 或中文文本。
 - `天使祝福` Power 已补出牌者检查，只统计拥有者本人的出牌。
 - `过载模式` 当前设计保留：2 费技能，虚无；抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0。当前已改为临时 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
 - `CARD_LIBRARY.md` 已更新为当前卡池真相。
