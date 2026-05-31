@@ -66,15 +66,15 @@
 - `AngelsBlessing`、`SweepMode`、`SparkCircuit`、`FireControl` 已进入正式 Power 系统；当前“打牌次数抽牌”“攻击触发扫射”“Gunspark 过牌”“每回合生成 Gunspark”作为本地当前方案保留
 - `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿；`Overclock` 的限次减费不再依赖卡实例残留状态
 - 当前新卡大多仍为**首版数值/骨架实现**，后续调整以 `DESIGN_SOURCE.md` 的本地设计判断为准；2026-05-30 已新增 9 张小扩展卡，覆盖低费连击、防御 token、速射 token、Gunspark 引擎和稀有终端
-- 新卡肖像资源已增加 `CardTemplate.jpg` 动态后备逻辑，但真实卡面资源仍建议继续补齐
+- 卡牌类与卡面资源已对齐：32 个卡牌类含 `Gunspark` token，对应 32 张真实卡面；`CardTemplate.jpg` 动态后备逻辑仅作为防御性兜底保留
 - `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 与 `PLACEHOLDER_*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
 - 当前实际注册卡池统计：31 张牌，其中基础 2、普通 13、罕见 10、稀有 6；攻击 15、技能 12、能力 4。后续扩池优先补罕见/稀有机制牌，避免普通攻击继续膨胀。
 
 ## 后续替换优先级
-1. 游戏内验证 `PursuitOrder` 等 token 生成牌：确认 `Gunspark` 能正常加入手牌并可被打出，不再因 token 绑定异常卡死
-2. 继续观察 `AngelsBlessing`、`Overclock`、`DeliveryGuaranteed` 的实战强度，再决定是否微调数值和持续时间
-3. 将已接入的新通用卡从“骨架版效果”升级为本地当前设计版本；旧飞书稿只作为参考
-4. 为新增卡补齐真实 portrait 资源，减少 fallback 日志
+1. 继续观察 `AngelsBlessing`、`Overclock`、`DeliveryGuaranteed` 的实战强度，再决定是否微调数值和持续时间
+2. 优先处理实机反馈中仍能复现的卡面裁切、角色动画、休息界面融合度问题
+3. 后续扩池优先补罕见/稀有机制牌或遗物/事件支撑，避免继续堆普通攻击
+4. 旧飞书稿只作为历史参考；当前实现和本文件优先
 
 ## 维护规则
 - 新增、删除或替换卡牌时，必须同步更新本文件。

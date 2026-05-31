@@ -129,12 +129,12 @@ C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs
 
 ## Next Suggestions
 
-1. Commit the current cleanup after review.
-2. Do one in-game smoke pass focused on the still-worth-testing list.
-3. If gameplay is stable, the next work should be polish rather than broad balance churn:
+1. Treat gameplay balance as provisionally stable unless new real-run feedback contradicts it.
+2. Continue polish work before broad balance churn:
    - fix remaining card-art crop issues if found
-   - clean any remaining runtime log warnings that point to real missing assets
-   - consider a real animated combat/rest character asset later
+   - clean runtime log warnings that point to real missing assets
+   - improve character/rest visual cohesion when better assets are available
+3. Future card expansion should prefer uncommon/rare mechanics, relic/event support, or build-around payoffs instead of more common attacks.
 
 ## Maintenance Rules
 
