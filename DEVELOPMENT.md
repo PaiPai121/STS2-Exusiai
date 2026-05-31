@@ -142,7 +142,7 @@ After adding or changing images, export and deploy `Exusiai.pck`.
 
 ## Rest Site
 
-Rest-site display uses `ExusiaiRestSiteCreatePatch` to create the correct runtime node. Do not switch `CustomRestSiteAnimPath` directly to an unverified custom scene; the old custom scene-root mismatch caused rest-site freezes.
+Rest-site display uses `ExusiaiRestSiteCreatePatch` to create the correct runtime node. Do not switch `CustomRestSiteAnimPath` directly to an unverified custom scene; the old custom scene-root mismatch caused rest-site freezes. The old custom rest-site scene has been removed from the repo so the runtime patch remains the only active path.
 
 ## Feishu Design Source
 

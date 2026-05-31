@@ -55,6 +55,9 @@ Exusiai.pck
   - cleaned mojibake comments in `Exusiai.cs`
   - cleaned mojibake comments in `RapidFireCardModel.cs`
   - removed empty character hook overrides that had no behavior
+- Removed unused risky scenes:
+  - deleted `myfirstmod/scenes/ui/card_trail_exusiai.tscn`, which referenced missing old `InesCardTrail` scripts
+  - deleted old `myfirstmod/scenes/character/exusiai_rest_site.tscn`; rest site now uses the runtime patch only
 
 ## Current Card Pool Notes
 
