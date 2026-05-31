@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.3 - 2026-05-31
+
+### Fixed
+
+- Added fallback localization for Exhaust, Ethereal, and keyword punctuation so cards like Quick Magazine no longer show raw keyword keys.
+
 ## v1.0.2 - 2026-05-31
 
 ### Fixed
