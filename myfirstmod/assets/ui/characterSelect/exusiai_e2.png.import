@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctx132v6ceoxt"
-path="res://.godot/imported/ines_portrait.png-c335a761c1807b000a186b8f7d9abf2b.ctex"
+uid="uid://gjlyk4nd6bd8"
+path="res://.godot/imported/exusiai_e2.png-2e251de62e7f45c917c18043594b65f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://myfirstmod/assets/ui/characterSelect/ines_portrait.png"
-dest_files=["res://.godot/imported/ines_portrait.png-c335a761c1807b000a186b8f7d9abf2b.ctex"]
+source_file="res://myfirstmod/assets/ui/characterSelect/exusiai_e2.png"
+dest_files=["res://.godot/imported/exusiai_e2.png-2e251de62e7f45c917c18043594b65f4.ctex"]
 
 [params]
 

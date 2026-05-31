@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://fcuocamiai2r"]
 
-[ext_resource type="Script" uid="uid://bmakfbcegxxia" path="res://myfirstmod/assets/ui/characterSelect/character_select_parallax.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bhs0bh5q6fdi7" path="res://myfirstmod/assets/ui/characterSelect/ines_rhodes.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://c0ylkcqv7apl2" path="res://myfirstmod/assets/ui/characterSelect/ines_e2.png" id="3"]
-[ext_resource type="Shader" uid="uid://umsc0f4vou50" path="res://myfirstmod/assets/ui/characterSelect/ines_fog.gdshader" id="4"]
-[ext_resource type="Texture2D" uid="uid://6ky3uf3vwtdf" path="res://myfirstmod/assets/ui/characterSelect/base/light.png" id="5"]
-[ext_resource type="Script" uid="uid://djha7vnp42e3s" path="res://myfirstmod/assets/ui/characterSelect/base/little_light_script.gd" id="6"]
+[ext_resource type="Script" path="res://myfirstmod/assets/ui/characterSelect/character_select_parallax.gd" id="1"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/ui/characterSelect/exusiai_rhodes.png" id="2"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/ui/characterSelect/exusiai_e2.png" id="3"]
+[ext_resource type="Shader" path="res://myfirstmod/assets/ui/characterSelect/exusiai_fog.gdshader" id="4"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/ui/characterSelect/base/light.png" id="5"]
+[ext_resource type="Script" path="res://myfirstmod/assets/ui/characterSelect/base/little_light_script.gd" id="6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ddnyc"]
 frequency = 0.0011
@@ -59,7 +59,7 @@ texture = ExtResource("2")
 
 [node name="sprite" type="Parallax2D" parent="parallax"]
 
-[node name="InesE2" type="Sprite2D" parent="parallax/sprite"]
+[node name="ExusiaiE2" type="Sprite2D" parent="parallax/sprite"]
 position = Vector2(1602.975, 739)
 scale = Vector2(1.1339439, 1.1339436)
 texture = ExtResource("3")
