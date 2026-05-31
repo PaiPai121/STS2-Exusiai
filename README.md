@@ -33,7 +33,7 @@ Then copy it into the game mod directory:
 Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
 ```
 
-The exporter currently prints known Godot noise about `sts2`, duplicate image UIDs, and the missing `export_files` export-preset key. Treat the export as successful when `Exusiai.pck` is written.
+The exporter currently prints known Godot noise about `sts2` assembly lookup. Treat the export as successful when `Exusiai.pck` is written.
 
 ## Core Features
 

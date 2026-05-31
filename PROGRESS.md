@@ -60,6 +60,8 @@ Exusiai.pck
   - deleted old `myfirstmod/scenes/character/exusiai_rest_site.tscn`; rest site now uses the runtime patch only
 - Removed unused legacy Spine and card-trail assets that were only producing export warnings.
 - Removed unused legacy card-frame assets that referenced external `InesSilent` resources and missing exported `.res` files.
+- Fixed duplicate card-image Godot import UIDs.
+- Added the missing `export_files` key to `export_presets.cfg`, leaving only the known `sts2` assembly lookup noise during export.
 
 ## Current Card Pool Notes
 
@@ -99,8 +101,6 @@ Known recurring build warnings:
 Known export noise can be ignored if the command exits successfully and `Exusiai.pck` is produced:
 
 - `sts2` FileNotFoundException
-- UID duplicate warnings
-- missing `export_files` key in `export_presets.cfg`
 
 ## Deploy Command
 

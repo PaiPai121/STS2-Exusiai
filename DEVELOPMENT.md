@@ -55,8 +55,6 @@ Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:
 Known export noise can be ignored if the command succeeds and `Exusiai.pck` is produced:
 
 - `sts2` FileNotFoundException
-- UID duplicate warnings
-- missing `export_files` key in `export_presets.cfg`
 
 ## Naming Rules
 
