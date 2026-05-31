@@ -15,7 +15,7 @@ public class AngelsBlessingPower : CustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
-    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。"), ("smartDescription", "每打出5张牌，抽[blue]{Amount}[/blue]张牌。")];
+    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出[blue]{Amount}[/blue]张牌，抽1张牌。"), ("smartDescription", "每打出[blue]{Amount}[/blue]张牌，抽1张牌。")];
 
     private int _cardsPlayedThisTurn;
 
@@ -31,9 +31,10 @@ public class AngelsBlessingPower : CustomPowerModel
     {
         if (cardPlay.Card == null) return;
         if (cardPlay.Card.Owner != Owner.Player) return;
+        if (Amount <= 0) return;
 
         _cardsPlayedThisTurn++;
-        if (_cardsPlayedThisTurn % 5 != 0) return;
+        if (_cardsPlayedThisTurn % Amount != 0) return;
 
         if (Owner.Player == null)
             return;
@@ -41,6 +42,6 @@ public class AngelsBlessingPower : CustomPowerModel
         if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
-        await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
+        await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
     }
 }

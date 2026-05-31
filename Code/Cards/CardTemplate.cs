@@ -55,7 +55,7 @@ public class CardTemplate : RapidFireCardModel
 
 /// <summary>
 /// 覆盖射击 — 能天使专属普通攻击牌。
-/// 造成中等伤害，无特殊关键字，稳定的输出选择。
+/// 造成轻度伤害并补一张牌，作为普通攻击续航选择。
 /// </summary>
 [Pool(typeof(ExusiaiCardPool))]
 public class CoverFire : MyFirstModCardModel
@@ -67,7 +67,7 @@ public class CoverFire : MyFirstModCardModel
     private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(9, ValueProp.Move),
+        new DamageVar(7, ValueProp.Move),
         new CardsVar(1)
     ];
 
@@ -92,7 +92,7 @@ public class CoverFire : MyFirstModCardModel
 
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Damage.UpgradeValueBy(2);
     }
 }
 

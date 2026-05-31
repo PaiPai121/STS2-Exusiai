@@ -19,10 +19,10 @@ public class AngelsBlessing : MyFirstModCardModel
     private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(1)
+        new CardsVar(5)
     ];
 
-    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每回合中，你每打出5张牌，抽[blue]{Cards}[/blue]张牌。打出时先抽[blue]{Cards}[/blue]张牌。")];
+    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每回合中，你每打出[blue]{Cards}[/blue]张牌，抽1张牌。")];
 
     public AngelsBlessing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -30,7 +30,6 @@ public class AngelsBlessing : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
         await PowerCmd.Apply<AngelsBlessingPower>(
             Owner.Creature,
             DynamicVars.Cards.IntValue,
@@ -40,6 +39,6 @@ public class AngelsBlessing : MyFirstModCardModel
 
     public override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1);
+        DynamicVars.Cards.UpgradeValueBy(-1);
     }
 }

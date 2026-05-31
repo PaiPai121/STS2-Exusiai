@@ -46,24 +46,19 @@ public class CoverReload : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class InterleavedFire : RapidFireCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new BlockVar(5, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "交错射击"), ("description", "造成[red]{Damage}[/red]点伤害。获得[green]{Block}[/green]点格挡。速射。")];
-    public InterleavedFire() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "交错射击"), ("description", "造成[red]{Damage}[/red]点伤害。速射。")];
+    public InterleavedFire() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         if (p.Target != null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         await TryGenerateRapidFireCopy(c, p);
     }
 
-    public override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(2);
-        DynamicVars.Block.UpgradeValueBy(2);
-    }
+    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
@@ -85,7 +80,7 @@ public class SparkCircuit : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class BreakthroughVector : RapidFireCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "突破向量"), ("description", "造成[red]{Damage}[/red]点伤害。将1张枪火火花加入手牌。速射。")];
     public BreakthroughVector() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
 
@@ -98,7 +93,7 @@ public class BreakthroughVector : RapidFireCardModel
         await TryGenerateRapidFireCopy(c, p);
     }
 
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
+    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
@@ -155,19 +150,19 @@ public class AngelicReload : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class TerminalVolley : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(26, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "终端齐射"), ("description", "造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。消耗。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(18, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "终端齐射"), ("description", "对所有敌人造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。消耗。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public TerminalVolley() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        if (p.Target != null)
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+        if (Owner.Creature?.CombatState != null)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(Owner.Creature.CombatState).Execute(c);
 
         await GeneratedTokenHelper.AddGunsparkToHand(this);
         await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
 
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(7);
+    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }
