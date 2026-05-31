@@ -158,6 +158,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 完成一次完成度清理：英文 `Crossfire` 描述已与速射复制实装对齐；普通动画调试日志已收敛为必要错误日志；Harmony id 已改为 `exusiai`；卡牌图片、遗物图标、Power 图标资源存在性检查通过。
 - `OverclockPower` 与 `ChainReactionPower` 已补齐独立 256x256 状态图标，资源位于 `myfirstmod/images/powers/`；不再直接复用卡面 JPG 作为状态栏图标。
 - 修复 `使命必达！` 选弃牌堆弹窗的本地化变量错误：`select` 文案改用选择器上下文提供的 `{MaxCount}`，避免旧日志中的 `No source extension could handle the selector named "Cards"` 格式化错误。
+- 补充角色与卡牌预加载资源：角色头像、选择界面图、能量图标、休息点贴图、正式 Power 图标加入 `ExtraAssetPaths`；卡牌卡图加入 `ExtraRunAssetPaths`，减少运行时 `Asset not cached` 警告。
 
 ## 当前暂存状态
 

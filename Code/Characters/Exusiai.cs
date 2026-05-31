@@ -37,6 +37,20 @@ public class Exusiai : PlaceholderCharacterModel
     public override string CustomCharacterSelectIconPath => "res://myfirstmod/images/exusiai/char_select_exusiai.png";
     public override string CustomCharacterSelectLockedIconPath => "res://myfirstmod/images/exusiai/char_select_exusiai_locked.png";
     public override string CustomIconTexturePath => "res://myfirstmod/images/exusiai/character_icon_exusiai.png";
+    public override IEnumerable<string> ExtraAssetPaths => [
+        "res://myfirstmod/images/exusiai/character_icon_exusiai.png",
+        "res://myfirstmod/images/exusiai/char_select_exusiai.png",
+        "res://myfirstmod/images/exusiai/char_select_exusiai_locked.png",
+        "res://myfirstmod/images/exusiai/energy_exusiai.png",
+        "res://myfirstmod/images/exusiai/energy_exusiai_big.png",
+        "res://myfirstmod/assets/character/generated/exusiai_rest_site.png",
+        "res://myfirstmod/images/powers/AngelsBlessingPower.png",
+        "res://myfirstmod/images/powers/ChainReactionPower.png",
+        "res://myfirstmod/images/powers/FireControlPower.png",
+        "res://myfirstmod/images/powers/OverclockPower.png",
+        "res://myfirstmod/images/powers/SparkCircuitPower.png",
+        "res://myfirstmod/images/powers/SweepModePower.png",
+    ];
 
     // ========== 音效（暂用铁甲战士的） ==========
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
