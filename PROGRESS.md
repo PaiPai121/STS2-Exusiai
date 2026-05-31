@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 10:40 Asia/Shanghai
+更新时间：2026-05-31 10:47 Asia/Shanghai
 
 ## 开工前检查
 
@@ -37,6 +37,7 @@
   - `Overclock`、`BarrageFire`、`ChainReaction`、`GunslingerRush`、`SuppressiveFire`、`TacticalSidestep`、`PiercingRound`、`TacticalRetreat`、`PursuitOrder`、`QuickMagazine`、`WarfarinsPlasma`、`SweepMode` 改用原图 `y=220` 裁切，清理上方白线。
   - `HaloCover` 改用能天使蓝色护盾素材。
   - `BreakthroughVector` 改用能天使突进素材。
+- 三次校准 4 张仍有上方白线的卡图：`TacticalSidestep`、`TacticalRetreat`、`QuickMagazine`、`SweepMode` 改用原图 `y=256` 极限裁切，保持 `1024x768` 不变。
 - 新增 3 个专属遗物并接入遗物池：
   - `SparkCapacitor` / 火花电容：每场战斗第一个玩家回合开始时，将 1 张 `枪火火花` 加入手牌。
   - `TacticalMagazine` / 战术弹匣：每场战斗中首次打出 `枪火火花` 时，抽 1 张牌。
@@ -119,6 +120,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已重新导出 `MyFirstMod.pck`，能天使休息场景已进入 PCK。
 - 已重新导出 `MyFirstMod.pck`，40 张卡图的横向裁切版本已进入 PCK。
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，14 张二次校准卡图已进入 PCK。
+- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，4 张三次校准卡图已进入 PCK。
 
 ## 当前暂存状态
 
