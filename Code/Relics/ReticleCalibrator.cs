@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
+using MyFirstMod.Code;
 using MyFirstMod.Code.RelicPools;
 
 namespace MyFirstMod.Code.Relics;
@@ -39,6 +40,12 @@ public class ReticleCalibrator : MyFirstModRelicModel
 
         _attacksPlayed++;
         if (_attacksPlayed % 3 != 0)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(Owner.Creature?.CombatState))
+            return;
+
+        if (Owner.Creature == null)
             return;
 
         Flash();

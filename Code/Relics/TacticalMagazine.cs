@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Rooms;
+using MyFirstMod.Code;
 using MyFirstMod.Code.Cards;
 using MyFirstMod.Code.RelicPools;
 
@@ -34,6 +35,9 @@ public class TacticalMagazine : MyFirstModRelicModel
             return;
 
         if (cardPlay.Card.Owner != Owner)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(Owner.Creature?.CombatState))
             return;
 
         _usedThisCombat = true;

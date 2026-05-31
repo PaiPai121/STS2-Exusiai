@@ -67,7 +67,8 @@
 - `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿；`Overclock` 的限次减费不再依赖卡实例残留状态
 - 当前新卡大多仍为**首版数值/骨架实现**，后续调整以 `DESIGN_SOURCE.md` 的本地设计判断为准；2026-05-30 已新增 9 张小扩展卡，覆盖低费连击、防御 token、速射 token、Gunspark 引擎和稀有终端
 - 新卡肖像资源已增加 `CardTemplate.jpg` 动态后备逻辑，但真实卡面资源仍建议继续补齐
-- `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
+- `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 与 `PLACEHOLDER_*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
+- 当前实际注册卡池统计：31 张牌，其中基础 2、普通 13、罕见 10、稀有 6；攻击 15、技能 12、能力 4。后续扩池优先补罕见/稀有机制牌，避免普通攻击继续膨胀。
 
 ## 后续替换优先级
 1. 游戏内验证 `PursuitOrder` 等 token 生成牌：确认 `Gunspark` 能正常加入手牌并可被打出，不再因 token 绑定异常卡死

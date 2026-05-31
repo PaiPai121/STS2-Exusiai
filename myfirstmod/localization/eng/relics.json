@@ -10,8 +10,5 @@
   "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "A spare magazine is always one more than planned.",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "Reticle Calibrator",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "Whenever you play 3 Attacks, gain [green]{Block}[/green] Block.",
-  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "Every recoil lines up the next breath.",
-  "MYFIRSTMOD-RELIC_TEMPLATE.title": "Relic Template",
-  "MYFIRSTMOD-RELIC_TEMPLATE.description": "At the start of each turn, draw [blue]{Cards}[/blue] card.",
-  "MYFIRSTMOD-RELIC_TEMPLATE.flavor": "This is flavor text."
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "Every recoil lines up the next breath."
 }

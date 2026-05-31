@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MyFirstMod.Code;
 
 namespace MyFirstMod.Code.Powers;
 
@@ -35,6 +36,9 @@ public class AngelsBlessingPower : CustomPowerModel
         if (_cardsPlayedThisTurn % 5 != 0) return;
 
         if (Owner.Player == null)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
         await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);

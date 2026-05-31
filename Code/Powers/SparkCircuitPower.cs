@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MyFirstMod.Code;
 using MyFirstMod.Code.Cards;
 
 namespace MyFirstMod.Code.Powers;
@@ -36,7 +37,12 @@ public class SparkCircuitPower : CustomPowerModel
             return;
 
         _gunsparksPlayed = 0;
-        if (Owner.Player != null)
-            await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
+        if (Owner.Player == null)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
+            return;
+
+        await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
     }
 }

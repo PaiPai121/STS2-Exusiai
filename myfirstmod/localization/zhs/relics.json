@@ -10,8 +10,5 @@
     "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "备用弹匣总是比计划多一个。",
     "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "准星校准器",
     "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "每打出 3 张攻击牌，获得[green]{Block}[/green]点格挡。",
-    "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "每一次后坐力，都在校准下一次呼吸。",
-    "MYFIRSTMOD-RELIC_TEMPLATE.title": "遗物模板",
-    "MYFIRSTMOD-RELIC_TEMPLATE.description": "每回合开始时，抽[blue]{Cards}[/blue]张牌。",
-    "MYFIRSTMOD-RELIC_TEMPLATE.flavor": "这是一段风味文字。"
+    "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "每一次后坐力，都在校准下一次呼吸。"
 }

@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
+using MyFirstMod.Code;
 using MyFirstMod.Code.CardPools;
 using MyFirstMod.Code.Powers;
 
@@ -20,6 +21,9 @@ static class GeneratedTokenHelper
         var owner = source.Owner;
         var combatState = owner?.Creature?.CombatState;
         if (owner == null || combatState == null)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(combatState))
             return;
 
         CardModel spark = combatState.CreateCard<Gunspark>(owner);

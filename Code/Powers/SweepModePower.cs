@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MyFirstMod.Code;
 
 namespace MyFirstMod.Code.Powers;
 
@@ -30,6 +31,9 @@ public class SweepModePower : CustomPowerModel
             return;
 
         if (Owner.CombatState == null)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
         await DamageCmd.Attack(Amount).FromCard(cardPlay.Card).TargetingAllOpponents(Owner.CombatState).Execute(choiceContext);
