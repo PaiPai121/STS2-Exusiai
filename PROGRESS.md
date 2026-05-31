@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 11:34 Asia/Shanghai
+更新时间：2026-05-31 11:43 Asia/Shanghai
 
 ## 开工前检查
 
@@ -55,7 +55,7 @@
   - `SparkCircuitPower.png`
   - `FireControlPower.png`
 - 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
-- 休息/篝火角色显示已从铁甲战士场景切换为 `myfirstmod/scenes/character/exusiai_rest_site.tscn`；该场景已改成原版 `NRestSiteCharacter` 兼容结构，补齐 `SpineSprite`、`ControlRoot`、`SelectionReticle`、`Hitbox` 与左右气泡锚点，避免休息界面交互节点缺失导致卡死。
+- 休息/篝火角色显示已从铁甲战士场景切换为静态 PNG：`myfirstmod/assets/character/exusiai_battle.png`。此前自制 `.tscn` 休息场景仍会卡死，当前先按皮肤模板的稳定做法绕开休息角色场景脚本与 Spine 节点。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
 - `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
@@ -127,6 +127,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
 - 已补充 `OverclockPower.TryModifyEnergyCostInCombat` 与 `SetToFreeThisTurn()` 兜底；临时 mod 输出目录构建通过。当前运行中的 `SlayTheSpire2.exe` 锁住游戏 mod 目录 DLL，需要退出游戏后才能覆盖到实际游戏目录。
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，休息场景兼容结构与 Spine 资源路径修正已进入 PCK；导出器仍会打印游戏本体脚本/Spine loader 缺失警告，运行时依赖游戏本体解析。
+- 已执行 `dotnet build` 并复制到游戏 mod 目录，`CustomRestSiteAnimPath` 已改为静态 PNG 路径；已重新导出并复制 `MyFirstMod.pck`。
 
 ## 当前暂存状态
 
