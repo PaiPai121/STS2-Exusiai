@@ -1,13 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfmy38a5b76ul"]
+[gd_scene load_steps=3 format=3 uid="uid://cfmy38a5b76ul"]
 
-[ext_resource type="Script" path="res://Code/Animation/ExusiaiRestSiteCharacter.cs" id="1_rest"]
 [ext_resource type="Texture2D" path="res://myfirstmod/assets/character/exusiai_battle.png" id="2_rest"]
 [ext_resource type="PackedScene" path="res://scenes/ui/selection_reticle.tscn" id="3_rest"]
 
 [node name="ExusiaiRestSite" type="Node2D"]
 position = Vector2(-2, 42)
 scale = Vector2(0.760006, 0.760006)
-script = ExtResource("1_rest")
 
 [node name="Visuals" type="Sprite2D" parent="."]
 position = Vector2(-82, -165)

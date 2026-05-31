@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 12:18 Asia/Shanghai
+更新时间：2026-05-31 12:32 Asia/Shanghai
 
 ## 开工前检查
 
@@ -55,8 +55,9 @@
   - `SparkCircuitPower.png`
   - `FireControlPower.png`
 - 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
-- 休息/篝火角色显示已改回 `PackedScene`：`myfirstmod/scenes/character/exusiai_rest_site.tscn`。运行日志确认当前游戏版本会把 `CustomRestSiteAnimPath` 当作场景加载，直接指向 PNG 会触发 `CompressedTexture2D` 转 `PackedScene` 的运行时异常。
-- 休息/篝火场景根节点挂载 `ExusiaiRestSiteCharacter : NRestSiteCharacter`，满足游戏对 `NRestSiteCharacter` 根类型的强制转换要求；可视节点改为普通 `Sprite2D` 使用 `exusiai_battle.png`，避开导出器缺少 Spine loader 时无法解析 `SpineSprite` 的问题。
+- 休息/篝火角色显示已改为运行时补丁方案：`CustomRestSiteAnimPath` 指向游戏自带有效休息场景用于预加载，`NRestSiteCharacter.Create` 在角色为能天使时返回程序化构造的 `NRestSiteCharacter`，可视节点使用 `exusiai_battle.png`。
+- 游戏目录旧的松散 `myfirstmod/` 与 `images/` 资源目录已移出到 `D:\work_console\MyFirstMod_asset_backups\deployed_loose_backups\20260531_1228`，避免旧 `.tscn` 覆盖新 PCK。
+- `SniperChipset.png` 已恢复为用户提供的原始素材：`D:\work_console\workspaceforexusuai\assests\Sniper's Chipset.png`。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
 - `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
@@ -127,8 +128,9 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已执行 `dotnet build`，`OverclockPower` 编译通过；过载模式描述已去掉手写“虚无”，避免和关键字栏重复。
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
 - 已补充 `OverclockPower.TryModifyEnergyCostInCombat` 与 `SetToFreeThisTurn()` 兜底；临时 mod 输出目录构建通过。当前运行中的 `SlayTheSpire2.exe` 锁住游戏 mod 目录 DLL，需要退出游戏后才能覆盖到实际游戏目录。
-- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录，休息场景已改为 `NRestSiteCharacter` 子类根节点 + 静态 `Sprite2D`，不再使用休息点 Spine 节点。
-- 已执行 `dotnet build`，DLL/manifest/PCK 均已覆盖到游戏 mod 目录；导出日志确认 `exusiai_rest_site.tscn` 已生成 `.scn/.remap`，不再出现该休息场景的 `SpineSprite` 解析错误。
+- 已执行 `dotnet build`，DLL/manifest 已覆盖到游戏 mod 目录。
+- 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录；当前游戏目录仅保留 `MyFirstMod.dll`、`myfirstmod.json`、`MyFirstMod.pck` 和旧 PCK 备份，不再保留会覆盖 PCK 的松散 `myfirstmod/` 目录。
+- 休息点卡死最新日志原因已定位：旧松散 `mods/MyFirstMod/myfirstmod/scenes/character/exusiai_rest_site.tscn` 覆盖了 PCK，且根节点仍为 `Node2D`，触发 `NRestSiteCharacter` 强制转换异常。
 
 ## 当前暂存状态
 

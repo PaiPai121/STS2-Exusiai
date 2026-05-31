@@ -31,7 +31,7 @@ public class Exusiai : PlaceholderCharacterModel
     public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
     public override string CustomIconPath => "res://myfirstmod/scenes/ui/exusiai_icon.tscn";
     public override string CustomMerchantAnimPath => "res://myfirstmod/scenes/character/exusiai_merchant.tscn";
-    public override string CustomRestSiteAnimPath => "res://myfirstmod/scenes/character/exusiai_rest_site.tscn";
+    public override string CustomRestSiteAnimPath => "res://scenes/rest_site/characters/ironclad_rest_site.tscn";
 
     // ========== 图标路径 ==========
     public override string CustomCharacterSelectIconPath => "res://myfirstmod/images/exusiai/char_select_exusiai.png";
