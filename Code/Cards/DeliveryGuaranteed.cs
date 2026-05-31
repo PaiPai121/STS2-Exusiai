@@ -25,7 +25,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
 
     public override List<(string, string)> Localization => [
         ("title", "使命必达！"),
-        ("description", "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。消耗。"),
+        ("description", "从弃牌堆选择至多[blue]{Cards}[/blue]张牌，将其复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。"),
         ("select", "从弃牌堆选择至多[blue]{MaxCount}[/blue]张牌。")
     ];
 

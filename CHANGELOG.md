@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.1 - 2026-05-31
+
+### Fixed
+
+- Removed duplicated auto-keyword text from card descriptions, including Rapid Fire, Exhaust, and Ethereal.
+- Cleaned Barrage Fire's displayed description so the card text only describes its damage effect while Rapid Fire appears as a keyword.
+
 ## v1.0.0 - 2026-05-31
 
 Initial playable Exusiai release candidate.

@@ -41,7 +41,7 @@ Current release manifest:
 
 - id: `exusiai`
 - name: `Exusiai`
-- version: `v1.0.0`
+- version: `v1.0.1`
 - dll: `Exusiai.dll`
 - dependency: `BaseLib`
 

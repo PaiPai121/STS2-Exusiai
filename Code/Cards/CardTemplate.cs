@@ -28,7 +28,7 @@ public class CardTemplate : RapidFireCardModel
         new DamageVar(7, ValueProp.Move)
     ];
 
-    public override List<(string, string)> Localization => [("title", "交叉火力"), ("description", "造成[red]{Damage}[/red]点伤害。打出时额外生成1张此牌的复制加入手牌。复制获得虚无和消耗，且不会再次触发速射。")];
+    public override List<(string, string)> Localization => [("title", "交叉火力"), ("description", "造成[red]{Damage}[/red]点伤害。")];
 
     public CardTemplate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

@@ -36,7 +36,7 @@ public class GunslingerRush : RapidFireCardModel
 {
 
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new BlockVar(2, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪手突进"), ("description", "造成[red]{Damage}[/red]点伤害。获得[green]{Block}[/green]点格挡。速射。")];
+    public override List<(string, string)> Localization => [("title", "枪手突进"), ("description", "造成[red]{Damage}[/red]点伤害。获得[green]{Block}[/green]点格挡。")];
     public GunslingerRush() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -126,7 +126,7 @@ public class RapidStance : MyFirstModCardModel
 public class BarrageFire : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "弹幕射击"), ("description", "对所有敌人造成[red]{Damage}[/red]点伤害。速射。")];
+    public override List<(string, string)> Localization => [("title", "弹幕射击"), ("description", "对所有敌人造成[red]{Damage}[/red]点伤害。")];
     public BarrageFire() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -178,7 +178,7 @@ public class WarfarinsPlasma : MyFirstModCardModel
 public class QuickMagazine : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(3, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽[blue]{Cards}[/blue]张牌。获得[green]{Block}[/green]点格挡。将1张枪火火花加入手牌。消耗。")];
+    public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽[blue]{Cards}[/blue]张牌。获得[green]{Block}[/green]点格挡。将1张枪火火花加入手牌。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public QuickMagazine() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -239,7 +239,7 @@ public class PursuitOrder : MyFirstModCardModel
 public class FullAuto : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "全自动"), ("description", "造成[red]{Damage}[/red]点伤害[blue]{Cards}[/blue]次。速射。消耗。")];
+    public override List<(string, string)> Localization => [("title", "全自动"), ("description", "造成[red]{Damage}[/red]点伤害[blue]{Cards}[/blue]次。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([CardKeyword.Exhaust]);
     public FullAuto() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -258,7 +258,7 @@ public class FullAuto : RapidFireCardModel
 public class BulletHell : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪林弹雨"), ("description", "造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。消耗。")];
+    public override List<(string, string)> Localization => [("title", "枪林弹雨"), ("description", "造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public BulletHell() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -277,7 +277,7 @@ public class BulletHell : MyFirstModCardModel
 public class Gunspark : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪火火花"), ("description", "造成[red]{Damage}[/red]点伤害。虚无。消耗。")];
+    public override List<(string, string)> Localization => [("title", "枪火火花"), ("description", "造成[red]{Damage}[/red]点伤害。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
     public Gunspark() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)

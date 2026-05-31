@@ -66,6 +66,7 @@ Exusiai.pck
 - Removed unused raw character animation frame exports and the unused idle sheet; runtime animation now keeps only the cropped frame resources referenced by scenes.
 - Fixed duplicate card-image Godot import UIDs.
 - Added the missing `export_files` key to `export_presets.cfg`, leaving only the known `sts2` assembly lookup noise during export.
+- Cleaned card descriptions so automatic keywords such as Rapid Fire, Exhaust, and Ethereal are not duplicated in the rules text.
 
 ## Current Card Pool Notes
 
