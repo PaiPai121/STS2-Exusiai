@@ -17,8 +17,8 @@ public class OverclockPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/cards/Overclock.jpg";
-    public override string CustomBigIconPath => "res://myfirstmod/images/cards/Overclock.jpg";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/OverclockPower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/OverclockPower.png";
     public override List<(string, string)> Localization => [
         ("title", "过载模式"),
         ("description", "本回合中，你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。之后每隔1个回合，回合开始时再次获得此效果。"),
@@ -95,13 +95,14 @@ public class OverclockPower : CustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (!IsAffectedAttack(cardPlay.Card))
-            return;
+            return Task.CompletedTask;
 
         Amount = Math.Max(0, Amount - 1);
         RefreshHandAttackCosts();
+        return Task.CompletedTask;
     }
 
     public override Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)

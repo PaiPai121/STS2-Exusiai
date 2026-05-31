@@ -156,6 +156,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`SparkCircuit.jpg` 能天使卡面修正已进入游戏 mod 目录。
 - 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`天使祝福` 与 `交错射击` 的机制和本地化改动已进入游戏 mod 目录。
 - 完成一次完成度清理：英文 `Crossfire` 描述已与速射复制实装对齐；普通动画调试日志已收敛为必要错误日志；Harmony id 已改为 `exusiai`；卡牌图片、遗物图标、Power 图标资源存在性检查通过。
+- `OverclockPower` 与 `ChainReactionPower` 已补齐独立 256x256 状态图标，资源位于 `myfirstmod/images/powers/`；不再直接复用卡面 JPG 作为状态栏图标。
 
 ## 当前暂存状态
 
