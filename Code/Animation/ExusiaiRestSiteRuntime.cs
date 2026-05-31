@@ -11,8 +11,9 @@ namespace MyFirstMod.Code.Animation;
 [HarmonyPatch(typeof(NRestSiteCharacter), nameof(NRestSiteCharacter.Create))]
 internal static class ExusiaiRestSiteCreatePatch
 {
-    private const string CharacterTexturePath = "res://myfirstmod/assets/character/exusiai_battle.png";
+    private const string CharacterTexturePath = "res://myfirstmod/assets/character/generated/exusiai_rest_site.png";
     private const string SelectionReticlePath = "res://scenes/ui/selection_reticle.tscn";
+    private const int ShadowPointCount = 48;
 
     private static bool Prefix(Player player, int characterIndex, ref NRestSiteCharacter __result)
     {
@@ -28,12 +29,23 @@ internal static class ExusiaiRestSiteCreatePatch
             _characterIndex = characterIndex
         };
 
+        Polygon2D groundShadow = new()
+        {
+            Name = "GroundShadow",
+            Position = new Vector2(-48, 136),
+            Polygon = CreateEllipsePolygon(92f, 18f),
+            Color = new Color(0.035f, 0.028f, 0.02f, 0.24f),
+            ZIndex = -1
+        };
+        root.AddChild(groundShadow);
+
         Sprite2D visual = new()
         {
             Name = "Visuals",
-            Position = new Vector2(-82, -165),
-            Scale = new Vector2(0.24f, 0.24f),
-            Texture = ResourceLoader.Load<Texture2D>(CharacterTexturePath)
+            Position = new Vector2(-18, -52),
+            Scale = new Vector2(0.36f, 0.36f),
+            Texture = ResourceLoader.Load<Texture2D>(CharacterTexturePath),
+            Modulate = new Color(0.92f, 0.84f, 0.74f, 0.98f)
         };
         root.AddChild(visual);
 
@@ -82,5 +94,17 @@ internal static class ExusiaiRestSiteCreatePatch
             OffsetRight = right,
             OffsetBottom = bottom
         };
+    }
+
+    private static Vector2[] CreateEllipsePolygon(float radiusX, float radiusY)
+    {
+        Vector2[] points = new Vector2[ShadowPointCount];
+        for (int i = 0; i < ShadowPointCount; i++)
+        {
+            float angle = Mathf.Tau * i / ShadowPointCount;
+            points[i] = new Vector2(Mathf.Cos(angle) * radiusX, Mathf.Sin(angle) * radiusY);
+        }
+
+        return points;
     }
 }

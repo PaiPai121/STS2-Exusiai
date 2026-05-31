@@ -1,6 +1,6 @@
 # MyFirstMod 当前进度
 
-更新时间：2026-05-31 12:32 Asia/Shanghai
+更新时间：2026-05-31 13:45 Asia/Shanghai
 
 ## 开工前检查
 
@@ -55,7 +55,8 @@
   - `SparkCircuitPower.png`
   - `FireControlPower.png`
 - 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
-- 休息/篝火角色显示已改为运行时补丁方案：`CustomRestSiteAnimPath` 指向游戏自带有效休息场景用于预加载，`NRestSiteCharacter.Create` 在角色为能天使时返回程序化构造的 `NRestSiteCharacter`，可视节点使用 `exusiai_battle.png`。
+- 休息/篝火角色显示已改为运行时补丁方案：`CustomRestSiteAnimPath` 指向游戏自带有效休息场景用于预加载，`NRestSiteCharacter.Create` 在角色为能天使时返回程序化构造的 `NRestSiteCharacter`，可视节点使用休息点专用坐姿图。
+- 休息/篝火视觉已从战斗立绘切换为专用坐姿美术：`myfirstmod/assets/character/generated/exusiai_rest_site.png` 不再自带篝火、箱子或木头，按游戏本体“左右木头 + 中间篝火”的场景构图，让能天使坐在原场景木头上；当前坐姿已二次调整为更低重心、手压膝盖、腿部自然落地的休息动作，并已水平翻转为朝右坐姿。
 - 游戏目录旧的松散 `myfirstmod/` 与 `images/` 资源目录已移出到 `D:\work_console\MyFirstMod_asset_backups\deployed_loose_backups\20260531_1228`，避免旧 `.tscn` 覆盖新 PCK。
 - `SniperChipset.png` 已恢复为用户提供的原始素材：`D:\work_console\workspaceforexusuai\assests\Sniper's Chipset.png`。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
@@ -67,6 +68,8 @@
 - `追猎指令` 已去掉抽牌，保留造成伤害并生成 `枪火火花`。
 - `终端齐射` 已降为生成 2 张 `枪火火花`，避免单卡直接推满火花回路触发。
 - 普通牌过牌强度已收敛：`战术侧闪` 去掉抽牌，`应急护盾` 升级不再增加抽牌，`速射架势` 降为抽 1/2。
+- `SparkCircuit.jpg` / `火花回路` 卡面已重做为能天使主体：红发、光环、黑蓝战术服、枪械与橙色火花回路均保留，旧的泛用机械天使图已备份到 `D:\work_console\MyFirstMod_asset_backups\cards\SparkCircuit_before_exusiai_fix.jpg`。
+- `使命必达！` 已修复弃牌堆选择后卡死：选择弹窗改为引用 `cards/MYFIRSTMOD-DELIVERY_GUARANTEED.select` 本地化 key，不再把中文标题误当 loc table；选中牌与复制牌也先固化为列表后再加入手牌，避免改牌堆时碰到延迟枚举。
 - `天使祝福` Power 已补出牌者检查，只统计拥有者本人的出牌。
 - `过载模式` 当前设计保留：2 费技能，虚无；抽 2/3 张牌；本回合接下来打出的 2/3 张攻击牌费用变为 0。当前已改为临时 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
 - `CARD_LIBRARY.md` 已更新为当前卡池真相。
@@ -131,6 +134,8 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 - 已执行 `dotnet build`，DLL/manifest 已覆盖到游戏 mod 目录。
 - 已重新导出并复制 `MyFirstMod.pck` 到游戏 mod 目录；当前游戏目录仅保留 `MyFirstMod.dll`、`myfirstmod.json`、`MyFirstMod.pck` 和旧 PCK 备份，不再保留会覆盖 PCK 的松散 `myfirstmod/` 目录。
 - 休息点卡死最新日志原因已定位：旧松散 `mods/MyFirstMod/myfirstmod/scenes/character/exusiai_rest_site.tscn` 覆盖了 PCK，且根节点仍为 `Node2D`，触发 `NRestSiteCharacter` 强制转换异常。
+- 已执行 `dotnet build` 并重新导出/复制 `MyFirstMod.pck`；休息点坐姿朝向修正、略微放大、坐点定位、弱脚底阴影与环境色调制已进入游戏 mod 目录，待实机观察融合效果。
+- 已执行 `dotnet build` 并重新导出/复制 `MyFirstMod.pck`；`SparkCircuit.jpg` 能天使卡面修正已进入游戏 mod 目录。
 
 ## 当前暂存状态
 
@@ -166,6 +171,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 7. 游戏内检查休息/篝火界面：
    - 休息场景是否显示能天使而不是铁甲战士。
    - 能天使位置、缩放是否适合篝火界面。
+   - 能天使是否通过脚底阴影和暖色调制更贴合篝火背景，不再像独立贴图浮在画面上。
 8. 游戏内检查卡牌边框适配：
    - 卡面美术是否不再显得细长。
    - 两侧空窗是否明显减少。
