@@ -49,6 +49,8 @@ Exusiai.pck
   - deleted unused `RelicTemplate.cs`
   - deleted unused `RelicTemplate.cs.uid`
   - deleted orphan `TestRelic.cs.uid`
+  - deleted orphan `TestCard.cs.uid`
+  - renamed misleading `PlaceholderCards.cs` to `CoreCards.cs`
 - Source maintenance cleanup completed:
   - cleaned mojibake comments in `Exusiai.cs`
   - cleaned mojibake comments in `RapidFireCardModel.cs`
