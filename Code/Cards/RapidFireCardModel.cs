@@ -8,9 +8,9 @@ using MyFirstMod.Code.Keywords;
 namespace MyFirstMod.Code.Cards;
 
 /// <summary>
-/// 速射卡牌基类：带有速射关键字的攻击牌，打出时额外生成一张复制加入手牌。
-/// 复制不会再次触发速射（防止无限套娃）。
-/// 子类必须在 OnPlay 末尾调用 TryGenerateRapidFireCopy。
+/// Base class for Rapid Fire attacks. A Rapid Fire card creates one copy when played.
+/// The generated copy loses Rapid Fire and gains Ethereal and Exhaust to prevent loops.
+/// Subclasses should call TryGenerateRapidFireCopy at the end of OnPlay.
 /// </summary>
 public abstract class RapidFireCardModel : MyFirstModCardModel
 {
@@ -24,16 +24,16 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
     }
 
     /// <summary>
-    /// 在 OnPlay 末尾调用此方法。仅在卡牌有速射关键字时生成复制。
-    /// 如果战斗中所有敌人都已死亡，不再生成复制（避免击杀后追加异步操作导致回合卡住）。
+    /// Generate one Rapid Fire follow-up copy, unless this card is already a generated copy
+    /// or combat is ending.
     /// </summary>
     protected async Task TryGenerateRapidFireCopy(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        // 只有带速射关键字的牌才触发（复制品已移除速射，不会再次触发）
+        // Only original Rapid Fire cards generate a copy.
         if (!_hasRapidFire)
             return;
 
-        // 如果敌人已全部死亡（战斗即将结束），不再生成复制
+        // Do not generate follow-up cards when combat is ending.
         var combatState = CombatState;
         if (combatState != null)
         {
@@ -50,10 +50,10 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
                 return;
         }
 
-        // 克隆当前卡牌（使用 CardModel.CreateClone，与原版遗物一致）
+        // Clone the current card, matching relic-style card copies.
         CardModel copy = CreateClone();
 
-        // 禁用速射关键字（复制不再触发，防套娃）
+        // The copy cannot trigger Rapid Fire again.
         if (copy is RapidFireCardModel rapidFireCopy)
         {
             rapidFireCopy._hasRapidFire = false;
@@ -63,11 +63,11 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
             copy.RemoveKeyword(MyKeywords.RapidFire);
         }
 
-        // 复制牌设为虚无（回合结束未打出则消耗）和消耗（打出后移除）
+        // The copy leaves hand at end of turn or after being played.
         copy.AddKeyword(CardKeyword.Ethereal);
         copy.AddKeyword(CardKeyword.Exhaust);
 
-        // 加入手牌
+        // Add the generated copy to hand.
         await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
     }
 }

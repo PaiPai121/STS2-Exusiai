@@ -1,243 +1,139 @@
-# Exusiai 当前进度
+# Exusiai Current Progress
 
-更新时间：2026-05-31 19:25 Asia/Shanghai
+Updated: 2026-05-31 23:20 Asia/Shanghai
 
-## 开工前检查
+## Project State
 
-- 先读 `RUNBOOK.md`
-- 先读 `CLAUDE_NOTES.md`
-- 先读 `DESIGN_SOURCE.md` 和 `CARD_LIBRARY.md`
-- 确认真实工程路径：`D:\work_console\MyFirstMod`
-- 确认当前 shell：PowerShell
-- 复用已验证 build 命令，不猜测 csproj 路径
-- 复用已验证 export 命令，不切换 MegaDot/Godot 版本
-- 复用已验证 deploy 路径
-
-## 当前已完成
-
-- 玩家可见 mod 名称已从 `MyFirstMod - Exusiai` 改为 `Exusiai`；游戏部署目录已改为 `mods/Exusiai`，部署文件已改为 `Exusiai.json`、`Exusiai.dll`、`Exusiai.pck`，manifest id 已改为 `exusiai`。内部资源目录和 `MYFIRSTMOD-*` 本地化/卡牌 ID 暂时保留，避免破坏现有引用和存档兼容。
-- 速射核心已修复：速射牌会生成自身复制，复制获得虚无与消耗，并移除速射，避免再次触发。
-- 已移除旧的 `TryManualPlay` / `OnPlayWrapper` Harmony bypass，不再绕过游戏原生出牌流程。
-- `Gunspark` 生成链已恢复：通过 `Owner.Creature.CombatState.CreateCard<Gunspark>(Owner)` 创建战斗内 token，再加入手牌。
-- 用户实测确认：追猎指令生成 `Gunspark` 后不再卡死，商店可正常进入。
-- `PiercingRound` 已清理旧的 `StrikeCopy` 生成逻辑，仅保留稳定直伤。
-- `StrikeCopy` / `StrikeCopyPlus` 类已从实际卡牌代码中清理。
-- 新增 9 张扩展卡并接入牌池：
-  - `PointBlankShot` / 贴身点射
-  - `CoverReload` / 掩护换弹
-  - `InterleavedFire` / 交错射击
-  - `SparkCircuit` / 火花回路
-  - `BreakthroughVector` / 突破向量
-  - `HaloCover` / 光环掩护
-  - `FireControl` / 火控校准
-  - `AngelicReload` / 天使装填
-  - `TerminalVolley` / 终端齐射
-- 新增卡牌图片资源已放入 `myfirstmod/images/cards/`，并生成对应 `.import`。
-- 卡牌图片资源已从 `1024x1024` 统一裁切为 `1024x768` 横向比例：裁掉上方 160px、下方 96px，使卡面在游戏较宽的美术窗口中减少两侧空窗并略微上移；原图备份在项目外 `D:\work_console\MyFirstMod_asset_backups\asset_backups\cards_20260531_013149`。
-- 二次校准 14 张卡图：
-  - `Overclock`、`BarrageFire`、`ChainReaction`、`GunslingerRush`、`SuppressiveFire`、`TacticalSidestep`、`PiercingRound`、`TacticalRetreat`、`PursuitOrder`、`QuickMagazine`、`WarfarinsPlasma`、`SweepMode` 改用原图 `y=220` 裁切，清理上方白线。
-  - `HaloCover` 改用能天使蓝色护盾素材。
-  - `BreakthroughVector` 改用能天使突进素材。
-- 三次校准 4 张仍有上方白线的卡图：`TacticalSidestep`、`TacticalRetreat`、`QuickMagazine`、`SweepMode` 改用原图 `y=256` 极限裁切，保持 `1024x768` 不变。
-- 四次校准 2 张卡图：`ChainReaction` 改用原图 `y=256` 极限裁切清理上方白线；`RapidStance` 换用能天使残影/速射素材，避免与 `CardTemplate`/交叉火力重复。
-- 新增 3 个专属遗物并接入遗物池：
-  - `SparkCapacitor` / 火花电容：每场战斗第一个玩家回合开始时，将 1 张 `枪火火花` 加入手牌。
-  - `TacticalMagazine` / 战术弹匣：每场战斗中首次打出 `枪火火花` 时，抽 1 张牌。
-  - `ReticleCalibrator` / 准星校准器：每打出 3 张攻击牌，获得 3 点格挡。
-- 新增遗物图标资源已放入 `myfirstmod/images/relics/`，并生成对应 `.import`。
-- 能力系统已扩展：
-  - `AngelsBlessingPower`
-  - `SweepModePower`
-  - `SparkCircuitPower`
-  - `FireControlPower`
-- 4 个正式 Power 已补齐独立状态图标，资源位于 `myfirstmod/images/powers/`，不再共用角色头像：
-  - `AngelsBlessingPower.png`
-  - `SweepModePower.png`
-  - `SparkCircuitPower.png`
-  - `FireControlPower.png`
-- 遗物与 Power 图标已统一改为透明底、内容铺满画布的图标规格，减少游戏 UI 中两侧空窗。
-- 休息/篝火角色显示已改为运行时补丁方案：`CustomRestSiteAnimPath` 指向游戏自带有效休息场景用于预加载，`NRestSiteCharacter.Create` 在角色为能天使时返回程序化构造的 `NRestSiteCharacter`，可视节点使用休息点专用坐姿图。
-- 休息/篝火视觉已从战斗立绘切换为专用坐姿美术：`myfirstmod/assets/character/generated/exusiai_rest_site.png` 不再自带篝火、箱子或木头，按游戏本体“左右木头 + 中间篝火”的场景构图，让能天使坐在原场景木头上；当前坐姿已二次调整为更低重心、手压膝盖、腿部自然落地的休息动作，并已水平翻转为朝右坐姿。
-- 游戏目录旧的松散 `myfirstmod/` 与 `images/` 资源目录已移出到 `D:\work_console\MyFirstMod_asset_backups\deployed_loose_backups\20260531_1228`，避免旧 `.tscn` 覆盖新 PCK。
-- `SniperChipset.png` 已恢复为用户提供的原始素材：`D:\work_console\workspaceforexusuai\assests\Sniper's Chipset.png`。
-- `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
-- `快速换弹` 已从 0 费抽 2/3 逐步收敛为 0 费消耗：抽 1，获得 3/5 点格挡，并生成 1 张 `枪火火花`；升级不再增加抽牌，避免 0 费强过牌回到卡池。
-- `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
-- `天使装填` 已从抽牌爆发改为防御装填：1 费消耗，获得 6/9 点格挡并生成 2 张 `枪火火花`。
-- `火控校准` 已收敛为每回合固定生成 1 张 `枪火火花`，升级改为提高入场格挡。
-- `弹幕射击` 已改为普通 AOE 速射牌：1 费对所有敌人造成 6/8 点伤害，不再抽牌，避免和 `覆盖射击` 形成严格上位关系。
-- `连锁反应` 已从费用下限惩罚改为正向连击：1 费造成 8 点伤害，本回合每当你打出攻击牌，对其目标追加 2/3 点伤害；效果由临时 `ChainReactionPower` 承载并在回合结束移除。
-- `天使祝福` 已从泛用入场过牌改为纯打牌次数引擎：1 费能力，每回合每打出 5/4 张牌抽 1 张牌；不再打出时立即抽牌，升级改为降低触发门槛。
-- `交错射击` 已从 1 费攻防一体速射牌改为 0 费低伤速射牌：造成 3/5 点伤害；去掉格挡，转为打牌次数、扫射、连锁反应与过载窗口的轻量组件。
-- `覆盖射击` 已从 9/12 伤害下调为 7/9 伤害并保留抽 1，避免普通过牌攻击在伤害和循环上同时过强。
-- `压制射击` 已从 10/13 伤害 + 4/6 格挡改为 8/10 伤害 + 6/8 格挡，定位改成偏防御的攻击牌。
-- `突破向量` 已从 8/11 伤害下调为 6/8 伤害，保留速射 + `Gunspark` 生成机制，但控制复制牌继续生成 token 时的总收益。
-- `终端齐射` 已从 3 费单体 26/33 伤害改为 3 费全体 18/24 伤害，并保留生成 2 张 `Gunspark`；定位改为稀有 AOE 终端牌，避免和 `枪林弹雨` 重叠。
-- `全自动` 已从 2 费 12 伤抽 2 速射，改为 2 费 5/6 伤 3 次速射消耗；去掉抽牌，避免速射复制牌继续抽牌带来爆发过牌。
-- `使命必达！` 保留 2 费消耗、选择至多 2/3 张弃牌堆牌的稀有高上限定位；复制牌本回合 0 费、虚无、消耗，作为爆发回合核心牌。
-- `火控校准` 回合开始生成 `枪火火花` 前已补充存活敌人检查，降低战斗结束边缘触发异步动作的风险。
-- `火花回路` 已收敛为每打出 3 张 `枪火火花` 抽 1 张牌，升级改为提高入场格挡。
-- `追猎指令` 已去掉抽牌，保留造成伤害并生成 `枪火火花`。
-- `终端齐射` 已降为生成 2 张 `枪火火花`，避免单卡直接推满火花回路触发。
-- 普通牌过牌强度已收敛：`战术侧闪` 去掉抽牌，`应急护盾` 升级不再增加抽牌，`速射架势` 降为抽 1/2。
-- `SparkCircuit.jpg` / `火花回路` 卡面已重做为能天使主体：红发、光环、黑蓝战术服、枪械与橙色火花回路均保留，旧的泛用机械天使图已备份到 `D:\work_console\MyFirstMod_asset_backups\cards\SparkCircuit_before_exusiai_fix.jpg`。
-- `使命必达！` 已修复弃牌堆选择后卡死：选择弹窗改为引用 `cards/MYFIRSTMOD-DELIVERY_GUARANTEED.select` 本地化 key，不再把中文标题误当 loc table；选中牌与复制牌也先固化为列表后再加入手牌，避免改牌堆时碰到延迟枚举。
-- `使命必达！` 复制牌 0 费已补完整费用路径：复制后同时调用 `SetToFreeThisTurn()` 与 `SetStarCostUntilPlayed(0)`，加入手牌后刷新费用显示，不再只改星费临时值。
-- 已补齐英文 `eng` 本地化：卡牌/Power、关键词、角色、遗物、远古者对白均与 `zhs` key 对齐；英文模式下不应再出现缺失 key 或中文文本。
-- 已清理未使用的占位暴露面：移除 `PLACEHOLDER_*` 卡牌本地化、`RELIC_TEMPLATE` 遗物本地化，以及旧 `Placeholder*` / `StrikeCopy*` 卡图资源；`zhs` 与 `eng` key 已重新对齐。
-- 当前实际注册卡池统计：31 张牌，其中基础 2、普通 13、罕见 10、稀有 6；攻击 15、技能 12、能力 4。普通牌数量已经偏多，后续扩池优先补罕见/稀有机制牌。
-- 已补一层战斗结束保护：`Gunspark` 生成、出牌后抽牌、扫射 AOE、遗物触发格挡等后续动作会先确认仍有存活敌人，降低击杀最后敌人后继续追加异步动作导致卡住的风险。
-- `过载模式` 已从一次性技能改为持续能力：2 费能力，本回合前 2/3 张攻击牌费用变为 0；之后每隔 1 个回合，回合开始时再次获得该过载窗口；未用完次数在回合结束清零。
-- `天使祝福` Power 已补出牌者检查，只统计拥有者本人的出牌。
-- `过载模式` 当前设计保留：2 费能力；本回合前 2/3 张攻击牌费用变为 0；之后每隔 1 个回合，回合开始时再次获得该过载窗口。当前由 `OverclockPower` 承载，费用修改同时走 `TryModifyEnergyCostInCombat` 与 `TryModifyStarCost`，不再依赖打出后的卡实例继续接收事件。
-- `CARD_LIBRARY.md` 已更新为当前卡池真相。
-- `DESIGN_SOURCE.md` 已记录飞书文档状态与本地优先原则。
-- 飞书文档已用当前 `CARD_LIBRARY.md` 覆盖同步，回读 revision 为 `46`。
-
-## 当前卡池状态
-
-- 起始卡组：5 张打击、4 张防御、1 张交叉火力。
-- 当前实际带速射的卡：
-  - `CardTemplate`
-  - `GunslingerRush`
-  - `BarrageFire`
-  - `FullAuto`
-  - `InterleavedFire`
-  - `BreakthroughVector`
-- 当前正式 Power：
-  - `AngelsBlessingPower`
-  - `SweepModePower`
-  - `SparkCircuitPower`
-  - `FireControlPower`
-- 当前 `Gunspark` 生成来源：
-  - 战术侧闪
-  - 快速换弹
-  - 追猎指令
-  - 枪林弹雨
-  - 掩护换弹
-  - 突破向量
-  - 光环掩护
-  - 火控校准
-  - 天使装填
-  - 终端齐射
-  - 华法琳特调
-- 当前专属遗物：
-  - `SniperChipset` / 狙击芯片（起始）
-  - `SparkCapacitor` / 火花电容（普通）
-  - `TacticalMagazine` / 战术弹匣（罕见）
-  - `ReticleCalibrator` / 准星校准器（罕见）
-
-## 最近验证
-
-- 已执行：
-
-```powershell
-dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
-```
-
-- 结果：成功，5 个既有 warning，0 error。
-- build 后 DLL 和 manifest 已由项目构建流程复制到游戏 mod 目录。
-- 飞书文档同步命令已成功执行，并回读确认 revision `46`。
-- 已重新导出 `Exusiai.pck`，新增遗物图标和本地化资源已进入 PCK；导出仍会打印既有 `sts2` 查找、UID duplicate、`.godot/exported` 缺失资源警告。
-- 已重新导出 `Exusiai.pck`，正式 Power 的独立状态图标已进入 PCK。
-- 已重新导出 `Exusiai.pck`，遗物与 Power 图标缩放修正已进入 PCK。
-- 已重新导出 `Exusiai.pck`，能天使休息视觉已进入 PCK；运行时由 `ExusiaiRestSiteCreatePatch` 动态创建 `NRestSiteCharacter`，避免旧场景根节点类型导致休息点卡死。
-- 已重新导出 `Exusiai.pck`，40 张卡图的横向裁切版本已进入 PCK。
-- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，14 张二次校准卡图已进入 PCK。
-- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，4 张三次校准卡图已进入 PCK。
-- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，`ChainReaction` 与 `RapidStance` 卡图修正已进入 PCK。
-- 已执行 `dotnet build`，`OverclockPower` 编译通过；过载模式描述已去掉手写“虚无”，避免和关键字栏重复。
-- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录，`OverclockPower` 与过载模式本地化修正已进入 DLL/PCK。
-- 已补充 `OverclockPower.TryModifyEnergyCostInCombat` 与 `SetToFreeThisTurn()` 兜底；临时 mod 输出目录构建通过。当前运行中的 `SlayTheSpire2.exe` 锁住游戏 mod 目录 DLL，需要退出游戏后才能覆盖到实际游戏目录。
-- 已执行 `dotnet build`，DLL/manifest 已覆盖到游戏 mod 目录。
-- 已重新导出并复制 `Exusiai.pck` 到游戏 mod 目录；当前游戏目录应仅保留 `Exusiai.dll`、`Exusiai.json`、`Exusiai.pck`，不再保留会覆盖 PCK 的松散 `myfirstmod/` 目录。
-- 休息点卡死历史原因已定位：旧松散 `mods/MyFirstMod/myfirstmod/scenes/character/exusiai_rest_site.tscn` 覆盖了 PCK，且根节点仍为 `Node2D`，触发 `NRestSiteCharacter` 强制转换异常；当前使用 `ExusiaiRestSiteCreatePatch` 动态创建正确节点。
-- 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；休息点坐姿朝向修正、略微放大、坐点定位、弱脚底阴影与环境色调制已进入游戏 mod 目录，待实机观察融合效果。
-- 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`SparkCircuit.jpg` 能天使卡面修正已进入游戏 mod 目录。
-- 已执行 `dotnet build` 并重新导出/复制 `Exusiai.pck`；`天使祝福` 与 `交错射击` 的机制和本地化改动已进入游戏 mod 目录。
-- 完成一次完成度清理：英文 `Crossfire` 描述已与速射复制实装对齐；普通动画调试日志已收敛为必要错误日志；Harmony id 已改为 `exusiai`；卡牌图片、遗物图标、Power 图标资源存在性检查通过。
-- `OverclockPower` 与 `ChainReactionPower` 已补齐独立 256x256 状态图标，资源位于 `myfirstmod/images/powers/`；不再直接复用卡面 JPG 作为状态栏图标。
-- 修复 `使命必达！` 选弃牌堆弹窗的本地化变量错误：`select` 文案改用选择器上下文提供的 `{MaxCount}`，避免旧日志中的 `No source extension could handle the selector named "Cards"` 格式化错误。
-- 补充角色与卡牌预加载资源：角色头像、选择界面图、能量图标、休息点贴图、正式 Power 图标加入 `ExtraAssetPaths`；卡牌卡图加入 `ExtraRunAssetPaths`，减少运行时 `Asset not cached` 警告。
-
-## 当前暂存状态
-
-- 扩展卡、Power、文档、PCK、新卡图片资源已提交。
-- `cards.json` 本地化同步已提交。
-- 旧卡图 `.import` 噪音已清理出工作区。
-- 新增遗物扩展已提交，当前 Power 图标补齐仍待提交。
-
-## 待验证
-
-1. 游戏内测试 `华法琳特调`：
-   - 是否正确失去 2 点生命。
-   - 是否抽 1/2 张牌。
-   - 是否生成 1 张 `枪火火花`。
-   - 是否不会因自损或 token 生成卡死。
-2. 游戏内测试 `扫射模式`：
-   - 打出能力后是否出现 buff 图标。
-   - 后续每次打出攻击牌是否对所有敌人造成 2/3 点伤害。
-   - 多层叠加是否按数值叠加。
-3. 游戏内测试新增 9 张扩展卡：
-   - 奖励、商店、战斗中是否可正常出现和打出。
-   - 新卡卡面是否显示正常。
-   - `SparkCircuit` 是否按每 3 张 `Gunspark` 抽 1 张牌触发。
-   - `FireControl` 是否每回合固定生成 1 张 `Gunspark`。
-4. 再次观察 `Overclock`、`DeliveryGuaranteed`、`AngelsBlessing` 的实战强度。
-5. 游戏内测试新增 3 个遗物：
-   - `火花电容` 是否在战斗第一个玩家回合开始时生成 1 张 `枪火火花`。
-   - `战术弹匣` 是否每场战斗只在首次打出 `枪火火花` 时抽 1 张牌。
-   - `准星校准器` 是否每 3 张攻击牌获得 3 点格挡。
-6. 游戏内检查 4 个正式 Power 的状态图标：
-   - `天使祝福`、`扫射模式`、`火花回路`、`火控校准` 是否显示各自独立图标。
-   - 小图标和详情大图标是否都不再显示能天使头像。
-7. 游戏内检查休息/篝火界面：
-   - 休息场景是否显示能天使而不是铁甲战士。
-   - 能天使位置、缩放是否适合篝火界面。
-   - 能天使是否通过脚底阴影和暖色调制更贴合篝火背景，不再像独立贴图浮在画面上。
-8. 游戏内检查卡牌边框适配：
-   - 卡面美术是否不再显得细长。
-   - 两侧空窗是否明显减少。
-   - 顶部/底部是否有关键人物、武器或特效被裁掉。
-
-## 下一步建议
-
-1. 先完成本轮实机测试，确认 `华法琳特调` 和 `扫射模式` 没有运行时问题。
-2. 测试通过后提交当前 staged 改动。
-3. 再进入下一轮平衡：优先看新增 Power 与 `Gunspark` 引擎是否过强。
-4. 继续补齐或校准新增卡卡面资源。
-5. 后续如要继续做战斗角色动态表现，目标应是接入真实 webm 素材或切帧资源，而不是伪动态。
-
-## 已验证命令
-
-### Build
-
-```powershell
-dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
-```
-
-### Export PCK
-
-```powershell
-"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe" --headless --path "D:\work_console\MyFirstMod" --export-pack BasicExport "D:\work_console\MyFirstMod\Exusiai.pck"
-```
-
-### Deploy 目录
+- Public mod name, manifest, deployed folder, DLL, manifest, and PCK now use `Exusiai`.
+- Internal resource paths under `myfirstmod/`, localization IDs under `MYFIRSTMOD-*`, and the internal `CardTemplate` class name are intentionally retained for compatibility with existing references and saves.
+- Current deployed folder:
 
 ```text
 C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
 ```
 
-### 日志目录
+- Expected deployed files:
+
+```text
+Exusiai.dll
+Exusiai.json
+Exusiai.pck
+```
+
+## Completed
+
+- Rapid Fire now generates a one-time copy of the played card. Generated copies lose Rapid Fire and gain Ethereal plus Exhaust to prevent loops.
+- Gunspark generation is restored and uses combat-owned card creation.
+- Delivery Guaranteed no longer freezes after selecting from discard, and generated copies are free for the current turn.
+- Overclock is now a Power: the current turn's first 2/3 attack cards become free, then the window refreshes every other turn.
+- Rest-site visuals are patched at runtime so Exusiai appears instead of Ironclad, using the generated seated rest image.
+- Card art was cropped and corrected for the wider in-game card frame. Known white-line issues were fixed on the affected cards.
+- Spark Circuit card art was redone to show Exusiai.
+- Sniper Chipset art was restored to the user-provided original Arknights asset.
+- English localization is aligned with the active Chinese keys for cards, powers, relics, keywords, character text, and Watcher text.
+- New relics are implemented and in the relic pool:
+  - `SparkCapacitor`
+  - `TacticalMagazine`
+  - `ReticleCalibrator`
+- Status icons are implemented for the formal Powers:
+  - `AngelsBlessingPower`
+  - `SweepModePower`
+  - `SparkCircuitPower`
+  - `FireControlPower`
+  - `OverclockPower`
+  - `ChainReactionPower`
+- Character, card portrait, energy, rest-site, relic, and Power assets are preloaded to reduce runtime cache warnings.
+- Feishu design documentation was synced from the local current design. Remote revision recorded earlier: `46`.
+- README was rewritten from template content into the current Exusiai project documentation.
+- Stale template leftovers were removed:
+  - deleted unused `RelicTemplate.cs`
+  - deleted unused `RelicTemplate.cs.uid`
+  - deleted orphan `TestRelic.cs.uid`
+- Source maintenance cleanup completed:
+  - cleaned mojibake comments in `Exusiai.cs`
+  - cleaned mojibake comments in `RapidFireCardModel.cs`
+  - removed empty character hook overrides that had no behavior
+
+## Current Card Pool Notes
+
+- Current implemented card count: 31.
+- Broad split from the last audit:
+  - Basic: 2
+  - Common: 13
+  - Uncommon: 10
+  - Rare: 6
+  - Attack: 15
+  - Skill: 12
+  - Power: 4
+- Common cards are already relatively dense. Further card expansion should prefer uncommon/rare mechanics or event/relic support instead of adding more common attacks.
+
+## Verification
+
+Latest build:
+
+```powershell
+dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
+```
+
+Result: success, 5 existing warnings, 0 errors.
+
+Known recurring build warnings:
+
+- `IgnoresAccessChecksToAttribute` duplicate warnings from Publicizer/BaseLib.
+- `OverclockPower` nullability mismatch warnings on the overridden cost modifier method.
+- Generated Godot `Main` type warning.
+
+## Export Command
+
+```powershell
+& 'D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe' --headless --path 'D:\work_console\MyFirstMod' --export-pack BasicExport 'D:\work_console\MyFirstMod\Exusiai.pck'
+```
+
+Known export noise can be ignored if the command exits successfully and `Exusiai.pck` is produced:
+
+- `sts2` FileNotFoundException
+- UID duplicate warnings
+- Spine loader warnings
+- missing `.godot/exported` card-frame resource warnings
+
+## Deploy Command
+
+```powershell
+Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
+```
+
+`dotnet build` already copies the DLL and manifest through the project build flow.
+
+## Runtime Log Path
 
 ```text
 C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs
 ```
 
-## 维护规则
+## Still Worth Testing In Game
 
-- 改卡牌机制、数值、费用、稀有度、关键字后，同步更新 `CARD_LIBRARY.md`。
-- 改当前设计判断或云文档同步状态后，同步更新 `DESIGN_SOURCE.md`。
-- 做阶段性总结时，同步更新本文件。
-- 改资源、本地化或图片后，需要重新 export PCK。
-- 只改 C# 时通常 build 即可，但新增资源或 Godot import 变化需要重新 export。
+1. Overclock: verify attack cards become free immediately after playing the Power, and again every other turn.
+2. Delivery Guaranteed: verify selected discard cards enter hand as 0-cost generated copies and do not freeze.
+3. Sweep Mode: verify the Power icon appears and each attack damages all enemies by the correct amount.
+4. Warfarin's Plasma: verify HP loss, draw, and Gunspark generation all work without combat-end freezes.
+5. New relics: verify Spark Capacitor, Tactical Magazine, and Reticle Calibrator trigger exactly as described.
+6. Rest site: verify Exusiai still appears correctly after multiple runs and does not freeze.
+7. Card art: spot-check remaining crops in reward, shop, and combat hand views.
+8. English mode: run one short game and confirm no missing localization keys appear.
+
+## Next Suggestions
+
+1. Commit the current cleanup after review.
+2. Do one in-game smoke pass focused on the still-worth-testing list.
+3. If gameplay is stable, the next work should be polish rather than broad balance churn:
+   - fix remaining card-art crop issues if found
+   - clean any remaining runtime log warnings that point to real missing assets
+   - consider a real animated combat/rest character asset later
+
+## Maintenance Rules
+
+- Update `CARD_LIBRARY.md` whenever card cost, rarity, keywords, values, or effects change.
+- Update `DESIGN_SOURCE.md` when the source-of-truth policy or cloud-document status changes.
+- Update this file at phase boundaries, not after every tiny edit.
+- Re-export PCK after asset, localization, Godot import, scene, or image changes.
+- C#-only changes usually need only `dotnet build`, unless the change affects exported resources.
