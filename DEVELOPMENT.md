@@ -56,8 +56,7 @@ Known export noise can be ignored if the command succeeds and `Exusiai.pck` is p
 
 - `sts2` FileNotFoundException
 - UID duplicate warnings
-- Spine loader warnings
-- missing `.godot/exported` frame resources
+- missing `export_files` key in `export_presets.cfg`
 
 ## Naming Rules
 
@@ -139,6 +138,8 @@ When adding or changing content, keep `zhs` and `eng` aligned. The English mode 
 - Rest-site generated art: `myfirstmod/assets/character/generated/exusiai_rest_site.png`
 
 After adding or changing images, export and deploy `Exusiai.pck`.
+
+Unused legacy Spine resources, old card-trail assets, and old card-frame assets were removed. Do not reintroduce them unless the corresponding runtime scene/scripts are restored and verified.
 
 ## Rest Site
 

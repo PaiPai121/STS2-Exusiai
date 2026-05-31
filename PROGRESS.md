@@ -58,6 +58,8 @@ Exusiai.pck
 - Removed unused risky scenes:
   - deleted `myfirstmod/scenes/ui/card_trail_exusiai.tscn`, which referenced missing old `InesCardTrail` scripts
   - deleted old `myfirstmod/scenes/character/exusiai_rest_site.tscn`; rest site now uses the runtime patch only
+- Removed unused legacy Spine and card-trail assets that were only producing export warnings.
+- Removed unused legacy card-frame assets that referenced external `InesSilent` resources and missing exported `.res` files.
 
 ## Current Card Pool Notes
 
@@ -98,8 +100,7 @@ Known export noise can be ignored if the command exits successfully and `Exusiai
 
 - `sts2` FileNotFoundException
 - UID duplicate warnings
-- Spine loader warnings
-- missing `.godot/exported` card-frame resource warnings
+- missing `export_files` key in `export_presets.cfg`
 
 ## Deploy Command
 
