@@ -4,6 +4,7 @@
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <AssemblyName>Exusiai</AssemblyName>
         <DefaultItemExcludes>packages/**</DefaultItemExcludes>
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <PathMap>$(AppOutputBase)=.\</PathMap>
@@ -44,6 +45,9 @@
 
     <PropertyGroup>
         <NoWarn>$(NoWarn);MSB3270</NoWarn>
+        <ModDeployName>Exusiai</ModDeployName>
+        <ModManifestName>Exusiai.json</ModManifestName>
+        <ModPckName>Exusiai.pck</ModPckName>
     </PropertyGroup>
 
     <ItemGroup Condition="Exists('$(Sts2DataDir)')">
@@ -69,7 +73,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="myfirstmod.json" />
+        <None Include="Exusiai.json" />
         <None Include="project.godot" />
     </ItemGroup>
 
@@ -79,8 +83,8 @@
 
     <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
         <Message Text="Copying .dll and manifest to mods folder." Importance="high" />
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
-        <Copy SourceFiles="myfirstmod.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
-        <Copy SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName).pck" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).pck')" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(ModDeployName)/" />
+        <Copy SourceFiles="$(ModManifestName)" DestinationFolder="$(ModsPath)$(ModDeployName)/" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\$(ModPckName)" DestinationFolder="$(ModsPath)$(ModDeployName)/" Condition="Exists('$(MSBuildProjectDirectory)\$(ModPckName)')" />
     </Target>
 </Project>

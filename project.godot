@@ -10,12 +10,12 @@ config_version=5
 
 [application]
 
-config/name="MyFirstMod"
+config/name="Exusiai"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 
 [dotnet]
 
-project/assembly_name="MyFirstMod"
+project/assembly_name="Exusiai"
 
 [rendering]
 

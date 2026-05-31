@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MyFirstMod.Code;
 using MyFirstMod.Code.Cards;
 
 namespace MyFirstMod.Code.Powers;
@@ -28,6 +29,9 @@ public class FireControlPower : CustomPowerModel
 
         var combatState = player.Creature?.CombatState;
         if (combatState == null)
+            return;
+
+        if (!CombatGuards.HasLivingEnemy(combatState))
             return;
 
         for (int i = 0; i < Amount; i++)

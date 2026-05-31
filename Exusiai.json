@@ -1,0 +1,12 @@
+{
+  "id": "exusiai",
+  "name": "Exusiai",
+  "author": "Niya",
+  "description": "Play as Exusiai from Arknights in Slay the Spire 2. Build around rapid-fire attacks, Gunspark tokens, Overclock turns, and angelic firearm synergies with a custom card pool, relics, localization, and character visuals.",
+  "version": "v1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "dll_name": "Exusiai.dll",
+  "dependencies": ["BaseLib"],
+  "affects_gameplay": true
+}

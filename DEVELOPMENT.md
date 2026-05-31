@@ -3,7 +3,7 @@
 - **已验证 build 入口**：`D:\work_console\MyFirstMod\MyFirstMod.csproj`
 - **已验证导出器**：`D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe`
 - **已验证日志目录**：`C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs`
-- **已验证部署目录**：`C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod`
+- **已验证部署目录**：`C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai`
 - **本次新增规则文件**：`RUNBOOK.md`、`CLAUDE_NOTES.md`
 - **商店黑屏根因（本轮）**：卡池稀有度覆盖不足，导致 merchant card generation 无法生成合法选项。
 - **本轮修复策略**：新增 Uncommon/Rare 正式最简卡 + 多张 placeholder 补池卡，先恢复商店与奖励流转，再逐步替换为正式设计卡。
@@ -32,7 +32,7 @@
 ```json
 {
   "id": "myfirstmod",
-  "dll_name": "MyFirstMod.dll",  // 必须指定，否则游戏会查找 {id}.dll
+  "dll_name": "Exusiai.dll",  // 必须指定，否则游戏会查找 {id}.dll
   "has_pck": true,
   "has_dll": true
 }
@@ -76,7 +76,7 @@ MyFirstMod/
 │       ├── characters.json
 │       └── ancients.json
 ├── MyFirstMod.csproj
-├── myfirstmod.json
+├── Exusiai.json
 └── export_presets.cfg
 ```
 
@@ -237,10 +237,10 @@ public class SniperChipset : MyFirstModRelicModel
 dotnet build
 
 # 2. 导出 PCK（打包资源文件：图片、JSON本地化等）
-"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe" --headless --export-debug "BasicExport" "D:\work_console\MyFirstMod\MyFirstMod.pck"
+"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe" --headless --export-debug "BasicExport" "D:\work_console\MyFirstMod\Exusiai.pck"
 
 # 3. 复制 PCK 到 mods 目录
-copy MyFirstMod.pck "C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod\"
+copy Exusiai.pck "C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\"
 ```
 
 ### ⚠️ PCK 导出模板问题

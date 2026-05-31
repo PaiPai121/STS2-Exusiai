@@ -11,7 +11,7 @@
 - Project root: `D:\work_console\MyFirstMod`
 - C# project: `D:\work_console\MyFirstMod\MyFirstMod.csproj`
 - Log directory: `C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs`
-- Game mod deploy directory: `C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod`
+- Game mod deploy directory: `C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai`
 - MegaDot exporter root: `D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp`
 
 ## 执行前检查
@@ -30,15 +30,15 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 
 ### Export PCK
 ```bash
-"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe" --headless --path "D:\work_console\MyFirstMod" --export-pack BasicExport "D:\work_console\MyFirstMod\MyFirstMod.pck"
+"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe" --headless --path "D:\work_console\MyFirstMod" --export-pack BasicExport "D:\work_console\MyFirstMod\Exusiai.pck"
 ```
 
 ### Deploy
 需要同步以下内容到游戏 mods 目录：
-- `bin/Debug/net8.0/MyFirstMod.dll`
-- `MyFirstMod.pck`
+- `bin/Debug/net8.0/Exusiai.dll`
+- `Exusiai.pck`
 - `myfirstmod/`
-- `myfirstmod.json`
+- `Exusiai.json`
 
 ## 故障分层
 1. 入口层：路径、shell、工作目录、命令入口是否正确

@@ -1,4 +1,4 @@
-# MyFirstMod - Exusiai
+# Exusiai
 
 杀戮尖塔2 MOD：明日方舟能天使（Exusiai）作为可选角色。
 
@@ -16,10 +16,10 @@
 dotnet build
 
 # 2. 导出 PCK（打包资源：图片、本地化JSON等）
-megadot --headless --export-debug "BasicExport" MyFirstMod.pck
+megadot --headless --export-debug "BasicExport" Exusiai.pck
 
 # 3. 复制 PCK 到 mods 目录
-copy MyFirstMod.pck "C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod\"
+copy Exusiai.pck "C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\"
 ```
 
 > ⚠️ PCK 导出需要 MegaDot 导出模板已安装，详见 [DEVELOPMENT.md](DEVELOPMENT.md#⚠️-pck-导出模板问题)
@@ -47,7 +47,7 @@ MyFirstMod/
 │   ├── images/relics/                 # 遗物图标
 │   └── localization/zhs/             # 中文本地化
 ├── MyFirstMod.csproj
-├── myfirstmod.json
+├── Exusiai.json
 └── DEVELOPMENT.md                     # ← 开发经验文档
 ```
 
@@ -85,4 +85,3 @@ gold 999                # 获得金币
 
 - [官方教程](https://glitchedreme.github.io/SlayTheSpire2ModdingTutorials/)
 - [模板项目](https://github.com/Alchyr/ModTemplate-StS2)
-

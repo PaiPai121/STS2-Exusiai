@@ -1,6 +1,6 @@
-# MyFirstMod 当前进度
+# Exusiai 当前进度
 
-更新时间：2026-05-31 15:40 Asia/Shanghai
+更新时间：2026-05-31 16:45 Asia/Shanghai
 
 ## 开工前检查
 
@@ -15,6 +15,7 @@
 
 ## 当前已完成
 
+- 玩家可见 mod 名称已从 `MyFirstMod - Exusiai` 改为 `Exusiai`；游戏部署目录已改为 `mods/Exusiai`，部署文件已改为 `Exusiai.json`、`Exusiai.dll`、`Exusiai.pck`，manifest id 已改为 `exusiai`。内部资源目录和 `MYFIRSTMOD-*` 本地化/卡牌 ID 暂时保留，避免破坏现有引用和存档兼容。
 - 速射核心已修复：速射牌会生成自身复制，复制获得虚无与消耗，并移除速射，避免再次触发。
 - 已移除旧的 `TryManualPlay` / `OnPlayWrapper` Harmony bypass，不再绕过游戏原生出牌流程。
 - `Gunspark` 生成链已恢复：通过 `Owner.Creature.CombatState.CreateCard<Gunspark>(Owner)` 创建战斗内 token，再加入手牌。
@@ -60,10 +61,13 @@
 - 游戏目录旧的松散 `myfirstmod/` 与 `images/` 资源目录已移出到 `D:\work_console\MyFirstMod_asset_backups\deployed_loose_backups\20260531_1228`，避免旧 `.tscn` 覆盖新 PCK。
 - `SniperChipset.png` 已恢复为用户提供的原始素材：`D:\work_console\workspaceforexusuai\assests\Sniper's Chipset.png`。
 - `华法琳特调` 已改为 1 费技能：失去 2 点生命，抽 1/2 张牌，并将 1 张 `枪火火花` 加入手牌。
-- `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`。
+- `快速换弹` 已从 0 费抽 2/3 降为 0 费抽 1/2，并保留生成 1 张 `枪火火花`；当前补上 `消耗`，避免 0 费过牌 token 在长战反复循环。
 - `扫射模式` 已改为 1 费能力：每当你打出攻击牌，对所有敌人造成 2/3 点伤害。
 - `天使装填` 已从抽牌爆发改为防御装填：1 费消耗，获得 6/9 点格挡并生成 2 张 `枪火火花`。
 - `火控校准` 已收敛为每回合固定生成 1 张 `枪火火花`，升级改为提高入场格挡。
+- `弹幕射击` 已改为普通 AOE 速射牌：1 费对所有敌人造成 6/8 点伤害，不再抽牌，避免和 `覆盖射击` 形成严格上位关系。
+- `连锁反应` 已从费用下限惩罚改为正向连击：1 费造成 8 点伤害，本回合每当你打出攻击牌，对其目标追加 2/3 点伤害；效果由临时 `ChainReactionPower` 承载并在回合结束移除。
+- `火控校准` 回合开始生成 `枪火火花` 前已补充存活敌人检查，降低战斗结束边缘触发异步动作的风险。
 - `火花回路` 已收敛为每打出 3 张 `枪火火花` 抽 1 张牌，升级改为提高入场格挡。
 - `追猎指令` 已去掉抽牌，保留造成伤害并生成 `枪火火花`。
 - `终端齐射` 已降为生成 2 张 `枪火火花`，避免单卡直接推满火花回路触发。
@@ -202,13 +206,13 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 ### Export PCK
 
 ```powershell
-"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe" --headless --path "D:\work_console\MyFirstMod" --export-pack BasicExport "D:\work_console\MyFirstMod\MyFirstMod.pck"
+"D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe" --headless --path "D:\work_console\MyFirstMod" --export-pack BasicExport "D:\work_console\MyFirstMod\Exusiai.pck"
 ```
 
 ### Deploy 目录
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\MyFirstMod
+C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
 ```
 
 ### 日志目录
