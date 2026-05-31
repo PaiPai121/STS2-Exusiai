@@ -31,6 +31,7 @@ Exusiai.pck
 - Spark Circuit card art was redone to show Exusiai.
 - Sniper Chipset art was restored to the user-provided original Arknights asset.
 - English localization is aligned with the active Chinese keys for cards, powers, relics, keywords, character text, and Watcher text.
+- Chinese localization JSON files were rebuilt and validated against the English key set for cards, relics, character text, and Watcher text.
 - New relics are implemented and in the relic pool:
   - `SparkCapacitor`
   - `TacticalMagazine`
