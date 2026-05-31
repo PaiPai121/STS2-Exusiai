@@ -126,6 +126,14 @@ myfirstmod/localization/eng/
 
 When adding or changing content, keep `zhs` and `eng` aligned. The English mode should remain playable without missing keys or Chinese fallback text.
 
+Static validation:
+
+```powershell
+.\tools\Validate-Exusiai.ps1
+```
+
+This checks localization JSON parsing, `zhs`/`eng` key parity, English CJK leakage, card class/card art parity, and concrete `res://myfirstmod/...` resource references.
+
 ## Assets
 
 - Card art: `myfirstmod/images/cards/`
