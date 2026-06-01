@@ -1,4 +1,4 @@
-using BaseLib.Abstracts;
+﻿using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Models.PotionPools;
 
 namespace MyFirstMod.Code.PotionPools;

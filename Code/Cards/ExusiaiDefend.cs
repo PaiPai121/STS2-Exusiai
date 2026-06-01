@@ -9,9 +9,6 @@ using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
 
-/// <summary>
-/// 能天使专属防御 — 基础技能牌，带 Defend 标签
-/// </summary>
 [Pool(typeof(ExusiaiCardPool))]
 public class ExusiaiDefend : MyFirstModCardModel
 {
@@ -24,7 +21,7 @@ public class ExusiaiDefend : MyFirstModCardModel
 
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
     public override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    public override List<(string, string)> Localization => [("title", "防御"), ("description", "获得[green]{Block}[/green]点格挡。")];
+    public override List<(string, string)> Localization => [("title", "防御"), ("description", "获得{Block:diff()}点格挡。")];
 
     public ExusiaiDefend() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

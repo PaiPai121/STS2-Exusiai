@@ -15,7 +15,7 @@ namespace MyFirstMod.Code.Cards;
 public class PointBlankShot : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "贴身点射"), ("description", "造成[red]{Damage}[/red]点伤害。")];
+    public override List<(string, string)> Localization => [("title", "贴身点射"), ("description", "造成{Damage:diff()}点伤害。")];
     public PointBlankShot() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -31,7 +31,7 @@ public class PointBlankShot : MyFirstModCardModel
 public class CoverReload : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "掩护换弹"), ("description", "获得[green]{Block}[/green]点格挡。将1张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "掩护换弹"), ("description", "获得{Block:diff()}点格挡。将1张枪火火花加入手牌。")];
     public CoverReload() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -47,7 +47,7 @@ public class CoverReload : MyFirstModCardModel
 public class InterleavedFire : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "交错射击"), ("description", "造成[red]{Damage}[/red]点伤害。")];
+    public override List<(string, string)> Localization => [("title", "交错射击"), ("description", "造成{Damage:diff()}点伤害。")];
     public InterleavedFire() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -65,7 +65,7 @@ public class InterleavedFire : RapidFireCardModel
 public class SparkCircuit : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "火花回路"), ("description", "获得[green]{Block}[/green]点格挡。每打出3张枪火火花，抽1张牌。")];
+    public override List<(string, string)> Localization => [("title", "火花回路"), ("description", "获得{Block:diff()}点格挡。每当你打出3张枪火火花，抽1张牌。")];
     public SparkCircuit() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -81,7 +81,7 @@ public class SparkCircuit : MyFirstModCardModel
 public class BreakthroughVector : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "突破向量"), ("description", "造成[red]{Damage}[/red]点伤害。将1张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "突破向量"), ("description", "造成{Damage:diff()}点伤害。将1张枪火火花加入手牌。")];
     public BreakthroughVector() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -100,7 +100,7 @@ public class BreakthroughVector : RapidFireCardModel
 public class HaloCover : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(12, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "光环掩护"), ("description", "获得[green]{Block}[/green]点格挡。将1张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "光环掩护"), ("description", "获得{Block:diff()}点格挡。将1张枪火火花加入手牌。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public HaloCover() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
 
@@ -117,7 +117,7 @@ public class HaloCover : MyFirstModCardModel
 public class FireControl : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "火控校准"), ("description", "获得[green]{Block}[/green]点格挡。每回合开始时，将1张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "火控校准"), ("description", "获得{Block:diff()}点格挡。每回合开始时，将1张枪火火花加入手牌。")];
     public FireControl() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -133,7 +133,7 @@ public class FireControl : MyFirstModCardModel
 public class AngelicReload : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "天使装填"), ("description", "获得[green]{Block}[/green]点格挡。将2张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "天使装填"), ("description", "获得{Block:diff()}点格挡。将2张枪火火花加入手牌。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public AngelicReload() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true) { }
 
@@ -151,7 +151,7 @@ public class AngelicReload : MyFirstModCardModel
 public class TerminalVolley : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(18, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "终端齐射"), ("description", "对所有敌人造成[red]{Damage}[/red]点伤害。将2张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "终端齐射"), ("description", "对所有敌人造成{Damage:diff()}点伤害。将2张枪火火花加入手牌。")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public TerminalVolley() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
 

@@ -9,9 +9,6 @@ using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
 
-/// <summary>
-/// 能天使专属打击 — 基础攻击牌，带 Strike 标签
-/// </summary>
 [Pool(typeof(ExusiaiCardPool))]
 public class ExusiaiStrike : MyFirstModCardModel
 {
@@ -24,7 +21,7 @@ public class ExusiaiStrike : MyFirstModCardModel
 
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
     public override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    public override List<(string, string)> Localization => [("title", "打击"), ("description", "造成[red]{Damage}[/red]点伤害。")];
+    public override List<(string, string)> Localization => [("title", "打击"), ("description", "造成{Damage:diff()}点伤害。")];
 
     public ExusiaiStrike() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

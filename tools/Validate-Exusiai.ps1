@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 )
 
@@ -26,19 +26,19 @@ function Assert-KeyParity($Name) {
     "localization parity ok: $Name ($($zhs.Count) keys)"
 }
 
-function Assert-RootLocalizationMirror($Name) {
+function Assert-ModIdLocalizationMirror($Name) {
     foreach ($locale in @('zhs', 'eng')) {
-        $rootPath = "localization\$locale\$Name.json"
+        $rootPath = "exusiai\localization\$locale\$Name.json"
         $modPath = "myfirstmod\localization\$locale\$Name.json"
         $rootText = Get-Content -Raw -Encoding UTF8 (Join-Path $Root $rootPath)
         $modText = Get-Content -Raw -Encoding UTF8 (Join-Path $Root $modPath)
 
         if ($rootText -ne $modText) {
-            Write-Error "Root localization mirror mismatch: $rootPath differs from $modPath"
+            Write-Error "mod-id localization mirror mismatch: $rootPath differs from $modPath"
         }
     }
 
-    "root localization mirror ok: $Name"
+    "mod-id localization mirror ok: $Name"
 }
 
 function Assert-RequiredKeywordLocalization {
@@ -61,7 +61,7 @@ function Assert-RequiredKeywordLocalization {
 
     $required = $required | Sort-Object -Unique
     foreach ($locale in @('zhs', 'eng')) {
-        $keys = Get-JsonKeys "localization\$locale\card_keywords.json"
+        $keys = Get-JsonKeys "exusiai\localization\$locale\card_keywords.json"
         $missing = Compare-Object $keys $required | Where-Object SideIndicator -eq '=>'
         if ($missing) {
             Write-Error "Missing required card keyword localization in $locale`: $($missing.InputObject -join ', ')"
@@ -79,7 +79,7 @@ function Assert-CodeLocStringKeys {
             $table = $_.Groups[1].Value
             $key = $_.Groups[2].Value
             foreach ($locale in @('zhs', 'eng')) {
-                $relativePath = "localization\$locale\$table.json"
+                $relativePath = "exusiai\localization\$locale\$table.json"
                 $path = Join-Path $Root $relativePath
                 if (-not (Test-Path -LiteralPath $path)) {
                     $issues += "$($_.Path): missing table $relativePath"
@@ -139,7 +139,7 @@ function Assert-ModelLocalizationKeys {
         $classes = $classes | Sort-Object -Unique
 
         foreach ($locale in @('zhs', 'eng')) {
-            $keys = Get-JsonKeys "localization\$locale\$($check.Table).json"
+            $keys = Get-JsonKeys "exusiai\localization\$locale\$($check.Table).json"
             foreach ($class in $classes) {
                 $id = "MYFIRSTMOD-$(ConvertTo-ModelId $class)"
                 foreach ($suffix in $check.Suffixes) {
@@ -173,7 +173,7 @@ function Assert-NoAutoKeywordTextInCardDescriptions {
 
     $issues = @()
     foreach ($locale in @('zhs', 'eng')) {
-        $json = Read-Json (Join-Path $Root "localization\$locale\cards.json")
+        $json = Read-Json (Join-Path $Root "exusiai\localization\$locale\cards.json")
         foreach ($property in $json.PSObject.Properties) {
             if (-not $property.Name.EndsWith('.description')) {
                 continue
@@ -200,7 +200,7 @@ function Assert-NoAutoKeywordTextInCardDescriptions {
 function Assert-NoRawLocalizationKeysInText {
     $issues = @()
     foreach ($locale in @('zhs', 'eng')) {
-        Get-ChildItem -LiteralPath (Join-Path $Root "localization\$locale") -Filter *.json | ForEach-Object {
+        Get-ChildItem -LiteralPath (Join-Path $Root "exusiai\localization\$locale") -Filter *.json | ForEach-Object {
             $json = Read-Json $_.FullName
             foreach ($property in $json.PSObject.Properties) {
                 if ($property.Value -is [string] -and $property.Value -match '(?i)card[ _-]?keywords|\.title|\.description') {
@@ -217,11 +217,11 @@ function Assert-NoRawLocalizationKeysInText {
     'raw localization key text scan ok'
 }
 
-function Assert-ExportPresetIncludesRootLocalization {
+function Assert-ExportPresetIncludesModLocalization {
     $path = Join-Path $Root 'export_presets.cfg'
     $text = Get-Content -Raw -Encoding UTF8 $path
-    if ($text -notmatch 'include_filter=.*localization/\*\*') {
-        Write-Error 'export_presets.cfg must include localization/** so root localization tables are packaged'
+    if ($text -notmatch 'include_filter=.*exusiai/\*\*') {
+        Write-Error 'export_presets.cfg must include exusiai/** so mod localization tables are packaged'
     }
 
     'export preset localization include ok'
@@ -299,16 +299,16 @@ function Assert-ConcreteResourcePaths {
 }
 
 foreach ($file in @(
-    'localization\zhs\cards.json',
-    'localization\zhs\relics.json',
-    'localization\zhs\characters.json',
-    'localization\zhs\ancients.json',
-    'localization\zhs\card_keywords.json',
-    'localization\eng\cards.json',
-    'localization\eng\relics.json',
-    'localization\eng\characters.json',
-    'localization\eng\ancients.json',
-    'localization\eng\card_keywords.json',
+    'exusiai\localization\zhs\cards.json',
+    'exusiai\localization\zhs\relics.json',
+    'exusiai\localization\zhs\characters.json',
+    'exusiai\localization\zhs\ancients.json',
+    'exusiai\localization\zhs\card_keywords.json',
+    'exusiai\localization\eng\cards.json',
+    'exusiai\localization\eng\relics.json',
+    'exusiai\localization\eng\characters.json',
+    'exusiai\localization\eng\ancients.json',
+    'exusiai\localization\eng\card_keywords.json',
     'myfirstmod\localization\zhs\cards.json',
     'myfirstmod\localization\zhs\relics.json',
     'myfirstmod\localization\zhs\characters.json',
@@ -326,7 +326,7 @@ foreach ($file in @(
 
 foreach ($name in @('cards', 'relics', 'characters', 'ancients', 'card_keywords')) {
     Assert-KeyParity $name
-    Assert-RootLocalizationMirror $name
+    Assert-ModIdLocalizationMirror $name
 }
 
 Assert-EnglishHasNoCjk
@@ -335,7 +335,7 @@ Assert-CodeLocStringKeys
 Assert-ModelLocalizationKeys
 Assert-NoAutoKeywordTextInCardDescriptions
 Assert-NoRawLocalizationKeysInText
-Assert-ExportPresetIncludesRootLocalization
+Assert-ExportPresetIncludesModLocalization
 Assert-CardImages
 Assert-ConcreteResourcePaths
 

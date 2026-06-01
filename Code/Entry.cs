@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
