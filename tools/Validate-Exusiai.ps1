@@ -41,6 +41,192 @@ function Assert-RootLocalizationMirror($Name) {
     "root localization mirror ok: $Name"
 }
 
+function Assert-RequiredKeywordLocalization {
+    $sourceText = Get-ChildItem -Recurse -LiteralPath (Join-Path $Root 'Code') -Filter *.cs |
+        ForEach-Object { Get-Content -Raw -Encoding UTF8 $_.FullName }
+
+    $required = @('PERIOD')
+    if ($sourceText -match 'MyKeywords\.RapidFire') {
+        $required += 'MYFIRSTMOD-RAPID_FIRE.title'
+        $required += 'MYFIRSTMOD-RAPID_FIRE.description'
+    }
+    if ($sourceText -match 'CardKeyword\.Exhaust') {
+        $required += 'EXHAUST.title'
+        $required += 'EXHAUST.description'
+    }
+    if ($sourceText -match 'CardKeyword\.Ethereal') {
+        $required += 'ETHEREAL.title'
+        $required += 'ETHEREAL.description'
+    }
+
+    $required = $required | Sort-Object -Unique
+    foreach ($locale in @('zhs', 'eng')) {
+        $keys = Get-JsonKeys "localization\$locale\card_keywords.json"
+        $missing = Compare-Object $keys $required | Where-Object SideIndicator -eq '=>'
+        if ($missing) {
+            Write-Error "Missing required card keyword localization in $locale`: $($missing.InputObject -join ', ')"
+        }
+    }
+
+    "required keyword localization ok: $($required.Count) keys"
+}
+
+function Assert-CodeLocStringKeys {
+    $issues = @()
+    Get-ChildItem -Recurse -LiteralPath (Join-Path $Root 'Code') -Filter *.cs | ForEach-Object {
+        $text = Get-Content -Raw -Encoding UTF8 $_.FullName
+        [regex]::Matches($text, 'new\s+LocString\("([^"]+)",\s*"([^"]+)"\)') | ForEach-Object {
+            $table = $_.Groups[1].Value
+            $key = $_.Groups[2].Value
+            foreach ($locale in @('zhs', 'eng')) {
+                $relativePath = "localization\$locale\$table.json"
+                $path = Join-Path $Root $relativePath
+                if (-not (Test-Path -LiteralPath $path)) {
+                    $issues += "$($_.Path): missing table $relativePath"
+                    continue
+                }
+
+                $keys = Get-JsonKeys $relativePath
+                if ($keys -notcontains $key) {
+                    $issues += "$($_.Path): missing $locale $table key $key"
+                }
+            }
+        }
+    }
+
+    if ($issues.Count -gt 0) {
+        Write-Error "Missing LocString localization keys: $($issues -join '; ')"
+    }
+
+    'code LocString key scan ok'
+}
+
+function ConvertTo-ModelId($Name) {
+    [regex]::Replace($Name, '(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])', '_').ToUpperInvariant()
+}
+
+function Assert-ModelLocalizationKeys {
+    $checks = @(
+        @{
+            Path = 'Code\Cards'
+            Pattern = 'public\s+class\s+(\w+)\s*:\s*(?:RapidFireCardModel|MyFirstModCardModel)'
+            Table = 'cards'
+            Suffixes = @('title', 'description')
+        },
+        @{
+            Path = 'Code\Powers'
+            Pattern = 'public\s+class\s+(\w+)\s*:\s*CustomPowerModel'
+            Table = 'cards'
+            Suffixes = @('title', 'description')
+        },
+        @{
+            Path = 'Code\Relics'
+            Pattern = 'public\s+class\s+(\w+)\s*:\s*MyFirstModRelicModel'
+            Table = 'relics'
+            Suffixes = @('title', 'description', 'flavor')
+        }
+    )
+
+    $issues = @()
+    foreach ($check in $checks) {
+        $classes = @()
+        Get-ChildItem -LiteralPath (Join-Path $Root $check.Path) -Filter *.cs | ForEach-Object {
+            $text = Get-Content -Raw -Encoding UTF8 $_.FullName
+            [regex]::Matches($text, $check.Pattern) | ForEach-Object {
+                $classes += $_.Groups[1].Value
+            }
+        }
+        $classes = $classes | Sort-Object -Unique
+
+        foreach ($locale in @('zhs', 'eng')) {
+            $keys = Get-JsonKeys "localization\$locale\$($check.Table).json"
+            foreach ($class in $classes) {
+                $id = "MYFIRSTMOD-$(ConvertTo-ModelId $class)"
+                foreach ($suffix in $check.Suffixes) {
+                    $key = "$id.$suffix"
+                    if ($keys -notcontains $key) {
+                        $issues += "$locale $($check.Table) missing $key"
+                    }
+                }
+            }
+        }
+    }
+
+    if ($issues.Count -gt 0) {
+        Write-Error "Missing model localization keys: $($issues -join '; ')"
+    }
+
+    'model localization key scan ok'
+}
+
+function Assert-NoAutoKeywordTextInCardDescriptions {
+    $allowed = @(
+        'MYFIRSTMOD-DELIVERY_GUARANTEED.description'
+    )
+
+    $exhaustZhs = -join ([char]0x6D88, [char]0x8017)
+    $etherealZhs = -join ([char]0x865A, [char]0x65E0)
+    $patterns = @{
+        zhs = @($exhaustZhs, $etherealZhs)
+        eng = @('Exhaust', 'Ethereal')
+    }
+
+    $issues = @()
+    foreach ($locale in @('zhs', 'eng')) {
+        $json = Read-Json (Join-Path $Root "localization\$locale\cards.json")
+        foreach ($property in $json.PSObject.Properties) {
+            if (-not $property.Name.EndsWith('.description')) {
+                continue
+            }
+            if ($allowed -contains $property.Name) {
+                continue
+            }
+
+            foreach ($pattern in $patterns[$locale]) {
+                if ($property.Value -match [regex]::Escape($pattern)) {
+                    $issues += "$locale $($property.Name) contains auto keyword text '$pattern'"
+                }
+            }
+        }
+    }
+
+    if ($issues.Count -gt 0) {
+        Write-Error "Card descriptions duplicate auto keyword text: $($issues -join '; ')"
+    }
+
+    'auto keyword duplication scan ok'
+}
+
+function Assert-NoRawLocalizationKeysInText {
+    $issues = @()
+    foreach ($locale in @('zhs', 'eng')) {
+        Get-ChildItem -LiteralPath (Join-Path $Root "localization\$locale") -Filter *.json | ForEach-Object {
+            $json = Read-Json $_.FullName
+            foreach ($property in $json.PSObject.Properties) {
+                if ($property.Value -is [string] -and $property.Value -match '(?i)card[ _-]?keywords|\.title|\.description') {
+                    $issues += "$($_.FullName): $($property.Name)"
+                }
+            }
+        }
+    }
+
+    if ($issues.Count -gt 0) {
+        Write-Error "Localization values appear to contain raw keys: $($issues -join '; ')"
+    }
+
+    'raw localization key text scan ok'
+}
+
+function Assert-ExportPresetIncludesRootLocalization {
+    $path = Join-Path $Root 'export_presets.cfg'
+    $text = Get-Content -Raw -Encoding UTF8 $path
+    if ($text -notmatch 'include_filter=.*localization/\*\*') {
+        Write-Error 'export_presets.cfg must include localization/** so root localization tables are packaged'
+    }
+
+    'export preset localization include ok'
+}
+
 function Assert-EnglishHasNoCjk {
     $issues = @()
     Get-ChildItem -Recurse -LiteralPath (Join-Path $Root 'myfirstmod\localization\eng') -Filter *.json | ForEach-Object {
@@ -144,6 +330,12 @@ foreach ($name in @('cards', 'relics', 'characters', 'ancients', 'card_keywords'
 }
 
 Assert-EnglishHasNoCjk
+Assert-RequiredKeywordLocalization
+Assert-CodeLocStringKeys
+Assert-ModelLocalizationKeys
+Assert-NoAutoKeywordTextInCardDescriptions
+Assert-NoRawLocalizationKeysInText
+Assert-ExportPresetIncludesRootLocalization
 Assert-CardImages
 Assert-ConcreteResourcePaths
 
