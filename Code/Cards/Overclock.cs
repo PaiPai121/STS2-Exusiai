@@ -24,7 +24,7 @@ public class Overclock : MyFirstModCardModel
         new CardsVar(2)
     ];
 
-    public override List<(string, string)> Localization => [("title", "过载模式"), ("description", "本回合中，你接下来打出的{Cards:diff()}张攻击牌费用变为0。之后每隔1个回合，在回合开始时再次获得此效果。")];
+    public override List<(string, string)> Localization => [("title", "Overclock"), ("description", "This turn, the next {Cards:diff()} Attacks you play cost 0. Every other turn, gain this effect again at the start of your turn.")];
 
     public Overclock() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

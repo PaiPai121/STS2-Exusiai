@@ -21,7 +21,7 @@ public class ExusiaiStrike : MyFirstModCardModel
 
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
     public override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    public override List<(string, string)> Localization => [("title", "打击"), ("description", "造成{Damage:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Strike"), ("description", "Deal {Damage:diff()} damage.")];
 
     public ExusiaiStrike() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

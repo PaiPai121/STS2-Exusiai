@@ -20,9 +20,9 @@ public class OverclockPower : CustomPowerModel
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/OverclockPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/OverclockPower.png";
     public override List<(string, string)> Localization => [
-        ("title", "过载模式"),
-        ("description", "本回合中，你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。之后每隔1个回合，回合开始时再次获得此效果。"),
-        ("smartDescription", "本回合中，你接下来打出的[blue]{Amount}[/blue]张攻击牌费用变为[blue]0[/blue]。之后每隔1个回合，回合开始时再次获得此效果。")
+        ("title", "Overclock"),
+        ("description", "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn."),
+        ("smartDescription", "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn.")
     ];
 
     private int _freeAttacksPerOverload;

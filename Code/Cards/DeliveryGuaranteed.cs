@@ -23,7 +23,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
         new CardsVar(2)
     ];
 
-    public override List<(string, string)> Localization => [("title", "使命必达！"), ("description", "从弃牌堆选择至多{Cards:diff()}张牌，将其复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。")];
+    public override List<(string, string)> Localization => [("title", "Guaranteed Delivery!"), ("description", "Choose up to {Cards:diff()} cards from your discard pile and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust.")];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

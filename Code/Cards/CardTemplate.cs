@@ -24,7 +24,7 @@ public class CardTemplate : RapidFireCardModel
         new DamageVar(7, ValueProp.Move)
     ];
 
-    public override List<(string, string)> Localization => [("title", "交叉火力"), ("description", "造成{Damage:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Crossfire"), ("description", "Deal {Damage:diff()} damage.")];
 
     public CardTemplate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -63,7 +63,7 @@ public class CoverFire : MyFirstModCardModel
         new CardsVar(1)
     ];
 
-    public override List<(string, string)> Localization => [("title", "覆盖射击"), ("description", "造成{Damage:diff()}点伤害。抽{Cards:diff()}张牌。")];
+    public override List<(string, string)> Localization => [("title", "Cover Fire"), ("description", "Deal {Damage:diff()} damage. Draw {Cards:diff()} card.")];
 
     public CoverFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -102,7 +102,7 @@ public class TacticalRetreat : MyFirstModCardModel
         new CardsVar(1)
     ];
 
-    public override List<(string, string)> Localization => [("title", "战术撤退"), ("description", "获得{Block:diff()}点格挡。抽{Cards:diff()}张牌。")];
+    public override List<(string, string)> Localization => [("title", "Tactical Retreat"), ("description", "Gain {Block:diff()} Block. Draw {Cards:diff()} card.")];
 
     public TacticalRetreat() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

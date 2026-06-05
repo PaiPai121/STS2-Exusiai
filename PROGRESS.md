@@ -9,7 +9,7 @@ Updated: 2026-05-31 23:20 Asia/Shanghai
 - Current deployed folder:
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
+D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai
 ```
 
 - Expected deployed files:
@@ -109,7 +109,7 @@ Known export noise can be ignored if the command exits successfully and `Exusiai
 ## Deploy Command
 
 ```powershell
-Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
+Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
 ```
 
 `dotnet build` already copies the DLL and manifest through the project build flow.

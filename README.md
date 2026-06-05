@@ -11,6 +11,8 @@ Exusiai is a Slay the Spire 2 character mod built around fast attacks, Rapid Fir
 
 ## Installation
 
+Delete any old `Exusiai` mod folder before installing a new release.
+
 For players, install the release files into:
 
 ```text
@@ -27,6 +29,18 @@ Exusiai.pck
 
 BaseLib must also be installed and enabled. Do not rename the `Exusiai` folder or the three release files.
 
+## Troubleshooting
+
+If cards show placeholder text such as `If you can read this, there is a bug`, the mod code or packed assets did not load correctly. Check:
+
+- The folder is exactly `Slay the Spire 2/mods/Exusiai`.
+- The folder contains `Exusiai.dll`, `Exusiai.json`, and `Exusiai.pck`.
+- BaseLib is installed and enabled.
+- Old files from previous versions were removed before reinstalling.
+- The newest game log has no `Exusiai` or `BaseLib` load errors.
+
+The public beta branch may change STS2 APIs before the stable branch. If this happens only on beta, include the game branch, BaseLib version, and the newest log when reporting it.
+
 ## Build
 
 ```powershell
@@ -36,7 +50,7 @@ dotnet build D:\work_console\MyFirstMod\MyFirstMod.csproj
 The build copies `Exusiai.dll`, `Exusiai.json`, and the current `Exusiai.pck` into:
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
+D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai
 ```
 
 ## Export PCK
@@ -48,7 +62,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
 Then copy it into the game mod directory:
 
 ```powershell
-Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
+Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
 ```
 
 The exporter currently prints known Godot noise about `sts2` assembly lookup. Treat the export as successful when `Exusiai.pck` is written.
@@ -65,7 +79,7 @@ The exporter currently prints known Godot noise about `sts2` assembly lookup. Tr
 
 ## Release Status
 
-Current manifest version: `v1.0.1`.
+Current manifest version: `v1.0.3`.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 

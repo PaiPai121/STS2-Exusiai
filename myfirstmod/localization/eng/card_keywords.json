@@ -1,6 +1,6 @@
 {
   "MYFIRSTMOD-RAPID_FIRE.title": "Rapid Fire",
-  "MYFIRSTMOD-RAPID_FIRE.description": "When played, create an extra copy of this card in your hand. The copy gains Ethereal and Exhaust, and cannot trigger Rapid Fire again.",
+  "MYFIRSTMOD-RAPID_FIRE.description": "When played, create an extra copy of this card in your hand. The copy keeps its cost, gains Ethereal and Exhaust, and cannot trigger Rapid Fire again.",
   "EXHAUST.title": "Exhaust",
   "EXHAUST.description": "Removed until end of combat.",
   "ETHEREAL.title": "Ethereal",

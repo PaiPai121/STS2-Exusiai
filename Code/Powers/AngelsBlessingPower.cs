@@ -15,7 +15,7 @@ public class AngelsBlessingPower : CustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
-    public override List<(string, string)> Localization => [("title", "天使祝福"), ("description", "每打出[blue]{Amount}[/blue]张牌，抽1张牌。"), ("smartDescription", "每打出[blue]{Amount}[/blue]张牌，抽1张牌。")];
+    public override List<(string, string)> Localization => [("title", "Angel's Blessing"), ("description", "Whenever you play [blue]{Amount}[/blue] cards, draw 1 card."), ("smartDescription", "Whenever you play [blue]{Amount}[/blue] cards, draw 1 card.")];
 
     private int _cardsPlayedThisTurn;
 

@@ -11,7 +11,7 @@
 - Project root: `D:\work_console\MyFirstMod`
 - C# project: `D:\work_console\MyFirstMod\MyFirstMod.csproj`
 - Log directory: `C:\Users\HunterAndDragon\AppData\Roaming\SlayTheSpire2\logs`
-- Game mod deploy directory: `C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai`
+- Game mod deploy directory: `D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai`
 - MegaDot exporter root: `D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp`
 
 ## 执行前检查

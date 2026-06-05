@@ -1,5 +1,37 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added the 2026-06-04 second-wave mechanism package, expanding the obtainable non-Ancient card pool to 45 cards with mark setup, multi-hit payoffs, delayed Gunspark supply, hand filtering, Rapid Fire access, Rapid Fire payoffs, and capped Gunspark finisher damage.
+- Added a 2026-06-05 defensive bridge mini-pass, expanding the obtainable non-Ancient card pool to 48 cards with `SuppressionSignal`, `SparkAegis`, and `HaloRelay`.
+- Added a 2026-06-05 marked-defense mini-pass, expanding the obtainable non-Ancient card pool to 50 cards with `MarkedAdvance` and `SpottersCover`.
+- Added a 2026-06-05 rare utility mini-pass, expanding the obtainable non-Ancient card pool to 52 cards with `VectorReboot` and `SparkBarrier`.
+- Added a 2026-06-05 Rapid Fire follow-up mini-pass, expanding the obtainable non-Ancient card pool to 55 cards with `FlashpointMark`, `RelayFootwork`, and `SparkCrossfire`.
+- Added `SanctifiedCrossfire` as Exusiai's Ancient replacement for Crossfire through Archaic Tooth.
+- Added independent card art for the second-wave and Ancient card set that previously reused duplicate placeholder images.
+
+### Changed
+
+- Entered a convergence balance pass at 55 non-Ancient obtainable cards instead of continuing to expand the pool.
+- Clarified Rapid Fire keyword text: generated copies keep their cost, gain Ethereal and Exhaust, and cannot trigger Rapid Fire again.
+- Reworked `RelayFootwork` into a pure defensive Rapid Fire follow-up: it now gains 5/8 Block and gains 4 more Block if a Rapid Fire card was played this turn, instead of drawing a card.
+- Tuned `SparkCrossfire` down from 5/7 to 4/6 damage to keep post-Gunspark Rapid Fire turns from over-scaling through both the original card and its copy.
+- Strengthened Rapid Fire as its own card-pool axis with `QuickdrawDrill`, `RhythmTrigger`, and `OpenFireDiscipline` instead of routing every payoff through Gunspark generation.
+- Added defensive route tolerance without raising burst ceilings: defensive mark setup, Rapid Fire defensive payoff, and Gunspark defensive payoff.
+- Added marked-defense payoffs so Vulnerable setup can convert into block and draw, not only damage.
+- Added Rapid Fire follow-up cards that turn Rapid Fire into mark setup, defensive continuity, and conditional post-Gunspark damage without adding more Gunspark growth.
+- Raised the rare pool to 10 cards with non-finisher utility and defensive engine options.
+- Tuned `RhythmTrigger` so the base card draws 1 after Rapid Fire and the upgraded card draws 2.
+- Updated local build/deploy documentation and Windows defaults for the current `D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai` install path.
+
+### Fixed
+
+- `QuickdrawDrill` now returns quietly when the draw pile contains no Rapid Fire cards instead of opening an empty selection grid.
+- `SparkRecycle` removes selected hand cards from combat before drawing replacements.
+- `Overclock` no longer relies on lingering card-instance state for temporary attack cost reduction.
+
 ## v1.0.3 - 2026-05-31
 
 ### Fixed

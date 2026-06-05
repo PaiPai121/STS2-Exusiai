@@ -3,7 +3,7 @@ setlocal
 set "PROJECT_DIR=%~dp0"
 set "PROJECT_DIR=%PROJECT_DIR:~0,-1%"
 set "EXPORTER=D:\work_console\workspaceforexusuai\megadot-4.5.1-m.9-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64_console.exe"
-set "MODS_DIR=C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai"
+set "MODS_DIR=D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai"
 
 echo ========== Step 1: Build DLL ==========
 dotnet build "%PROJECT_DIR%\MyFirstMod.csproj"

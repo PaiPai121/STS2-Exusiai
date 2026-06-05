@@ -18,6 +18,19 @@ static class GeneratedTokenHelper
 {
     public static async Task AddGunsparkToHand(MyFirstModCardModel source)
     {
+        await AddGunsparksToHand(source, 1);
+    }
+
+    public static async Task AddGunsparksToHand(MyFirstModCardModel source, int count)
+    {
+        await AddGunsparksToPile(source, count, PileType.Hand);
+    }
+
+    public static async Task AddGunsparksToPile(MyFirstModCardModel source, int count, PileType pileType)
+    {
+        if (count <= 0)
+            return;
+
         var owner = source.Owner;
         var combatState = owner?.Creature?.CombatState;
         if (owner == null || combatState == null)
@@ -26,8 +39,11 @@ static class GeneratedTokenHelper
         if (!CombatGuards.HasLivingEnemy(combatState))
             return;
 
-        CardModel spark = combatState.CreateCard<Gunspark>(owner);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        for (int i = 0; i < count; i++)
+        {
+            CardModel spark = combatState.CreateCard<Gunspark>(owner);
+            await CardPileCmd.AddGeneratedCardToCombat(spark, pileType, addedByPlayer: true);
+        }
     }
 }
 
@@ -36,7 +52,7 @@ public class GunslingerRush : RapidFireCardModel
 {
 
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new BlockVar(2, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪手突进"), ("description", "造成{Damage:diff()}点伤害。获得{Block:diff()}点格挡。")];
+    public override List<(string, string)> Localization => [("title", "Gunslinger Rush"), ("description", "Deal {Damage:diff()} damage. Gain {Block:diff()} Block.")];
     public GunslingerRush() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -57,22 +73,22 @@ public class GunslingerRush : RapidFireCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class TacticalSidestep : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "战术侧闪"), ("description", "获得{Block:diff()}点格挡。将1张枪火火花加入手牌。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new CardsVar(1)];
+    public override List<(string, string)> Localization => [("title", "Tactical Sidestep"), ("description", "Gain {Block:diff()} Block. Add {Cards:diff()} Gunspark to your hand.")];
     public TacticalSidestep() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await GeneratedTokenHelper.AddGunsparkToHand(this);
+        await GeneratedTokenHelper.AddGunsparksToHand(this, DynamicVars.Cards.IntValue);
     }
-    public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
+    public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class ChainReaction : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "连锁反应"), ("description", "造成{Damage:diff()}点伤害。本回合中，每当你打出攻击牌，对其目标追加{Cards:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Chain Reaction"), ("description", "Deal {Damage:diff()} damage. This turn, whenever you play an Attack, deal {Cards:diff()} extra damage to its target.")];
     public ChainReaction() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -91,7 +107,7 @@ public class ChainReaction : MyFirstModCardModel
 public class EmergencyShield : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "应急护盾"), ("description", "获得{Block:diff()}点格挡。抽{Cards:diff()}张牌。")];
+    public override List<(string, string)> Localization => [("title", "Emergency Shield"), ("description", "Gain {Block:diff()} Block. Draw {Cards:diff()} card.")];
     public EmergencyShield() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -108,7 +124,7 @@ public class EmergencyShield : MyFirstModCardModel
 public class RapidStance : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(4, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "速射架势"), ("description", "抽{Cards:diff()}张牌。获得{Block:diff()}点格挡。")];
+    public override List<(string, string)> Localization => [("title", "Rapid Stance"), ("description", "Draw {Cards:diff()} card. Gain {Block:diff()} Block.")];
     public RapidStance() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -126,7 +142,7 @@ public class RapidStance : MyFirstModCardModel
 public class BarrageFire : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "弹幕射击"), ("description", "对所有敌人造成{Damage:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Barrage Fire"), ("description", "Deal {Damage:diff()} damage to all enemies.")];
     public BarrageFire() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -142,7 +158,7 @@ public class BarrageFire : RapidFireCardModel
 public class SuppressiveFire : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new BlockVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "压制射击"), ("description", "造成{Damage:diff()}点伤害。获得{Block:diff()}点格挡。")];
+    public override List<(string, string)> Localization => [("title", "Suppressive Fire"), ("description", "Deal {Damage:diff()} damage. Gain {Block:diff()} Block.")];
     public SuppressiveFire() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -161,15 +177,15 @@ public class SuppressiveFire : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class WarfarinsPlasma : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "华法琳特调"), ("description", "失去[red]2[/red]点生命。抽{Cards:diff()}张牌。将1张枪火火花加入手牌。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    public override List<(string, string)> Localization => [("title", "Warfarin's Special"), ("description", "Lose [red]3[/red] HP. Draw {Cards:diff()} cards.")];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public WarfarinsPlasma() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        await CreatureCmd.Damage(c, Owner.Creature, 2, ValueProp.Unblockable | ValueProp.Unpowered, Owner.Creature, this);
+        await CreatureCmd.Damage(c, Owner.Creature, 3, ValueProp.Unblockable | ValueProp.Unpowered, Owner.Creature, this);
 
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }
@@ -178,7 +194,7 @@ public class WarfarinsPlasma : MyFirstModCardModel
 public class QuickMagazine : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(3, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "快速换弹"), ("description", "抽{Cards:diff()}张牌。获得{Block:diff()}点格挡。将1张枪火火花加入手牌。")];
+    public override List<(string, string)> Localization => [("title", "Quick Magazine"), ("description", "Draw {Cards:diff()} card. Gain {Block:diff()} Block. Add 1 Gunspark to your hand.")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public QuickMagazine() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -194,7 +210,7 @@ public class QuickMagazine : MyFirstModCardModel
 public class SweepMode : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "扫射模式"), ("description", "每当你打出攻击牌，对所有敌人造成{Damage:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Sweep Mode"), ("description", "Whenever you play an Attack, deal {Damage:diff()} damage to ALL enemies.")];
     public SweepMode() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -207,7 +223,7 @@ public class SweepMode : MyFirstModCardModel
 public class PiercingRound : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "穿甲弹"), ("description", "造成{Damage:diff()}点伤害。")];
+    public override List<(string, string)> Localization => [("title", "Piercing Round"), ("description", "Deal {Damage:diff()} damage.")];
     public PiercingRound() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -222,25 +238,28 @@ public class PiercingRound : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class PursuitOrder : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "追猎指令"), ("description", "造成{Damage:diff()}点伤害。将1张枪火火花加入手牌。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move), new CardsVar(1)];
+    public override List<(string, string)> Localization => [("title", "Pursuit Order"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunspark to your hand.")];
     public PursuitOrder() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         if (p.Target != null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
 
-        await GeneratedTokenHelper.AddGunsparkToHand(this);
+        await GeneratedTokenHelper.AddGunsparksToHand(this, DynamicVars.Cards.IntValue);
     }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
+    public override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Cards.UpgradeValueBy(1);
+    }
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class FullAuto : RapidFireCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "全自动"), ("description", "造成{Damage:diff()}点伤害{Cards:diff()}次。")];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([CardKeyword.Exhaust]);
+    public override List<(string, string)> Localization => [("title", "Full Auto"), ("description", "Deal {Damage:diff()} damage {Cards:diff()} times.")];
     public FullAuto() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -257,9 +276,8 @@ public class FullAuto : RapidFireCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class BulletHell : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪林弹雨"), ("description", "造成{Damage:diff()}点伤害。将2张枪火火花加入手牌。")];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(16, ValueProp.Move), new CardsVar(2)];
+    public override List<(string, string)> Localization => [("title", "Bullet Hell"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunsparks to your hand.")];
     public BulletHell() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -267,23 +285,29 @@ public class BulletHell : MyFirstModCardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-        await GeneratedTokenHelper.AddGunsparkToHand(this);
-        await GeneratedTokenHelper.AddGunsparkToHand(this);
+        await GeneratedTokenHelper.AddGunsparksToHand(this, DynamicVars.Cards.IntValue);
     }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
+    public override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(5);
+        DynamicVars.Cards.UpgradeValueBy(1);
+    }
 }
 
 [Pool(typeof(TokenCardPool))]
 public class Gunspark : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "枪火火花"), ("description", "造成{Damage:diff()}点伤害。")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move)];
+    public override List<(string, string)> Localization => [("title", "Gunspark"), ("description", "Deal {Damage:diff()} damage.")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
     public Gunspark() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         if (p.Target != null)
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+        {
+            int bonusDamage = Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0;
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue + bonusDamage).FromCard(this).Targeting(p.Target).Execute(c);
+        }
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }

@@ -14,9 +14,9 @@ public class SweepModePower : CustomPowerModel
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/SweepModePower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/SweepModePower.png";
     public override List<(string, string)> Localization => [
-        ("title", "扫射模式"),
-        ("description", "每当你打出攻击牌，对所有敌人造成[red]{Amount}[/red]点伤害。"),
-        ("smartDescription", "每当你打出攻击牌，对所有敌人造成[red]{Amount}[/red]点伤害。")
+        ("title", "Sweep Mode"),
+        ("description", "Whenever you play an Attack, deal [red]{Amount}[/red] damage to ALL enemies."),
+        ("smartDescription", "Whenever you play an Attack, deal [red]{Amount}[/red] damage to ALL enemies.")
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

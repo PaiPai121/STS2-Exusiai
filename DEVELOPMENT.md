@@ -15,7 +15,7 @@ D:\work_console\MyFirstMod
 Game mod folder:
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai
+D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai
 ```
 
 Runtime logs:
@@ -48,7 +48,7 @@ These are currently expected if the build exits with 0 errors.
 Then deploy:
 
 ```powershell
-Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
+Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai\Exusiai.pck' -Force
 ```
 
 Known export noise can be ignored if the command succeeds and `Exusiai.pck` is produced:

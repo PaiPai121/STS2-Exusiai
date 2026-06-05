@@ -18,9 +18,9 @@ public class ChainReactionPower : CustomPowerModel
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/ChainReactionPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/ChainReactionPower.png";
     public override List<(string, string)> Localization => [
-        ("title", "连锁反应"),
-        ("description", "本回合中，每当你打出攻击牌，对其目标追加[blue]{Amount}[/blue]点伤害。"),
-        ("smartDescription", "本回合中，每当你打出攻击牌，对其目标追加[blue]{Amount}[/blue]点伤害。")
+        ("title", "Chain Reaction"),
+        ("description", "This turn, whenever you play an Attack, deal [blue]{Amount}[/blue] extra damage to its target."),
+        ("smartDescription", "This turn, whenever you play an Attack, deal [blue]{Amount}[/blue] extra damage to its target.")
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

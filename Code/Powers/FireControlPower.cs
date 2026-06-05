@@ -17,9 +17,9 @@ public class FireControlPower : CustomPowerModel
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/FireControlPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/FireControlPower.png";
     public override List<(string, string)> Localization => [
-        ("title", "火控校准"),
-        ("description", "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。"),
-        ("smartDescription", "每回合开始时，将[blue]{Amount}[/blue]张枪火火花加入手牌。")
+        ("title", "Fire Control"),
+        ("description", "At the start of each turn, add [blue]{Amount}[/blue] Gunspark to your hand."),
+        ("smartDescription", "At the start of each turn, add [blue]{Amount}[/blue] Gunspark to your hand.")
     ];
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

@@ -23,6 +23,7 @@
     <!-- Windows -->
     <PropertyGroup Condition="'$(IsWindows)' == 'true'">
         <Sts2Path>C:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2</Sts2Path>
+        <Sts2Path Condition="Exists('D:/SteamLibrary/steamapps/common/Slay the Spire 2')">D:/SteamLibrary/steamapps/common/Slay the Spire 2</Sts2Path>
         <ModsPath>$(Sts2Path)/mods/</ModsPath>
         <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
     </PropertyGroup>
