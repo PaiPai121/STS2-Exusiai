@@ -23,19 +23,19 @@
 | CardTemplate | 交叉火力 | 攻击 | 普通 | 1 | 单体敌人 | 速射 | 造成 7 点伤害 | 同时在起始卡组中；速射效果由关键词栏显示 |
 | CoverFire | 覆盖射击 | 攻击 | 普通 | 1 | 单体敌人 | 无 | 造成 7/9 点伤害并抽 1 张牌 | 从 9/12 下调，避免普通过牌攻击以高直伤压过低费连打和罕见组件 |
 | TacticalRetreat | 战术撤退 | 技能 | 普通 | 1 | 自身 | 无 | 获得 5 点格挡并抽 1 张牌，升级 +3 格挡 | 已升级为首版防御续航牌 |
-| GunslingerRush | 枪手突进 | 攻击 | 普通 | 1 | 单体敌人 | 速射 | 造成 7 点伤害并获得 2/3 点格挡，升级 +3 伤害、+1 格挡 | 已实现首版进攻防守同步速射逻辑 |
+| GunslingerRush | 枪手突进 | 攻击 | 普通 | 1 | 单体敌人 | 速射 | 造成 5/8 点伤害并获得 5/7 点格挡 | 改为攻防机动速射牌，不再严格上位起始牌 Crossfire；Crossfire 保持更高纯输出，GunslingerRush 负责带防守的节奏交换 |
 | TacticalSidestep | 战术侧闪 | 技能 | 普通 | 1 | 自身 | 生成 Gunspark | 获得 7 点格挡并将 1/2 张枪火火花加入手牌 | 升级改为增加火花数量，让普通火花防御牌有明确流派收益 |
 | ChainReaction | 连锁反应 | 攻击 | 普通 | 1 | 单体敌人 | 本回合连击 | 造成 8 点伤害；本回合每当你打出攻击牌，对其目标追加 2/3 点伤害 | 去掉“攻击牌费用至少为 1”的负反馈，改为临时 Power 承载正向连击收益 |
 | EmergencyShield | 应急护盾 | 技能 | 普通 | 1 | 自身 | 无 | 获得 10/13 点格挡并抽 1 张牌 | 升级不再增加抽牌，避免普通防御牌升级后成为高效过牌牌 |
-| RapidStance | 速射架势 | 技能 | 普通 | 1 | 自身 | 无 | 抽 1/2 张牌并获得 4/6 点格挡 | 从抽 2/3 下调，作为普通姿态牌保留轻度续航与小额防御 |
+| RapidStance | 速射架势 | 技能 | 普通 | 1 | 自身 | 速射条件过牌 | 抽 1/2 张牌并获得 6/8 点格挡；若本回合打出过速射牌，额外抽 1 张 | 从低效姿态牌改为速射后的防御续航，未触发时仍是合格普通防御过牌 |
 | BarrageFire | 弹幕射击 | 攻击 | 普通 | 1 | 全体敌人 | 速射、AOE | 对所有敌人造成 6/8 点伤害 | 从“9 伤抽 1 速射”改为普通 AOE 速射牌，避免严格压过覆盖射击 |
 | SuppressiveFire | 压制射击 | 攻击 | 普通 | 1 | 单体敌人 | 无 | 造成 8/10 点伤害并获得 6/8 点格挡 | 从输出型攻防一体改为偏防御压制，和覆盖射击、枪手突进拉开职责 |
-| PointBlankShot | 贴身点射 | 攻击 | 普通 | 0 | 单体敌人 | 生成 Gunspark | 造成 4/6 点伤害并将 1 张枪火火花加入手牌 | 从纯 0 费小伤害改为火花入口，解决抓位过低问题 |
+| PointBlankShot | 贴身点射 | 攻击 | 普通 | 0 | 单体敌人 | 生成 Gunspark | 造成 5/7 点伤害并将 1 张枪火火花加入手牌 | 小幅提高基础伤害，保留 0 费即时火花入口身份 |
 | CoverReload | 掩护换弹 | 技能 | 普通 | 1 | 自身 | 延迟生成 Gunspark | 获得 8/11 点格挡并将 1 张枪火火花加入弃牌堆 | 从即时火花入口改为延迟装填，和战术侧闪拉开职责，减少普通技能重复 |
 | InterleavedFire | 交错射击 | 攻击 | 普通 | 0 | 单体敌人 | 速射 | 造成 3/5 点伤害 | 改为低费连打组件，和天使祝福、扫射模式、连锁反应形成出牌次数协同，避免继续堆叠攻防一体普通牌 |
 | TracerRounds | 曳光弹 | 攻击 | 普通 | 1 | 单体敌人 | 易伤 | 造成 7/10 点伤害并给予 1 层易伤 | 第二批补充的标记入口，让火花和多段攻击有基础放大目标 |
-| FieldStrip | 野战拆装 | 技能 | 普通 | 1 | 自身 | 过牌、延迟生成 Gunspark | 抽 2/3 张牌并将 1 张枪火火花加入弃牌堆 | 作为普通换弹/循环牌，强度放在未来供给而不是当回合爆发 |
-| CrossfirePattern | 交叉弹道 | 攻击 | 普通 | 1 | 单体敌人 | 多段攻击 | 造成 3/4 点伤害 2 次 | 给连锁反应、易伤、扫射模式提供普通多段攻击入口 |
+| FieldStrip | 野战拆装 | 技能 | 普通 | 1 | 自身 | 过牌、即时供给 Gunspark | 抽 2/3 张牌并将 1 张枪火火花加入手牌 | 改为即时供给，避免 1 费抽牌后把火花塞进牌堆导致后续抽牌质量下降 |
+| CrossfirePattern | 交叉弹道 | 攻击 | 普通 | 1 | 单体敌人 | 多段攻击 | 造成 4/5 点伤害 2 次 | 给连锁反应、易伤、扫射模式提供普通多段攻击入口，基础输出不再接近初始打击 |
 | HaloFeint | 光环佯动 | 技能 | 普通 | 1 | 自身 | 条件过牌 | 获得 6/9 点格挡；若手牌有枪火火花，抽 1 张牌 | 鼓励先准备火花再防守续航，不再是无条件强过牌 |
 | SparkPrimer | 火花预装 | 技能 | 普通 | 1 | 自身 | 抽牌堆供给 Gunspark | 获得 5/8 点格挡并将 2 张枪火火花加入抽牌堆顶 | 延迟但可控的火花供给，支持下一次抽牌或回合计划 |
 | SuppressionSignal | 压制信号 | 技能 | 普通 | 1 | 单体敌人 | 防御、易伤 | 获得 7/10 点格挡并给予 1 层易伤 | 第三批小迭代补防御向标记入口，让防守回合也能为后续多段/火花铺垫 |
@@ -48,7 +48,7 @@
 |---|---|---|---|---:|---|---|---|---|
 | AngelsBlessing | 天使祝福 | 能力 | 罕见 | 1 | 自身 | 打牌次数引擎 | 每回合中，每打出 5/4 张牌，抽 1 张牌 | 去掉入场抽牌和升级抽 2，改为纯连打引擎，避免成为泛用强过牌能力 |
 | Overclock | 过载模式 | 能力 | 罕见 | 2 | 自身 | Power、隔回合过载 | 本回合接下来打出的 2/3 张攻击牌费用变为 0；之后每隔 1 个回合，回合开始时再次获得此效果 | 已改为持续能力引擎；`OverclockPower` 每次触发只影响本回合，未用完次数在回合结束清零 |
-| WarfarinsPlasma | 华法琳特调 | 技能 | 罕见 | 1 | 自身 | 自损、消耗、过牌 | 失去 3 点生命，抽 2/3 张牌，消耗 | 移除火花生成并提高自损，避免“抽牌 + 免费火花输出”形成无负面御血术 |
+| WarfarinsPlasma | 华法琳特调 | 技能 | 罕见 | 1 | 自身 | 自损、消耗、临时力量 | 失去 3 点生命，本回合获得 3/4 点力量，消耗 | 改为更贴近明日方舟华法琳临时加伤害定位；用自损换当回合爆发，而不是继续堆过牌 |
 | QuickMagazine | 快速换弹 | 技能 | 罕见 | 0 | 自身 | 消耗、生成 Gunspark | 抽 1 张牌，获得 3/5 点格挡，并将 1 张枪火火花加入手牌 | 升级不再抽 2，改为提高小额格挡，避免 0 费强过牌回到卡池 |
 | SweepMode | 扫射模式 | 能力 | 罕见 | 1 | 自身 | Power、AOE | 每当你打出攻击牌，对所有敌人造成 2/3 点伤害 | 已从一次性攻击改为更符合“模式”的持续扫射能力 |
 | PiercingRound | 穿甲弹 | 攻击 | 罕见 | 1 | 单体敌人 | 无 | 造成 15 点伤害，升级 +5 伤害 | 已清理旧的 StrikeCopy 生成逻辑；当前代码仅保留稳定直伤版本 |
@@ -57,7 +57,7 @@
 | IgnitionProtocol | 点火协议 | 能力 | 罕见 | 1 | 自身 | Power、火花成长 | 使本场战斗中枪火火花伤害提高 1/2；每当你打出枪火火花，再提高 1 | 新增火花核心成长牌，回应“火花越打越强”的实机反馈 |
 | BreakthroughVector | 突破向量 | 攻击 | 罕见 | 1 | 单体敌人 | 速射、生成 Gunspark | 造成 6/8 点伤害，将 1 张枪火火花加入手牌 | 小幅降伤，保留速射 + token 桥接身份，避免复制牌额外生成 Gunspark 时总收益过高 |
 | HaloCover | 光环掩护 | 技能 | 罕见 | 1 | 自身 | 消耗、生成 Gunspark | 获得 12 点格挡并将 1/2 张枪火火花加入手牌 | 升级改为增加火花数量，保留爆发防御与 token 衔接 |
-| DeliveryGuaranteed | 使命必达！ | 技能 | 稀有 | 2 | 自身 | 消耗 | 从弃牌堆选择至多 2/3 张牌，将复制加入手牌，本回合费用变为 0，并获得虚无与消耗 | 保留稀有 2 费消耗牌的高上限临时回收定位，允许作为爆发回合核心牌 |
+| DeliveryGuaranteed | 使命必达！ | 技能 | 稀有 | 2 | 自身 | 消耗 | 从抽牌堆随机展示 5/6 张牌；选择其中至多 2/3 张，将复制加入手牌，本回合费用变为 0，并获得虚无与消耗 | 从精准弃牌堆复制改为随机抽牌堆展示，保留小卡组压缩后的高上限，但降低两张同名牌轻易自循环的概率 |
 | FullAuto | 全自动 | 攻击 | 稀有 | 2 | 单体敌人 | 速射 | 造成 5/6 点伤害 3 次 | 不再自带消耗，只让速射复制件虚无/消耗，减少稀有攻击全是一次性爆发的问题 |
 | BulletHell | 枪林弹雨 | 攻击 | 稀有 | 2 | 单体敌人 | 生成 Gunspark | 造成 16/21 点伤害并将 2/3 张枪火火花加入手牌 | 降低单次爆发并移除消耗，改成可重复的稀有火花攻击，而不是另一张一次性终端牌 |
 | FireControl | 火控校准 | 能力 | 稀有 | 2 | 自身 | Power、生成 Gunspark | 获得 4/7 点格挡；每回合开始时，将 1 张枪火火花加入手牌 | 升级不再翻倍每回合产出，改为缓解打出当回合的节奏亏损 |
@@ -83,6 +83,11 @@
 |---|---|---|---|---:|---|---|---|---|
 | Gunspark | 枪火火花 | 攻击 | 隐藏衍生 | 0 | 单体敌人 | 虚无、消耗 | 造成 4 点伤害，升级 +2 伤害；会受到点火协议提供的本场战斗额外伤害加成 | 由战术侧闪、贴身点射、快速换弹、追猎指令、枪林弹雨、掩护换弹、突破向量、光环掩护、火控校准、天使装填、终端齐射、野战拆装、火花预装、锁定指令、接力齐射等生成；生成流程先进入 CombatState，再加入目标牌堆；关键词由关键词栏显示 |
 
+### 先祖替换牌
+| 类名 | 游戏内名称 | 类型 | 稀有度 | 费用 | 目标 | 关键字/标签 | 效果摘要 | 备注 |
+|---|---|---|---|---:|---|---|---|---|
+| SanctifiedCrossfire | 新约交叉火力 | 攻击 | 先祖 | 1 | 单体敌人 | 速射、易伤、虚弱、生成 Gunspark | 造成 16/24 点伤害，给予 2/3 层易伤和 1 层虚弱，并将 1 张枪火火花加入手牌 | 通过 Archaic Tooth 将起始牌交叉火力替换得到；对标战士 Bash 转 Break 的 boss 奖励幅度，从纯伤害速射升级为伤害、攻防标记和火花三轴入口 |
+
 ## 配合与脑内强度模拟
 
 设计目标不是让每张牌单独都强，而是让小卡组通过明确配合打出强回合。后续改数值时，先检查这些配合包是否仍然成立。
@@ -95,9 +100,9 @@
 | 火花成长 | IgnitionProtocol、SparkCircuit、FireControl、AngelicReload、CoverReload、TacticalSidestep、BulletHell | 点火协议提高火花伤害；火花回路把火花转成抽牌，升级后还能补火花；即时生成和弃牌堆延迟装填共同保证供给 | 已成立。伤害成长和过牌被拆开，普通火花牌也开始区分即时供给与延迟供给 |
 | 速射桥接 | CardTemplate、GunslingerRush、InterleavedFire、BreakthroughVector、FullAuto、RelayVolley、FlashpointMark、SparkCrossfire、QuickdrawDrill、RhythmTrigger、OpenFireDiscipline | 速射复制增加攻击牌数量，复制牌带虚无/消耗；速拔训练主动选择抽牌堆速射并减费，节奏扳机奖励打出速射后的抽牌，开火纪律直接追加速射目标伤害 | 已加强。速射现在有独立检索、减费、过牌、标记和伤害 payoff，不再只是火花入口 |
 | 过载爆发 | Overclock、FullAuto、TerminalVolley、BulletHell、BreakthroughVector | 过载让接下来 2/3 张攻击免费；高费攻击和速射复制在过载回合价值显著提高 | 已成立但需要观察。Gunspark 也会消耗免费攻击次数，这是当前平衡点 |
-| 回收爆发 | DeliveryGuaranteed、PointBlankShot、BreakthroughVector、FullAuto、AngelicReload | 从弃牌堆复制关键牌，复制牌本回合 0 费并带虚无/消耗，适合小卡组在关键回合复用核心组件 | 已成立但偏后期。需要弃牌堆有目标，且要避免复制低价值基础牌 |
+| 回收爆发 | DeliveryGuaranteed、PointBlankShot、BreakthroughVector、FullAuto、AngelicReload | 从抽牌堆随机展示后复制关键牌，复制牌本回合 0 费并带虚无/消耗，适合小卡组在关键回合复用核心组件 | 已成立但更依赖牌库压缩和抽牌堆规划；大牌库中不再稳定精准找同名牌自循环 |
 | 第二批标记/节奏 | TracerRounds、LockOnOrder、CrossfirePattern、TempoBurst、RhythmTrigger、FinalSalvo | 易伤标记放大多段攻击和火花；节奏爆发按本回合出牌数结算；节奏扳机奖励速射后的过牌；最终齐射按本回合火花数追加段数但有上限 | 新增成立。它们给小卡组提供非 Power 的中局结算，不再只靠能力牌攀上限 |
-| 第二批供给/筛选 | FieldStrip、SparkPrimer、SparkRecycle、RelayVolley、QuickdrawDrill | 弃牌堆、抽牌堆顶、手牌筛选、速射检索和临时减费共同补齐路线入口；部分供给延迟发生，避免所有牌都即时爆发 | 新增成立。目标是提高路线密度，同时避免更多“1 费伤害 + 火花”的重复牌 |
+| 第二批供给/筛选 | FieldStrip、SparkPrimer、SparkRecycle、RelayVolley、QuickdrawDrill | 即时手牌供给、抽牌堆顶、弃牌堆、手牌筛选、速射检索和临时减费共同补齐路线入口；部分供给仍延迟发生，避免所有牌都即时爆发 | 新增成立。FieldStrip 作为普通过牌入口需要能立刻接上火花路线，其他牌继续承担延迟供给和筛选职责 |
 | 速射非火花轴 | QuickdrawDrill、RhythmTrigger、OpenFireDiscipline、FullAuto、InterleavedFire、RelayVolley、FlashpointMark、RelayFootwork、SparkCrossfire | 速拔训练从抽牌堆选择速射并减费；节奏扳机在打过速射后提供抽牌，接续步法提供纯防御接续；闪点标记把速射转成易伤铺垫，火花交叉火力则让火花后续接速射结算 | 已成立。速射可以作为独立路线启动和结算，火花只是其中一个分支；普通和罕见防御续航已拉开职责 |
 | 防御桥接 | SuppressionSignal、SparkAegis、HaloRelay、HaloFeint、GunslingerRush、MarkedAdvance、SpottersCover | 防御牌也能铺易伤、吃火花条件或吃速射条件；带易伤的目标还能转成格挡或过牌 | 2026-06-05 小迭代新增成立。目标是补“成型前不死”和“防御回合也参与路线”，不是提高爆发上限 |
 
@@ -109,10 +114,10 @@
 | 小卡组火花回合 | 已有 IgnitionProtocol 和升级 SparkCircuit；手牌有 PointBlankShot+、TacticalSidestep+、若干火花，3 能量 | 点火后火花约从 5、6、7 递增；2 张火花触发回路抽牌并补火花，PointBlankShot+ 和 TacticalSidestep+ 提供即时供给。单回合常见输出可到 25-40，并带 7 格挡和 1-2 次抽牌 | 小卡组强回合成立；CoverReload 改为弃牌堆供给后，爆发回合更依赖即时入口而不是所有防御牌都当场点火 |
 | 连锁攻击回合 | ChainReaction 后接 InterleavedFire、PointBlankShot、Gunspark、速射复制牌 | ChainReaction 本体 8；之后每张攻击追加 2/3。3-5 张后续攻击时，额外伤害约 6-15，配合 SweepMode 可进一步转成 AOE | 连锁反应能奖励小卡组和 0 费牌，但需要后续攻击密度，单独抓不失控 |
 | 过载稀有爆发 | 已有 Overclock，手牌 FullAuto、BulletHell 或 TerminalVolley，且有一个速射复制可接 | 过载回合可免费打 2/3 张攻击。FullAuto 基础约 15/18，BulletHell 约 16/21 + 2/3 张火花，TerminalVolley 约 18/24 AOE + 2 张火花；若火花已有点火加成，后续输出提高 | 稀有爆发仍有吸引力，但已降低“稀有攻击互相导火花”的爆发密度 |
-| DeliveryGuaranteed 小卡组回合 | 弃牌堆有 PointBlankShot+、BreakthroughVector 或 FullAuto；当前手牌有 DeliveryGuaranteed 和触发型 Power | 2 能量换 2/3 张 0 费复制牌，能集中触发 ChainReaction、SweepMode、AngelsBlessing，并重打火花生成牌 | 支持“小卡组通过配合打强输出”的目标；风险是复制基础牌时收益偏低 |
-| 第二批锁定多段回合 | 手牌 TracerRounds 或 LockOnOrder，接 CrossfirePattern、FinalSalvo 或若干 Gunspark | 1 层易伤后，CrossfirePattern 从 6/8 提升到约 9/12；FinalSalvo 基础 21/24，若本回合已打 2 张火花则约 35/40，再受易伤放大 | 有明确强回合，但需要先投入标记和火花铺垫；FinalSalvo 追加段数封顶，避免点火协议后无限滚雪球 |
+| DeliveryGuaranteed 小卡组回合 | 抽牌堆被压缩到 5-8 张，且包含 PointBlankShot+、BreakthroughVector 或 FullAuto；当前手牌有 DeliveryGuaranteed 和触发型 Power | 2 能量随机展示 5/6 张，再选择 2/3 张 0 费复制牌，能集中触发 ChainReaction、SweepMode、AngelsBlessing，并重打火花生成牌 | 支持“小卡组通过配合打强输出”的目标；压缩牌库后的稳定性是玩家经营奖励，大牌库中不再轻易形成同名牌无限 |
+| 第二批锁定多段回合 | 手牌 TracerRounds、LockOnOrder 或 SanctifiedCrossfire，接 CrossfirePattern、FinalSalvo 或若干 Gunspark | 易伤后，CrossfirePattern 从 8/10 提升到约 12/15；FinalSalvo 基础 21/24，若本回合已打 2 张火花则约 35/40，再受易伤放大 | 有明确强回合，但需要先投入标记和火花铺垫；FinalSalvo 追加段数封顶，避免点火协议后无限滚雪球 |
 | 第二批节奏回合 | 小卡组已有 0 费 InterleavedFire、PointBlankShot、Gunspark，最后打 TempoBurst | 此前打出 4 张牌时，TempoBurst 约 9/12 伤；此前打出 7 张牌时约 12/15 伤 | 作为 1 费中段结算牌合格，但不会替代稀有终端；强度取决于低费密度 |
-| 第二批供给回合 | FieldStrip 或 RelayVolley 先把火花放进弃牌堆，SparkPrimer 放抽牌堆顶，SparkRecycle 清理手牌 | 当回合爆发比即时火花弱，但下一轮更容易凑出 SparkCircuit / IgnitionProtocol 的触发条件 | 延迟供给解决“牌很少但角色上限全靠能力”的路线密度问题，同时降低普通牌即时强度 |
+| 第二批供给回合 | FieldStrip 抽牌后把火花加入手牌，RelayVolley 先把火花放进弃牌堆，SparkPrimer 放抽牌堆顶，SparkRecycle 清理手牌 | FieldStrip 直接给手牌火花，可立刻触发 SparkCircuit / IgnitionProtocol；RelayVolley 和 SparkPrimer 仍保留较慢或需规划的供给 | FieldStrip 承担普通卡池的稳定入口职责，延迟供给留给其他更偏规划的牌 |
 | 速射非火花回合 | 手牌 QuickdrawDrill、RhythmTrigger，抽牌堆有 InterleavedFire 或 BreakthroughVector；也可能已有 OpenFireDiscipline | 速拔训练选择 1/2 张速射并本回合 0 费，打出速射后节奏扳机变成 1 费 10/13 伤 + 抽 1/2；若已有开火纪律，每张原始速射对对应目标额外造成 3/4 伤害 | 速射路线有不依赖火花的启动和结算；基础版续航已降档，升级版保留原抽 2 奖励 |
 | 第六批速射接续回合 | 已打出 InterleavedFire 或 FlashpointMark；手牌有 RelayFootwork、SparkCrossfire，且本回合此前打过 1 张 Gunspark | FlashpointMark 约 10/14 总伤并铺 2 层易伤；RelayFootwork 变成 1 费 9/12 格挡但不抽牌；SparkCrossfire 在火花后可由速射复制打出约 16/24 总伤，需要先打火花且不生成新火花 | 第六批让速射与易伤、防御和火花后结算互相接住；收敛修正后强回合仍成立，但抽牌和爆发上限更受控 |
 | 防御桥接回合 | 已打出 InterleavedFire 或 Gunspark，手牌有 HaloRelay 或 SparkAegis；另有 SuppressionSignal 可给下回合铺易伤 | HaloRelay 在速射后变成 1 费 8/11 格挡 + 抽 1；SparkAegis 在火花后变成 1 费 12/18 格挡；SuppressionSignal 在防守时给后续多段/火花铺 1 层易伤 | 新增防御稳定性成立。它们提高路线容错，不直接提高终端爆发 |
@@ -132,9 +137,12 @@
 - 2026-06-05 第六批小迭代从 52 张扩到 55 张，新增 2 普通、1 罕见，目标是补速射后的标记、防御续航和火花后攻击结算，不新增火花成长或稀有终端。
 - 2026-06-05 收敛修正：`RelayFootwork` 改为速射条件额外格挡、不再抽牌；`SparkCrossfire` 下调到 4/6 伤害，避免和速射复制叠加后过强。
 - 2026-06-05 文本语义收敛：速射关键词和脑内模拟明确“复制保留费用”，避免把速射误读成免费复制。
+- 2026-06-05 先祖牌加强：`SanctifiedCrossfire` 从 10/14 伤害 + 1 火花加强为 16/24 伤害 + 2/3 易伤 + 1 虚弱 + 1 火花，使 Archaic Tooth boss 奖励具备接近战士 Bash 转 Break 的机制质变；虚弱固定 1 层，不随升级提高，避免速射复制后防守面失控。
+- 2026-06-05 普通牌职责修正：`GunslingerRush` 从 7/10 伤害 + 2/3 格挡调整为 5/8 伤害 + 5/7 格挡，避免作为可选普通牌严格上位起始 `Crossfire`。
+- 2026-06-05 稀有复制牌修正：`DeliveryGuaranteed` 从弃牌堆精准选择 2/3 张，改为抽牌堆随机展示 5/6 张再选 2/3 张，保留压缩牌库后的健康无限空间，但降低两张同名牌轻易自循环的概率。
 - 速射路线已经单独加强：`QuickdrawDrill` 负责选择抽牌堆速射并临时减费，`RhythmTrigger` 负责速射后的抽牌结算，`OpenFireDiscipline` 负责持续速射目标伤害。后续不要把所有速射收益继续改成火花生成。
 - 当前不建议继续加强普通直伤牌；后续如果感觉弱，应优先提高配合牌的可读性、奖励选择吸引力或罕见/稀有组件密度。
-- 统一实机验证时重点观察：升级 SparkCircuit 触发后补火花是否过度自循环；Overclock 免费次数被 Gunspark 消耗是否体验上显得亏；DeliveryGuaranteed 是否经常因为弃牌堆目标不足而过弱；QuickdrawDrill 选择界面在抽牌堆有多张速射时是否清晰、抽牌堆无速射时是否安静返回；第二批新卡卡面在卡牌框内的裁切、亮度和主题辨识度是否合格。
+- 统一实机验证时重点观察：升级 SparkCircuit 触发后补火花是否过度自循环；Overclock 免费次数被 Gunspark 消耗是否体验上显得亏；DeliveryGuaranteed 改为随机展示抽牌堆 5/6 张后是否仍有稀有牌吸引力、压缩牌库后是否形成健康而非无脑的无限；QuickdrawDrill 选择界面在抽牌堆有多张速射时是否清晰、抽牌堆无速射时是否安静返回；第二批新卡卡面在卡牌框内的裁切、亮度和主题辨识度是否合格。
 
 ## 当前结论
 - 当前实际带 **速射** 的卡：`CardTemplate`、`GunslingerRush`、`BarrageFire`、`FullAuto`、`InterleavedFire`、`BreakthroughVector`、`RelayVolley`、`FlashpointMark`、`SparkCrossfire`、`SanctifiedCrossfire`
@@ -145,7 +153,7 @@
 - 已补充脑内强度模拟：当前小卡组 combo 骨架成立，后续平衡应优先维护配合包，而不是单独加强普通直伤牌
 - `Overclock`、`DeliveryGuaranteed` 已脱离纯抽牌占位，当前实现以稳定可玩为优先，不再强行追旧飞书稿；`Overclock` 的限次减费不再依赖卡实例残留状态
 - 当前新卡大多仍为**首版数值/骨架实现**，后续调整以 `DESIGN_SOURCE.md` 的本地设计判断为准；2026-05-30 已新增 9 张小扩展卡，2026-06-04 第二批新增 13 张机制牌，2026-06-05 第三批新增 3 张防御桥接牌、第四批新增 2 张标记防御 payoff、第五批新增 2 张稀有工具/防御引擎牌、第六批新增 3 张速射接续牌，覆盖标记、多段、速射检索、速射条件过牌、节奏结算、延迟供给、手牌筛选、速射伤害奖励、火花终端、防御路线容错、稀有工具回收和速射后续动作
-- 卡牌类与卡面资源已对齐：57 个卡牌类含 `Gunspark` token 与先祖牌，对应 57 张卡面；2026-06-05 已将第二批重复占位图替换为独立抽象枪火/准星卡面，并为第三至六批小迭代补齐独立抽象卡面；后续实机阶段重点看裁切、亮度和主题辨识度
+- 卡牌类与卡面资源已对齐：57 个卡牌类含 `Gunspark` token 与先祖牌，对应 57 张卡面；2026-06-05 第二批至第六批新增卡曾使用独立抽象枪火/准星过渡卡面，2026-06-06 已将这些过渡卡面重绘为正式角色卡面。`SanctifiedCrossfire` 使用竖向裁切以适配先祖卡框，其余重绘卡面统一为 1024x768；后续实机阶段重点看裁切、亮度和主题辨识度
 - `cards.json` 已同步：`PiercingRound` 旧描述已修正，`StrikeCopy*` 与 `PLACEHOLDER_*` 本地化残留已移除，Gunspark 生成牌描述已恢复为 token 版本
 - 当前实际注册卡池统计：55 张非先祖可获得牌，其中基础 2、普通 22、罕见 21、稀有 10；攻击 24、技能 24、能力 7。官方职业牌池约 87-88 张，Exusiai 已超过 45-50 张可玩里程碑，正在向 60-70 张稳健牌池推进；后续若继续扩池，应优先补路线差异，而不是为了数量继续堆同质效果。
 

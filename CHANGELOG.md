@@ -14,10 +14,15 @@
 
 ### Changed
 
+- Small balance pass: strengthened `CrossfirePattern`, `PointBlankShot`, `FieldStrip`, and `RapidStance`, and gave `SparkBarrierPower` its own icon path.
+- Replaced the remaining abstract placeholder art for `CrossfirePattern`, `FlashpointMark`, `MarkedAdvance`, `TracerRounds`, `FieldStrip`, `HaloFeint`, `RelayFootwork`, and `SparkPrimer`.
 - Entered a convergence balance pass at 55 non-Ancient obtainable cards instead of continuing to expand the pool.
 - Clarified Rapid Fire keyword text: generated copies keep their cost, gain Ethereal and Exhaust, and cannot trigger Rapid Fire again.
 - Reworked `RelayFootwork` into a pure defensive Rapid Fire follow-up: it now gains 5/8 Block and gains 4 more Block if a Rapid Fire card was played this turn, instead of drawing a card.
 - Tuned `SparkCrossfire` down from 5/7 to 4/6 damage to keep post-Gunspark Rapid Fire turns from over-scaling through both the original card and its copy.
+- Strengthened `SanctifiedCrossfire` from 10/14 damage plus 1 Gunspark to 16/24 damage, 2/3 Vulnerable, 1 Weak, and 1 Gunspark so the Archaic Tooth transformation has boss-reward impact comparable to `Bash` becoming `Break`.
+- Retuned `GunslingerRush` from 7/10 damage plus 2/3 Block to 5/8 damage plus 5/7 Block so it no longer strictly outclasses starter `Crossfire`.
+- Reworked `DeliveryGuaranteed` from precise discard-pile copying into random draw-pile reveal: reveal 5/6 cards, choose up to 2/3 to copy into hand at 0 cost this turn with Ethereal and Exhaust.
 - Strengthened Rapid Fire as its own card-pool axis with `QuickdrawDrill`, `RhythmTrigger`, and `OpenFireDiscipline` instead of routing every payoff through Gunspark generation.
 - Added defensive route tolerance without raising burst ceilings: defensive mark setup, Rapid Fire defensive payoff, and Gunspark defensive payoff.
 - Added marked-defense payoffs so Vulnerable setup can convert into block and draw, not only damage.

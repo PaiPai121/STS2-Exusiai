@@ -1,4 +1,4 @@
-{
+﻿{
   "MYFIRSTMOD-EXUSIAI_STRIKE.title": "打击",
   "MYFIRSTMOD-EXUSIAI_STRIKE.description": "造成{Damage:diff()}点伤害。",
   "MYFIRSTMOD-EXUSIAI_DEFEND.title": "防御",
@@ -14,8 +14,8 @@
   "MYFIRSTMOD-OVERCLOCK.title": "过载模式",
   "MYFIRSTMOD-OVERCLOCK.description": "本回合中，你接下来打出的{Cards:diff()}张攻击牌费用变为0。之后每隔1个回合，在回合开始时再次获得此效果。",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "使命必达！",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从弃牌堆选择至多{Cards:diff()}张牌，将其复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "从弃牌堆选择至多[blue]{MaxCount}[/blue]张牌。",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "从抽牌堆随机展示{Preview:diff()}张牌。选择其中至多{Cards:diff()}张复制加入手牌；复制本回合费用变为0，并获得虚无与消耗。",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "选择至多[blue]{MaxCount}[/blue]张展示的牌。",
   "MYFIRSTMOD-GUNSLINGER_RUSH.title": "枪手突进",
   "MYFIRSTMOD-GUNSLINGER_RUSH.description": "造成{Damage:diff()}点伤害。获得{Block:diff()}点格挡。",
   "MYFIRSTMOD-TACTICAL_SIDESTEP.title": "战术侧闪",
@@ -25,13 +25,13 @@
   "MYFIRSTMOD-EMERGENCY_SHIELD.title": "应急护盾",
   "MYFIRSTMOD-EMERGENCY_SHIELD.description": "获得{Block:diff()}点格挡。抽{Cards:diff()}张牌。",
   "MYFIRSTMOD-RAPID_STANCE.title": "速射架势",
-  "MYFIRSTMOD-RAPID_STANCE.description": "抽{Cards:diff()}张牌。获得{Block:diff()}点格挡。",
+  "MYFIRSTMOD-RAPID_STANCE.description": "抽{Cards:diff()}张牌。获得{Block:diff()}点格挡。若本回合打出过速射牌，抽1张牌。",
   "MYFIRSTMOD-BARRAGE_FIRE.title": "弹幕射击",
   "MYFIRSTMOD-BARRAGE_FIRE.description": "对所有敌人造成{Damage:diff()}点伤害。",
   "MYFIRSTMOD-SUPPRESSIVE_FIRE.title": "压制射击",
   "MYFIRSTMOD-SUPPRESSIVE_FIRE.description": "造成{Damage:diff()}点伤害。获得{Block:diff()}点格挡。",
   "MYFIRSTMOD-WARFARINS_PLASMA.title": "华法琳特调",
-  "MYFIRSTMOD-WARFARINS_PLASMA.description": "失去[red]3[/red]点生命。抽{Cards:diff()}张牌。",
+  "MYFIRSTMOD-WARFARINS_PLASMA.description": "失去[red]3[/red]点生命。本回合获得{WarfarinsPlasmaPower:diff()}点力量。",
   "MYFIRSTMOD-QUICK_MAGAZINE.title": "快速换弹",
   "MYFIRSTMOD-QUICK_MAGAZINE.description": "抽{Cards:diff()}张牌。获得{Block:diff()}点格挡。将1张枪火火花加入手牌。",
   "MYFIRSTMOD-SWEEP_MODE.title": "扫射模式",
@@ -69,7 +69,7 @@
   "MYFIRSTMOD-TRACER_ROUNDS.title": "曳光弹",
   "MYFIRSTMOD-TRACER_ROUNDS.description": "造成{Damage:diff()}点伤害。给予{Cards:diff()}层易伤。",
   "MYFIRSTMOD-FIELD_STRIP.title": "野战拆装",
-  "MYFIRSTMOD-FIELD_STRIP.description": "抽{Cards:diff()}张牌。将1张枪火火花加入弃牌堆。",
+  "MYFIRSTMOD-FIELD_STRIP.description": "抽{Cards:diff()}张牌。将1张枪火火花加入手牌。",
   "MYFIRSTMOD-CROSSFIRE_PATTERN.title": "交叉弹道",
   "MYFIRSTMOD-CROSSFIRE_PATTERN.description": "造成{Damage:diff()}点伤害{Cards:diff()}次。",
   "MYFIRSTMOD-HALO_FEINT.title": "光环佯动",
@@ -142,6 +142,9 @@
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.title": "开火纪律",
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.description": "每当你打出速射牌时，对其目标造成[red]{Amount}[/red]点伤害。",
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.smartDescription": "每当你打出速射牌时，对其目标造成[red]{Amount}[/red]点伤害。",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.title": "华法琳特调",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.description": "本回合获得[blue]{Amount}[/blue]点力量。",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.smartDescription": "本回合获得[blue]{Amount}[/blue]点力量。",
   "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.title": "新约交叉火力",
-  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "造成{Damage:diff()}点伤害。将1张枪火火花加入手牌。"
+  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "造成{Damage:diff()}点伤害。给予{VulnerablePower:diff()}层易伤和{WeakPower:diff()}层虚弱。将1张枪火火花加入手牌。"
 }

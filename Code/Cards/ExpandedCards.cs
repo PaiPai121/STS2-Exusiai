@@ -14,7 +14,7 @@ namespace MyFirstMod.Code.Cards;
 [Pool(typeof(ExusiaiCardPool))]
 public class PointBlankShot : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Point-Blank Shot"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunspark to your hand.")];
     public PointBlankShot() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 

@@ -13,8 +13,8 @@ public class SparkBarrierPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/SparkCircuitPower.png";
-    public override string CustomBigIconPath => "res://myfirstmod/images/powers/SparkCircuitPower.png";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/SparkBarrierPower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/SparkBarrierPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Spark Barrier"),
         ("description", "Whenever you play a Gunspark, gain [blue]{Amount}[/blue] Block."),

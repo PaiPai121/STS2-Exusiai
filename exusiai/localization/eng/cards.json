@@ -1,4 +1,4 @@
-{
+﻿{
   "MYFIRSTMOD-EXUSIAI_STRIKE.title": "Strike",
   "MYFIRSTMOD-EXUSIAI_STRIKE.description": "Deal {Damage:diff()} damage.",
   "MYFIRSTMOD-EXUSIAI_DEFEND.title": "Defend",
@@ -14,8 +14,8 @@
   "MYFIRSTMOD-OVERCLOCK.title": "Overclock",
   "MYFIRSTMOD-OVERCLOCK.description": "This turn, the next {Cards:diff()} Attacks you play cost 0. Every other turn, gain this effect again at the start of your turn.",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "Guaranteed Delivery!",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "Choose up to {Cards:diff()} cards from your discard pile and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust.",
-  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "Choose up to [blue]{MaxCount}[/blue] cards from your discard pile.",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.description": "Randomly reveal {Preview:diff()} cards from your draw pile. Choose up to {Cards:diff()} of them and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust.",
+  "MYFIRSTMOD-DELIVERY_GUARANTEED.select": "Choose up to [blue]{MaxCount}[/blue] revealed cards.",
   "MYFIRSTMOD-GUNSLINGER_RUSH.title": "Gunslinger Rush",
   "MYFIRSTMOD-GUNSLINGER_RUSH.description": "Deal {Damage:diff()} damage. Gain {Block:diff()} Block.",
   "MYFIRSTMOD-TACTICAL_SIDESTEP.title": "Tactical Sidestep",
@@ -25,13 +25,13 @@
   "MYFIRSTMOD-EMERGENCY_SHIELD.title": "Emergency Shield",
   "MYFIRSTMOD-EMERGENCY_SHIELD.description": "Gain {Block:diff()} Block. Draw {Cards:diff()} card.",
   "MYFIRSTMOD-RAPID_STANCE.title": "Rapid Stance",
-  "MYFIRSTMOD-RAPID_STANCE.description": "Draw {Cards:diff()} card. Gain {Block:diff()} Block.",
+  "MYFIRSTMOD-RAPID_STANCE.description": "Draw {Cards:diff()} card. Gain {Block:diff()} Block. If you played a Rapid Fire card this turn, draw 1 card.",
   "MYFIRSTMOD-BARRAGE_FIRE.title": "Barrage Fire",
   "MYFIRSTMOD-BARRAGE_FIRE.description": "Deal {Damage:diff()} damage to all enemies.",
   "MYFIRSTMOD-SUPPRESSIVE_FIRE.title": "Suppressive Fire",
   "MYFIRSTMOD-SUPPRESSIVE_FIRE.description": "Deal {Damage:diff()} damage. Gain {Block:diff()} Block.",
   "MYFIRSTMOD-WARFARINS_PLASMA.title": "Warfarin's Special",
-  "MYFIRSTMOD-WARFARINS_PLASMA.description": "Lose [red]3[/red] HP. Draw {Cards:diff()} cards.",
+  "MYFIRSTMOD-WARFARINS_PLASMA.description": "Lose [red]3[/red] HP. Gain {WarfarinsPlasmaPower:diff()} Strength this turn.",
   "MYFIRSTMOD-QUICK_MAGAZINE.title": "Quick Magazine",
   "MYFIRSTMOD-QUICK_MAGAZINE.description": "Draw {Cards:diff()} card. Gain {Block:diff()} Block. Add 1 Gunspark to your hand.",
   "MYFIRSTMOD-SWEEP_MODE.title": "Sweep Mode",
@@ -69,7 +69,7 @@
   "MYFIRSTMOD-TRACER_ROUNDS.title": "Tracer Rounds",
   "MYFIRSTMOD-TRACER_ROUNDS.description": "Deal {Damage:diff()} damage. Apply {Cards:diff()} Vulnerable.",
   "MYFIRSTMOD-FIELD_STRIP.title": "Field Strip",
-  "MYFIRSTMOD-FIELD_STRIP.description": "Draw {Cards:diff()} cards. Add 1 Gunspark to your discard pile.",
+  "MYFIRSTMOD-FIELD_STRIP.description": "Draw {Cards:diff()} cards. Add 1 Gunspark to your hand.",
   "MYFIRSTMOD-CROSSFIRE_PATTERN.title": "Crossfire Pattern",
   "MYFIRSTMOD-CROSSFIRE_PATTERN.description": "Deal {Damage:diff()} damage {Cards:diff()} times.",
   "MYFIRSTMOD-HALO_FEINT.title": "Halo Feint",
@@ -142,6 +142,9 @@
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.title": "Open Fire Discipline",
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.description": "Whenever you play a Rapid Fire card, deal [red]{Amount}[/red] damage to its target.",
   "MYFIRSTMOD-RAPID_FIRE_SUPPORT_POWER.smartDescription": "Whenever you play a Rapid Fire card, deal [red]{Amount}[/red] damage to its target.",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.title": "Warfarin's Special",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.description": "Gain [blue]{Amount}[/blue] Strength this turn.",
+  "MYFIRSTMOD-WARFARINS_PLASMA_POWER.smartDescription": "Gain [blue]{Amount}[/blue] Strength this turn.",
   "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.title": "New Covenant Crossfire",
-  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "Deal {Damage:diff()} damage. Add 1 Gunspark to your hand."
+  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "Deal {Damage:diff()} damage. Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak. Add 1 Gunspark to your hand."
 }

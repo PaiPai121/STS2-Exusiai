@@ -78,13 +78,13 @@ public class TracerRounds : MyFirstModCardModel
 public class FieldStrip : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Field Strip"), ("description", "Draw {Cards:diff()} cards. Add 1 Gunspark to your discard pile.")];
+    public override List<(string, string)> Localization => [("title", "Field Strip"), ("description", "Draw {Cards:diff()} cards. Add 1 Gunspark to your hand.")];
     public FieldStrip() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
-        await GeneratedTokenHelper.AddGunsparksToPile(this, 1, PileType.Discard);
+        await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
 
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
@@ -93,7 +93,7 @@ public class FieldStrip : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class CrossfirePattern : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new CardsVar(2)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(2)];
     public override List<(string, string)> Localization => [("title", "Crossfire Pattern"), ("description", "Deal {Damage:diff()} damage {Cards:diff()} times.")];
     public CrossfirePattern() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 
