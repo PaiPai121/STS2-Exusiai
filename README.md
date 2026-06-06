@@ -11,6 +11,12 @@ Exusiai is a Slay the Spire 2 character mod built around fast attacks, Rapid Fir
 
 ## Installation
 
+Public release page:
+
+```text
+https://www.nexusmods.com/slaythespire2/mods/1078
+```
+
 Delete any old `Exusiai` mod folder before installing a new release.
 
 For players, install the release files into:
