@@ -1,98 +1,98 @@
 [gd_resource type="SpriteFrames" load_steps=49 format=3]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_001.png" id="1"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_001.png" id="1"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_002.png" id="2"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_002.png" id="2"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_003.png" id="3"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_003.png" id="3"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_004.png" id="4"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_004.png" id="4"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_005.png" id="5"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_005.png" id="5"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_006.png" id="6"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_006.png" id="6"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_007.png" id="7"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_007.png" id="7"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_008.png" id="8"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_008.png" id="8"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_009.png" id="9"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_009.png" id="9"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_010.png" id="10"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_010.png" id="10"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_011.png" id="11"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_011.png" id="11"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_012.png" id="12"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_012.png" id="12"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_013.png" id="13"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_013.png" id="13"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_014.png" id="14"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_014.png" id="14"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_015.png" id="15"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_015.png" id="15"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_016.png" id="16"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_016.png" id="16"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_017.png" id="17"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_017.png" id="17"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_018.png" id="18"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_018.png" id="18"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_019.png" id="19"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_019.png" id="19"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_020.png" id="20"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_020.png" id="20"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_021.png" id="21"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_021.png" id="21"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_022.png" id="22"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_022.png" id="22"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_023.png" id="23"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_023.png" id="23"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_024.png" id="24"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_024.png" id="24"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_025.png" id="25"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_025.png" id="25"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_026.png" id="26"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_026.png" id="26"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_027.png" id="27"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_027.png" id="27"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_028.png" id="28"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_028.png" id="28"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_029.png" id="29"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_029.png" id="29"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_030.png" id="30"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_030.png" id="30"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_031.png" id="31"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_031.png" id="31"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_032.png" id="32"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_032.png" id="32"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_033.png" id="33"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_033.png" id="33"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_034.png" id="34"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_034.png" id="34"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_035.png" id="35"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_035.png" id="35"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_036.png" id="36"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_036.png" id="36"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_037.png" id="37"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_037.png" id="37"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_038.png" id="38"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_038.png" id="38"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_039.png" id="39"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_039.png" id="39"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_040.png" id="40"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_040.png" id="40"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_041.png" id="41"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_041.png" id="41"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_042.png" id="42"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_042.png" id="42"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_043.png" id="43"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_043.png" id="43"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_044.png" id="44"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_044.png" id="44"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_045.png" id="45"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_045.png" id="45"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_046.png" id="46"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_046.png" id="46"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_cropped/frame_047.png" id="47"]
+[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/idle_frames_hd/frame_047.png" id="47"]
 
 [resource]
 animation_loop = {

@@ -77,23 +77,23 @@ public class InterleavedFire : RapidFireCardModel
 public class SparkCircuit : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. After every {Cards:diff()} Gunsparks you play, draw 1 card for each Spark Circuit you have. Upgraded Spark Circuits also add 1 Gunspark to your hand.")];
-    public SparkCircuit() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
+    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. This combat, after every {Cards:diff()} Gunsparks you play, draw 1 card.")];
+    public SparkCircuit() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await PowerCmd.Apply<SparkCircuitPower>(Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<SparkCircuitPower>(Owner.Creature, 1, Owner.Creature, this);
     }
 
-    public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(-1);
+    public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class IgnitionProtocol : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "Ignition Protocol"), ("description", "Gunsparks deal {Damage:diff()} additional damage. Whenever you play a Gunspark, increase this by 1.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Move), new CardsVar(2)];
+    public override List<(string, string)> Localization => [("title", "Ignition Protocol"), ("description", "For this combat, Gunsparks deal {Damage:diff()} additional damage. After every {Cards:diff()} Gunsparks you play, increase the additional damage by 1.")];
     public IgnitionProtocol() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -148,7 +148,7 @@ public class HaloCover : MyFirstModCardModel
 public class FireControl : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "Fire Control"), ("description", "Gain {Block:diff()} Block. At the start of each turn, add {Cards:diff()} Gunspark to your hand.")];
+    public override List<(string, string)> Localization => [("title", "Fire Control"), ("description", "Gain {Block:diff()} Block. At the start of each turn, add 1 Gunspark to your hand.")];
     public FireControl() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -157,7 +157,7 @@ public class FireControl : MyFirstModCardModel
         await PowerCmd.Apply<FireControlPower>(Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
     }
 
-    public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
+    public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]

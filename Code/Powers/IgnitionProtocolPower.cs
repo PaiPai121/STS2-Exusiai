@@ -16,9 +16,11 @@ public class IgnitionProtocolPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/IgnitionProtocolPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Ignition Protocol"),
-        ("description", "Gunsparks deal [red]{Amount}[/red] additional damage. Whenever you play a Gunspark, increase this by [blue]1[/blue]."),
-        ("smartDescription", "Gunsparks deal [red]{Amount}[/red] additional damage. Whenever you play a Gunspark, increase this by [blue]1[/blue].")
+        ("description", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. After every [blue]2[/blue] Gunsparks you play, increase the additional damage by [blue]1[/blue]."),
+        ("smartDescription", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. After every [blue]2[/blue] Gunsparks you play, increase the additional damage by [blue]1[/blue].")
     ];
+
+    private int _gunsparksPlayed;
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -31,6 +33,11 @@ public class IgnitionProtocolPower : CustomPowerModel
         if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
+        _gunsparksPlayed++;
+        if (_gunsparksPlayed < 2)
+            return;
+
+        _gunsparksPlayed -= 2;
         await PowerCmd.Apply<IgnitionProtocolPower>(Owner, 1, Owner, cardPlay.Card);
     }
 }

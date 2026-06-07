@@ -13,7 +13,7 @@ sprite_frames = ExtResource("1")
 animation = &"default"
 autoplay = "default"
 position = Vector2(0, -126)
-scale = Vector2(1.05, 1.05)
+scale = Vector2(0.525, 0.525)
 metadata/_edit_lock_ = true
 
 [node name="Bounds" type="Control" parent="."]
