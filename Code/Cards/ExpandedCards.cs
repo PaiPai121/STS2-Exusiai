@@ -1,10 +1,13 @@
 using System.Linq;
 using BaseLib.Abstracts;
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
 using MyFirstMod.Code.Powers;
@@ -14,7 +17,7 @@ namespace MyFirstMod.Code.Cards;
 [Pool(typeof(ExusiaiCardPool))]
 public class PointBlankShot : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(1)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Point-Blank Shot"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunspark to your hand.")];
     public PointBlankShot() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
 
@@ -28,7 +31,7 @@ public class PointBlankShot : MyFirstModCardModel
 
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Damage.UpgradeValueBy(3);
         DynamicVars.Cards.UpgradeValueBy(1);
     }
 }
@@ -74,7 +77,7 @@ public class InterleavedFire : RapidFireCardModel
 public class SparkCircuit : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. Whenever you play {Cards:diff()} Gunsparks, draw 1 card for each Spark Circuit. Upgraded Spark Circuits also add 1 Gunspark to your hand.")];
+    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. After every {Cards:diff()} Gunsparks you play, draw 1 card for each Spark Circuit you have. Upgraded Spark Circuits also add 1 Gunspark to your hand.")];
     public SparkCircuit() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -160,14 +163,38 @@ public class FireControl : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class AngelicReload : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move), new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Angelic Reload"), ("description", "Gain {Block:diff()} Block. Add {Cards:diff()} Gunsparks to your hand.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(2)];
+    public override List<(string, string)> Localization => [
+        ("title", "Angelic Reload"),
+        ("description", "Gain {Block:diff()} Block. Choose up to {Cards:diff()} Attacks from your discard pile. Return them to your hand; they cost 0 this turn."),
+        ("select", "Choose up to [blue]{MaxCount}[/blue] Attacks to reload.")
+    ];
     public AngelicReload() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await GeneratedTokenHelper.AddGunsparksToHand(this, DynamicVars.Cards.IntValue);
+
+        List<CardModel> candidates = PileType.Discard.GetPile(Owner).Cards
+            .Where(card => card.Type == CardType.Attack)
+            .ToList();
+
+        if (candidates.Count == 0)
+            return;
+
+        List<CardModel> selected = (await CardSelectCmd.FromSimpleGrid(
+            c,
+            candidates,
+            Owner,
+            new CardSelectorPrefs(new LocString("cards", "MYFIRSTMOD-ANGELIC_RELOAD.select"), 0, DynamicVars.Cards.IntValue))).ToList();
+
+        foreach (CardModel card in selected)
+        {
+            await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, this);
+            card.SetToFreeThisTurn();
+            card.SetStarCostUntilPlayed(0);
+            card.InvokeEnergyCostChanged();
+        }
     }
 
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
@@ -176,7 +203,7 @@ public class AngelicReload : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class TerminalVolley : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(18, ValueProp.Move), new CardsVar(2)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(24, ValueProp.Move), new CardsVar(2)];
     public override List<(string, string)> Localization => [("title", "Terminal Volley"), ("description", "Deal {Damage:diff()} damage to all enemies. Add {Cards:diff()} Gunsparks to your hand.")];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public TerminalVolley() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
@@ -191,6 +218,6 @@ public class TerminalVolley : MyFirstModCardModel
 
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6);
+        DynamicVars.Damage.UpgradeValueBy(8);
     }
 }

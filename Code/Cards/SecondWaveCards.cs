@@ -421,27 +421,48 @@ public class HaloRelay : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class VectorReboot : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move), new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Vector Reboot"), ("description", "Gain {Block:diff()} Block. Choose up to {Cards:diff()} cards from your discard pile and put them on top of your draw pile.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(2)];
+    public override List<(string, string)> Localization => [
+        ("title", "Vector Reboot"),
+        ("description", "Gain {Block:diff()} Block. Choose up to {Cards:diff()} non-Attack cards from your discard pile. Return them to your hand; they cost 0 this turn. Add 1 Gunspark to your hand for each card chosen."),
+        ("select", "Choose up to [blue]{MaxCount}[/blue] non-Attack cards to reboot.")
+    ];
     public VectorReboot() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
 
-        List<CardModel> selected = (await CommonActions.SelectCards(
-            this,
-            new LocString("cards", "MYFIRSTMOD-VECTOR_REBOOT.select"),
+        List<CardModel> candidates = PileType.Discard.GetPile(Owner).Cards
+            .Where(card => card.Type != CardType.Attack)
+            .ToList();
+
+        if (candidates.Count == 0)
+            return;
+
+        List<CardModel> selected = (await CardSelectCmd.FromSimpleGrid(
             c,
-            PileType.Discard,
-            0,
-            DynamicVars.Cards.IntValue)).ToList();
+            candidates,
+            Owner,
+            new CardSelectorPrefs(new LocString("cards", "MYFIRSTMOD-VECTOR_REBOOT.select"), 0, DynamicVars.Cards.IntValue))).ToList();
 
         foreach (CardModel card in selected)
-            await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, this);
+        {
+            await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, this);
+            card.SetToFreeThisTurn();
+            card.SetStarCostUntilPlayed(0);
+            card.InvokeEnergyCostChanged();
+        }
+
+        if (selected.Count > 0)
+            await GeneratedTokenHelper.AddGunsparksToHand(this, selected.Count);
     }
 
-    public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
+    public override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3);
+        DynamicVars.Cards.UpgradeValueBy(1);
+    }
 }
 
 [Pool(typeof(ExusiaiCardPool))]
@@ -464,7 +485,7 @@ public class OpenFireDiscipline : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Open Fire Discipline"), ("description", "Whenever you play a Rapid Fire card, deal {Damage:diff()} damage to its target.")];
-    public OpenFireDiscipline() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
+    public OpenFireDiscipline() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {

@@ -257,27 +257,36 @@ public class PursuitOrder : MyFirstModCardModel
 }
 
 [Pool(typeof(ExusiaiCardPool))]
-public class FullAuto : RapidFireCardModel
+public class FullAuto : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "Full Auto"), ("description", "Deal {Damage:diff()} damage {Cards:diff()} times.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+    public override List<(string, string)> Localization => [("title", "Full Auto"), ("description", "Fire every Gunspark in your hand and draw pile. Draw {Cards:diff()} card for each Gunspark fired.")];
     public FullAuto() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        if (p.Target != null)
+        if (p.Target == null)
+            return;
+
+        List<CardModel> sparks = PileType.Hand.GetPile(Owner).Cards
+            .Concat(PileType.Draw.GetPile(Owner).Cards)
+            .Where(card => card is Gunspark)
+            .ToList();
+
+        foreach (CardModel spark in sparks)
         {
-            for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
-                await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+            await CardPileCmd.RemoveFromCombat(spark);
+            decimal sparkDamage = spark.DynamicVars.Damage.BaseValue + (Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0);
+            await DamageCmd.Attack(sparkDamage).FromCard(this).Targeting(p.Target).Execute(c);
+            await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
         }
-        await TryGenerateRapidFireCopy(c, p);
     }
-    public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);
+    public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
 
 [Pool(typeof(ExusiaiCardPool))]
 public class BulletHell : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(16, ValueProp.Move), new CardsVar(2)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move), new CardsVar(3)];
     public override List<(string, string)> Localization => [("title", "Bullet Hell"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunsparks to your hand.")];
     public BulletHell() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -290,7 +299,7 @@ public class BulletHell : MyFirstModCardModel
     }
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5);
+        DynamicVars.Damage.UpgradeValueBy(7);
         DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

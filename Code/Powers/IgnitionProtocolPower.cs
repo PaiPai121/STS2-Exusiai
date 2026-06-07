@@ -12,8 +12,8 @@ public class IgnitionProtocolPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/SparkCircuitPower.png";
-    public override string CustomBigIconPath => "res://myfirstmod/images/powers/SparkCircuitPower.png";
+    public override string CustomPackedIconPath => "res://myfirstmod/images/powers/IgnitionProtocolPower.png";
+    public override string CustomBigIconPath => "res://myfirstmod/images/powers/IgnitionProtocolPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Ignition Protocol"),
         ("description", "Gunsparks deal [red]{Amount}[/red] additional damage. Whenever you play a Gunspark, increase this by [blue]1[/blue]."),
