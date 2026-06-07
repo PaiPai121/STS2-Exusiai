@@ -1,10 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://yirtxm2nffuj"]
 
-[ext_resource type="Texture2D" path="res://myfirstmod/assets/character/exusiai_battle.png" id="1"]
+[ext_resource type="SpriteFrames" path="res://myfirstmod/scenes/character/exusiai_idle_sprite_frames.tres" id="1"]
 
 [node name="ExusiaiMerchant" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1")
-position = Vector2(0, -146)
-scale = Vector2(0.13, 0.13)
+[node name="Visuals" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1")
+animation = &"default"
+autoplay = "default"
+position = Vector2(0, -126)
+scale = Vector2(1.05, 1.05)
