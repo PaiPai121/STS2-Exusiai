@@ -18,8 +18,8 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => _hasRapidFire ? [MyKeywords.RapidFire] : [];
 
-    protected RapidFireCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary)
-        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    protected RapidFireCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary, bool autoAdd = true)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary, autoAdd)
     {
     }
 

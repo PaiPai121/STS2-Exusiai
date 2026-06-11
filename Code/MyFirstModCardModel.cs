@@ -22,8 +22,8 @@ public abstract class MyFirstModCardModel : CustomCardModel
     public override string PortraitPath => ResolvePortraitPath();
     public override IEnumerable<string> ExtraRunAssetPaths => [PortraitPath];
 
-    protected MyFirstModCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary)
-        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    protected MyFirstModCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary, bool autoAdd = true)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary, autoAdd)
     {
     }
 

@@ -37,7 +37,7 @@ internal static class ExusiaiRestSiteCreatePatch
             Color = new Color(0.035f, 0.028f, 0.02f, 0.24f),
             ZIndex = -1
         };
-        root.AddChild(groundShadow);
+        AddOwnedChild(root, groundShadow, root);
 
         Sprite2D visual = new()
         {
@@ -47,7 +47,7 @@ internal static class ExusiaiRestSiteCreatePatch
             Texture = ResourceLoader.Load<Texture2D>(CharacterTexturePath),
             Modulate = new Color(0.92f, 0.84f, 0.74f, 0.98f)
         };
-        root.AddChild(visual);
+        AddOwnedChild(root, visual, root);
 
         Control controlRoot = new()
         {
@@ -58,7 +58,7 @@ internal static class ExusiaiRestSiteCreatePatch
             OffsetRight = 68.4205f,
             OffsetBottom = -9.21045f
         };
-        root.AddChild(controlRoot);
+        AddOwnedChild(root, controlRoot, root);
 
         NSelectionReticle reticle = PreloadManager.Cache
             .GetScene(SelectionReticlePath)
@@ -70,17 +70,23 @@ internal static class ExusiaiRestSiteCreatePatch
         reticle.OffsetTop = -409.523f;
         reticle.OffsetRight = 100.371f;
         reticle.OffsetBottom = 280.477f;
-        controlRoot.AddChild(reticle);
+        AddOwnedChild(controlRoot, reticle, root);
 
         Control hitbox = CreateAnchor("Hitbox", -302.629f, -410.523f, 102.371f, 284.477f);
         Control thoughtBubbleRight = CreateAnchor("ThoughtBubbleRight", 44.7365f, -313.155f, 44.7365f, -313.155f);
         Control thoughtBubbleLeft = CreateAnchor("ThoughtBubbleLeft", -218.419f, -315.787f, -218.419f, -315.787f);
-        controlRoot.AddChild(hitbox);
-        controlRoot.AddChild(thoughtBubbleRight);
-        controlRoot.AddChild(thoughtBubbleLeft);
+        AddOwnedChild(controlRoot, hitbox, root);
+        AddOwnedChild(controlRoot, thoughtBubbleRight, root);
+        AddOwnedChild(controlRoot, thoughtBubbleLeft, root);
 
         __result = root;
         return false;
+    }
+
+    private static void AddOwnedChild(Node parent, Node child, Node owner)
+    {
+        parent.AddChild(child);
+        child.Owner = owner;
     }
 
     private static Control CreateAnchor(string name, float left, float top, float right, float bottom)
