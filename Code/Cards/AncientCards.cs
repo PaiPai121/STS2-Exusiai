@@ -4,15 +4,19 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
 
 namespace MyFirstMod.Code.Cards;
 
-[Pool(typeof(ExusiaiCardPool))]
+[Pool(typeof(ExusiaiSpecialCardPool))]
 public class SanctifiedCrossfire : RapidFireCardModel
 {
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<ExusiaiCardPool>();
+
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(16, ValueProp.Move),
         new PowerVar<VulnerablePower>(2),

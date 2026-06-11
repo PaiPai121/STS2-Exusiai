@@ -10,5 +10,7 @@
   "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "备用弹匣总是比计划多一个。",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "准星校准器",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "每当你打出3张攻击牌，获得{Block:diff()}点格挡。",
-  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "每一次后坐力，都在校准下一次呼吸。"
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "每一次后坐力，都在校准下一次呼吸。",
+  "ARCHAIC_TOOTH.description": "拾起时，将{StarterCard.StringValue:cond:[gold]{StarterCard}[/gold]变化为[gold]{AncientCard}[/gold]|一张初始卡牌变化为先古版本}。",
+  "ARCHAIC_TOOTH.eventDescription": "将{StarterCard.StringValue:cond:[gold]{StarterCard}[/gold]变化为[gold]{AncientCard}[/gold]|一张初始卡牌变化为先古版本}。"
 }

@@ -13,3 +13,9 @@ public class ExusiaiCardPool : CustomCardPoolModel
     public override Color ShaderColor => new(1f, 0.4f, 0.3f);
     public override bool IsColorless => false;
 }
+
+public class ExusiaiSpecialCardPool : ExusiaiCardPool
+{
+    public override string Title => "exusiai_special";
+    public override bool IsShared => true;
+}

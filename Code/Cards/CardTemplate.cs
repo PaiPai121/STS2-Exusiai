@@ -4,14 +4,15 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.CardPools;
-using MyFirstMod.Code.Keywords;
 
 namespace MyFirstMod.Code.Cards;
 
-[Pool(typeof(ExusiaiCardPool))]
-public class CardTemplate : RapidFireCardModel
+[Pool(typeof(ExusiaiSpecialCardPool))]
+public class CardTemplate : RapidFireCardModel, ITranscendenceCard
 {
     private const int energyCost = 1;
     private const CardType type = CardType.Attack;
@@ -19,6 +20,7 @@ public class CardTemplate : RapidFireCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<ExusiaiCardPool>();
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(7, ValueProp.Move)
@@ -28,6 +30,11 @@ public class CardTemplate : RapidFireCardModel
 
     public CardTemplate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
+    }
+
+    public CardModel GetTranscendenceTransformedCard()
+    {
+        return ModelDb.Card<SanctifiedCrossfire>();
     }
 
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
