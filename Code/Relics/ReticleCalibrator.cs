@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code;
 using MyFirstMod.Code.RelicPools;
@@ -16,14 +17,30 @@ namespace MyFirstMod.Code.Relics;
 [Pool(typeof(ExusiaiRelicPool))]
 public class ReticleCalibrator : MyFirstModRelicModel
 {
+    private const int AttackThreshold = 3;
+
     public override RelicRarity Rarity => RelicRarity.Uncommon;
+    public override bool ShowCounter => true;
+    public override int DisplayAmount => CurrentProgress();
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move)];
 
     private int _attacksPlayed;
 
+    [SavedProperty]
+    public int AttacksPlayed
+    {
+        get => _attacksPlayed;
+        set
+        {
+            AssertMutable();
+            _attacksPlayed = value;
+            UpdateDisplay();
+        }
+    }
+
     public override Task BeforeCombatStart()
     {
-        _attacksPlayed = 0;
+        AttacksPlayed = 0;
         return Task.CompletedTask;
     }
 
@@ -38,8 +55,8 @@ public class ReticleCalibrator : MyFirstModRelicModel
         if (cardPlay.Card.Type != CardType.Attack)
             return;
 
-        _attacksPlayed++;
-        if (_attacksPlayed % 3 != 0)
+        AttacksPlayed++;
+        if (CurrentProgress() != 0)
             return;
 
         if (!CombatGuards.HasLivingEnemy(Owner.Creature?.CombatState))
@@ -54,7 +71,18 @@ public class ReticleCalibrator : MyFirstModRelicModel
 
     public override Task AfterCombatEnd(CombatRoom _)
     {
-        _attacksPlayed = 0;
+        AttacksPlayed = 0;
         return Task.CompletedTask;
+    }
+
+    private int CurrentProgress()
+    {
+        return AttacksPlayed % AttackThreshold;
+    }
+
+    private void UpdateDisplay()
+    {
+        Status = CurrentProgress() == AttackThreshold - 1 ? RelicStatus.Active : RelicStatus.Normal;
+        InvokeDisplayAmountChanged();
     }
 }

@@ -88,7 +88,7 @@ public class TacticalSidestep : MyFirstModCardModel
 public class ChainReaction : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Chain Reaction"), ("description", "Deal {Damage:diff()} damage. This turn, whenever you play an Attack, deal {Cards:diff()} extra damage to its target.")];
+    public override List<(string, string)> Localization => [("title", "Chain Reaction"), ("description", "Deal {Damage:diff()} damage. This turn, your Attacks deal {Cards:diff()} extra damage to their target.")];
     public ChainReaction() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -124,7 +124,7 @@ public class EmergencyShield : MyFirstModCardModel
 public class RapidStance : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(6, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "Rapid Stance"), ("description", "Draw {Cards:diff()} card. Gain {Block:diff()} Block. If you played a Rapid Fire card this turn, draw 1 card.")];
+    public override List<(string, string)> Localization => [("title", "Rapid Stance"), ("description", "Draw {Cards:diff()} card. Gain {Block:diff()} Block. If you played Rapid Fire this turn, draw 1 card.")];
     public RapidStance() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -210,7 +210,7 @@ public class QuickMagazine : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class SweepMode : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2, ValueProp.Move)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2, ValueProp.Unpowered)];
     public override List<(string, string)> Localization => [("title", "Sweep Mode"), ("description", "Whenever you play an Attack, deal {Damage:diff()} damage to ALL enemies.")];
     public SweepMode() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -260,7 +260,7 @@ public class PursuitOrder : MyFirstModCardModel
 public class FullAuto : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "Full Auto"), ("description", "Fire every Gunspark in your hand and draw pile. Draw {Cards:diff()} card for each Gunspark fired.")];
+    public override List<(string, string)> Localization => [("title", "Full Auto"), ("description", "Fire each Gunspark in your hand and draw pile. Draw {Cards:diff()} card for each.")];
     public FullAuto() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -275,12 +275,20 @@ public class FullAuto : MyFirstModCardModel
         foreach (CardModel spark in sparks)
         {
             await CardPileCmd.RemoveFromCombat(spark);
-            decimal sparkDamage = spark.DynamicVars.Damage.BaseValue + (Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0);
-            await DamageCmd.Attack(sparkDamage).FromCard(this).Targeting(p.Target).Execute(c);
+            await DamageCmd.Attack(spark.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+
+            int bonusDamage = Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0;
+            if (bonusDamage > 0)
+                await CreatureCmd.Damage(c, p.Target, bonusDamage, ValueProp.Move | ValueProp.Unpowered, Owner.Creature, this);
+
             await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
         }
     }
-    public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    public override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Retain);
+    }
 }
 
 [Pool(typeof(ExusiaiCardPool))]
@@ -316,7 +324,10 @@ public class Gunspark : MyFirstModCardModel
         if (p.Target != null)
         {
             int bonusDamage = Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0;
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue + bonusDamage).FromCard(this).Targeting(p.Target).Execute(c);
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
+
+            if (bonusDamage > 0)
+                await CreatureCmd.Damage(c, p.Target, bonusDamage, ValueProp.Move | ValueProp.Unpowered, Owner.Creature, this);
         }
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);

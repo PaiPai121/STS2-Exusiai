@@ -77,7 +77,7 @@ public class InterleavedFire : RapidFireCardModel
 public class SparkCircuit : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. This combat, after every {Cards:diff()} Gunsparks you play, draw 1 card.")];
+    public override List<(string, string)> Localization => [("title", "Spark Circuit"), ("description", "Gain {Block:diff()} Block. This combat, every {Cards:diff()} Gunsparks you play draws 1 card.")];
     public SparkCircuit() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -92,8 +92,8 @@ public class SparkCircuit : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class IgnitionProtocol : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Move), new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Ignition Protocol"), ("description", "For this combat, Gunsparks deal {Damage:diff()} additional damage. After every {Cards:diff()} Gunsparks you play, increase the additional damage by 1.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Unpowered), new CardsVar(2)];
+    public override List<(string, string)> Localization => [("title", "Ignition Protocol"), ("description", "Gunsparks deal {Damage:diff()} additional damage this combat. Every {Cards:diff()} Gunsparks, increase it by 1.")];
     public IgnitionProtocol() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -166,7 +166,7 @@ public class AngelicReload : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(2)];
     public override List<(string, string)> Localization => [
         ("title", "Angelic Reload"),
-        ("description", "Gain {Block:diff()} Block. Choose up to {Cards:diff()} Attacks from your discard pile. Return them to your hand; they cost 0 this turn."),
+        ("description", "Gain {Block:diff()} Block. Return up to {Cards:diff()} Attacks from your discard pile to your hand. They cost 0 this turn."),
         ("select", "Choose up to [blue]{MaxCount}[/blue] Attacks to reload.")
     ];
     public AngelicReload() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true) { }

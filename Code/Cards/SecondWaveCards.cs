@@ -235,7 +235,7 @@ public class LockOnOrder : MyFirstModCardModel
 public class SparkRecycle : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
-    public override List<(string, string)> Localization => [("title", "Spark Recycle"), ("description", "Choose up to {Cards:diff()} cards in your hand. Remove them from combat. Draw that many cards.")];
+    public override List<(string, string)> Localization => [("title", "Spark Recycle"), ("description", "Remove up to {Cards:diff()} cards in your hand from combat. Draw that many cards.")];
     public SparkRecycle() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -277,7 +277,7 @@ public class SparkAegis : MyFirstModCardModel
 public class RelayFootwork : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "Relay Footwork"), ("description", "Gain {Block:diff()} Block. If you played a Rapid Fire card this turn, gain [blue]4[/blue] Block.")];
+    public override List<(string, string)> Localization => [("title", "Relay Footwork"), ("description", "Gain {Block:diff()} Block. If you played Rapid Fire this turn, gain [blue]4[/blue] Block.")];
     public RelayFootwork() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -371,7 +371,7 @@ public class TempoBurst : MyFirstModCardModel
 public class QuickdrawDrill : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "Quickdraw Drill"), ("description", "Move up to {Cards:diff()} Rapid Fire cards from your draw pile to your hand. They cost 0 this turn.")];
+    public override List<(string, string)> Localization => [("title", "Quickdraw Drill"), ("description", "Move up to {Cards:diff()} Rapid Fire cards from your draw pile to your hand. They cost 0.")];
     public QuickdrawDrill() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -405,7 +405,7 @@ public class QuickdrawDrill : MyFirstModCardModel
 public class HaloRelay : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "Halo Relay"), ("description", "Gain {Block:diff()} Block. If you played a Rapid Fire card this turn, draw {Cards:diff()} card.")];
+    public override List<(string, string)> Localization => [("title", "Halo Relay"), ("description", "Gain {Block:diff()} Block. If you played Rapid Fire this turn, draw {Cards:diff()} card.")];
     public HaloRelay() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -424,9 +424,10 @@ public class VectorReboot : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(2)];
     public override List<(string, string)> Localization => [
         ("title", "Vector Reboot"),
-        ("description", "Gain {Block:diff()} Block. Choose up to {Cards:diff()} non-Attack cards from your discard pile. Return them to your hand; they cost 0 this turn. Add 1 Gunspark to your hand for each card chosen."),
+        ("description", "Gain {Block:diff()} Block. Return up to {Cards:diff()} non-Attacks from your discard pile to your hand. They cost 0. Add 1 Gunspark for each."),
         ("select", "Choose up to [blue]{MaxCount}[/blue] non-Attack cards to reboot.")
     ];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public VectorReboot() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -468,7 +469,7 @@ public class VectorReboot : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class SparkBarrier : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Unpowered)];
     public override List<(string, string)> Localization => [("title", "Spark Barrier"), ("description", "Whenever you play a Gunspark, gain {Block:diff()} Block.")];
     public SparkBarrier() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
 
@@ -483,8 +484,8 @@ public class SparkBarrier : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class OpenFireDiscipline : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
-    public override List<(string, string)> Localization => [("title", "Open Fire Discipline"), ("description", "Whenever you play a Rapid Fire card, deal {Damage:diff()} damage to its target.")];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Unpowered)];
+    public override List<(string, string)> Localization => [("title", "Open Fire Discipline"), ("description", "Whenever you play Rapid Fire, deal {Damage:diff()} damage to its target.")];
     public OpenFireDiscipline() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -499,7 +500,7 @@ public class OpenFireDiscipline : MyFirstModCardModel
 public class RhythmTrigger : MyFirstModCardModel
 {
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10, ValueProp.Move), new CardsVar(1)];
-    public override List<(string, string)> Localization => [("title", "Rhythm Trigger"), ("description", "Deal {Damage:diff()} damage. If you played a Rapid Fire card this turn, draw {Cards:diff()} cards.")];
+    public override List<(string, string)> Localization => [("title", "Rhythm Trigger"), ("description", "Deal {Damage:diff()} damage. If you played Rapid Fire this turn, draw {Cards:diff()} cards.")];
     public RhythmTrigger() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -521,19 +522,32 @@ public class RhythmTrigger : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class FinalSalvo : MyFirstModCardModel
 {
+    private sealed class HitsVar(decimal value) : DynamicVar("Hits", value);
+
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new CardsVar(3)];
-    public override List<(string, string)> Localization => [("title", "Final Salvo"), ("description", "Deal {Damage:diff()} damage {Cards:diff()} times. Repeat 1 additional time for each Gunspark you played this turn, up to 3.")];
+    public override List<(string, string)> Localization => [("title", "Final Salvo"), ("description", "Deal {Damage:diff()} damage [blue]{Hits}[/blue] times. +1 hit for each Gunspark played this turn, up to +3.")];
     public FinalSalvo() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
+
+    public override void AddExtraArgsToDescription(LocString description)
+    {
+        base.AddExtraArgsToDescription(description);
+        description.AddObj("Hits", new HitsVar(CurrentHits()));
+    }
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         if (p.Target == null)
             return;
 
-        int hits = DynamicVars.Cards.IntValue + Math.Min(3, ExusiaiCombatHistory.GunsparksPlayedThisTurn(this));
+        int hits = CurrentHits();
         for (int i = 0; i < hits; i++)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
     }
 
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);
+
+    private int CurrentHits()
+    {
+        return DynamicVars.Cards.IntValue + Math.Min(3, ExusiaiCombatHistory.GunsparksPlayedThisTurn(this));
+    }
 }

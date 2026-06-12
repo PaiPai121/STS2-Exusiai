@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code;
 using MyFirstMod.Code.Cards;
 
@@ -19,8 +20,8 @@ public class ChainReactionPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/ChainReactionPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Chain Reaction"),
-        ("description", "This turn, whenever you play an Attack, deal [blue]{Amount}[/blue] extra damage to its target."),
-        ("smartDescription", "This turn, whenever you play an Attack, deal [blue]{Amount}[/blue] extra damage to its target.")
+        ("description", "This turn, your Attacks deal [blue]{Amount}[/blue] extra damage to their target."),
+        ("smartDescription", "This turn, your Attacks deal [blue]{Amount}[/blue] extra damage to their target.")
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -48,7 +49,7 @@ public class ChainReactionPower : CustomPowerModel
         if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
-        await DamageCmd.Attack(Amount).FromCard(cardPlay.Card).Targeting(cardPlay.Target).Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target, Amount, ValueProp.Move | ValueProp.Unpowered, Owner, cardPlay.Card);
     }
 
     public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)

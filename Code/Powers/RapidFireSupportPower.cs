@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstMod.Code.Keywords;
 
 namespace MyFirstMod.Code.Powers;
@@ -15,8 +16,8 @@ public class RapidFireSupportPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/FireControlPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Open Fire Discipline"),
-        ("description", "Whenever you play a Rapid Fire card, deal [red]{Amount}[/red] damage to its target."),
-        ("smartDescription", "Whenever you play a Rapid Fire card, deal [red]{Amount}[/red] damage to its target.")
+        ("description", "Whenever you play Rapid Fire, deal [red]{Amount}[/red] damage to its target."),
+        ("smartDescription", "Whenever you play Rapid Fire, deal [red]{Amount}[/red] damage to its target.")
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -36,6 +37,6 @@ public class RapidFireSupportPower : CustomPowerModel
         if (cardPlay.Target == null || !cardPlay.Target.IsAlive)
             return;
 
-        await DamageCmd.Attack(Amount).FromCard(cardPlay.Card).Targeting(cardPlay.Target).Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target, Amount, ValueProp.Move | ValueProp.Unpowered, Owner, cardPlay.Card);
     }
 }

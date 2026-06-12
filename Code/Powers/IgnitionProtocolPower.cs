@@ -16,8 +16,8 @@ public class IgnitionProtocolPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/IgnitionProtocolPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Ignition Protocol"),
-        ("description", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. After every [blue]2[/blue] Gunsparks you play, increase the additional damage by [blue]1[/blue]."),
-        ("smartDescription", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. After every [blue]2[/blue] Gunsparks you play, increase the additional damage by [blue]1[/blue].")
+        ("description", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. Every [blue]2[/blue] Gunsparks, increase it by [blue]1[/blue]."),
+        ("smartDescription", "Gunsparks deal [red]{Amount}[/red] additional damage this combat. Every [blue]2[/blue] Gunsparks, increase it by [blue]1[/blue].")
     ];
 
     private int _gunsparksPlayed;

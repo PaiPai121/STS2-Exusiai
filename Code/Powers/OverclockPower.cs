@@ -21,8 +21,8 @@ public class OverclockPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/OverclockPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Overclock"),
-        ("description", "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn."),
-        ("smartDescription", "This turn, the next [blue]{Amount}[/blue] Attacks you play cost [blue]0[/blue]. Every other turn, gain this effect again at the start of your turn.")
+        ("description", "This turn, your next [blue]{Amount}[/blue] Attacks cost [blue]0[/blue]. Every other turn, refresh this. Additional Overclocks increase future refreshes."),
+        ("smartDescription", "This turn, your next [blue]{Amount}[/blue] Attacks cost [blue]0[/blue]. Every other turn, refresh this. Additional Overclocks increase future refreshes.")
     ];
 
     private int _freeAttacksPerOverload;
@@ -56,8 +56,20 @@ public class OverclockPower : CustomPowerModel
     {
         if (card is Overclock)
         {
-            _freeAttacksPerOverload = card.DynamicVars.Cards.IntValue;
-            Amount = _freeAttacksPerOverload;
+            int addedAttacks = card.DynamicVars.Cards.IntValue;
+            bool isFirstOverclock = _freeAttacksPerOverload <= 0;
+
+            if (isFirstOverclock)
+            {
+                _freeAttacksPerOverload = addedAttacks;
+                Amount = addedAttacks;
+            }
+            else
+            {
+                _freeAttacksPerOverload += addedAttacks;
+                Amount = Math.Max(0, Amount - addedAttacks);
+            }
+
             _turnsUntilRecharge = RechargeInterval;
         }
 

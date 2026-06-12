@@ -16,8 +16,8 @@ public class SparkCircuitPower : CustomPowerModel
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/SparkCircuitPower.png";
     public override List<(string, string)> Localization => [
         ("title", "Spark Circuit"),
-        ("description", "After every [blue]3[/blue] Gunsparks you play, draw [blue]{Amount}[/blue] card(s)."),
-        ("smartDescription", "After every [blue]3[/blue] Gunsparks you play, draw [blue]{Amount}[/blue] card(s).")
+        ("description", "Every [blue]3[/blue] Gunsparks you play draws [blue]{Amount}[/blue] card."),
+        ("smartDescription", "Every [blue]3[/blue] Gunsparks you play draws [blue]{Amount}[/blue] card.")
     ];
 
     private int _gunsparksPlayed;

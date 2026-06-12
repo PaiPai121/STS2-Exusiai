@@ -29,6 +29,6 @@ public class SparkBarrierPower : CustomPowerModel
         if (cardPlay.Card.Owner != Owner.Player)
             return;
 
-        await CreatureCmd.GainBlock(Owner, new BlockVar((int)Amount, ValueProp.Move), cardPlay);
+        await CreatureCmd.GainBlock(Owner, new BlockVar((int)Amount, ValueProp.Unpowered), cardPlay);
     }
 }

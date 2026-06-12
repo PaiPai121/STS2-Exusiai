@@ -26,7 +26,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
         new CardsVar(2)
     ];
 
-    public override List<(string, string)> Localization => [("title", "Guaranteed Delivery!"), ("description", "Randomly reveal {Preview:diff()} cards from your draw pile. Choose up to {Cards:diff()} of them and copy them into your hand. The copies cost 0 this turn and gain Ethereal and Exhaust.")];
+    public override List<(string, string)> Localization => [("title", "Guaranteed Delivery!"), ("description", "Reveal {Preview:diff()} random cards from your draw pile. Copy up to {Cards:diff()} into your hand; they cost 0 this turn and gain Ethereal and Exhaust.")];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

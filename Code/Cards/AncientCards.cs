@@ -25,7 +25,7 @@ public class SanctifiedCrossfire : RapidFireCardModel
 
     public override List<(string, string)> Localization => [
         ("title", "New Covenant Crossfire"),
-        ("description", "Deal {Damage:diff()} damage. Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak. Add 1 Gunspark to your hand.")
+        ("description", "Deal {Damage:diff()} damage. Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak. Add 1 Gunspark.")
     ];
 
     public SanctifiedCrossfire() : base(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy, true) { }
