@@ -37,7 +37,8 @@ public class SweepModePower : CustomPowerModel
         if (!CombatGuards.HasLivingEnemy(Owner.CombatState))
             return;
 
-        foreach (var enemy in Owner.CombatState.Enemies)
+        var targets = Owner.CombatState.Enemies.Where(enemy => enemy.IsAlive).ToList();
+        foreach (var enemy in targets)
         {
             if (enemy.IsAlive)
                 await CreatureCmd.Damage(choiceContext, enemy, Amount, ValueProp.Move | ValueProp.Unpowered, Owner, cardPlay.Card);
