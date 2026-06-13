@@ -17,7 +17,7 @@ internal static class ExusiaiDustyTomePatch
         if (player.Character is not Exusiai)
             return true;
 
-        __instance.AncientCard = ModelDb.Card<SanctifiedCrossfire>().Id;
+        __instance.AncientCard = ModelDb.Card<PenguinLogisticsParcel>().Id;
         return false;
     }
 }

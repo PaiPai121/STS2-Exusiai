@@ -10,5 +10,7 @@
   "MYFIRSTMOD-TACTICAL_MAGAZINE.flavor": "A spare magazine is always one more than planned.",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.title": "Reticle Calibrator",
   "MYFIRSTMOD-RETICLE_CALIBRATOR.description": "Whenever you play 3 Attacks, gain {Block:diff()} Block.",
-  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "Every recoil lines up the next breath."
+  "MYFIRSTMOD-RETICLE_CALIBRATOR.flavor": "Every recoil lines up the next breath.",
+  "ARCHAIC_TOOTH.description": "When picked up, {StarterCard.StringValue:cond:transform [gold]{StarterCard}[/gold] into [gold]{AncientCard}[/gold]|transform a starter card into its Ancient version}.",
+  "ARCHAIC_TOOTH.eventDescription": "{StarterCard.StringValue:cond:Transform [gold]{StarterCard}[/gold] into [gold]{AncientCard}[/gold]|Transform a starter card into its Ancient version}."
 }

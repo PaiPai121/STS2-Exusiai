@@ -10,6 +10,7 @@
 - Added a 2026-06-05 rare utility mini-pass, expanding the obtainable non-Ancient card pool to 52 cards with `VectorReboot` and `SparkBarrier`.
 - Added a 2026-06-05 Rapid Fire follow-up mini-pass, expanding the obtainable non-Ancient card pool to 55 cards with `FlashpointMark`, `RelayFootwork`, and `SparkCrossfire`.
 - Added `SanctifiedCrossfire` as Exusiai's Ancient replacement for Crossfire through Archaic Tooth.
+- Added `PenguinLogisticsParcel` as Exusiai's dedicated Darv / Dusty Tome Ancient reward.
 - Added independent card art for the second-wave and Ancient card set that previously reused duplicate placeholder images.
 
 ### Changed
@@ -21,6 +22,8 @@
 - Reworked `RelayFootwork` into a pure defensive Rapid Fire follow-up: it now gains 5/8 Block and gains 4 more Block if a Rapid Fire card was played this turn, instead of drawing a card.
 - Tuned `SparkCrossfire` down from 5/7 to 4/6 damage to keep post-Gunspark Rapid Fire turns from over-scaling through both the original card and its copy.
 - Strengthened `SanctifiedCrossfire` from 10/14 damage plus 1 Gunspark to 16/24 damage, 2/3 Vulnerable, 1 Weak, and 1 Gunspark so the Archaic Tooth transformation has boss-reward impact comparable to `Bash` becoming `Break`.
+- Changed Exusiai's Dusty Tome event reward from the temporary `SanctifiedCrossfire` fallback to `PenguinLogisticsParcel`, keeping `SanctifiedCrossfire` exclusive to Archaic Tooth.
+- Added native yellow card-edge activation highlights for conditional cards when their bonus text is currently live.
 - Retuned `GunslingerRush` from 7/10 damage plus 2/3 Block to 5/8 damage plus 5/7 Block so it no longer strictly outclasses starter `Crossfire`.
 - Reworked `DeliveryGuaranteed` from precise discard-pile copying into random draw-pile reveal: reveal 5/6 cards, choose up to 2/3 to copy into hand at 0 cost this turn with Ethereal and Exhaust.
 - Strengthened Rapid Fire as its own card-pool axis with `QuickdrawDrill`, `RhythmTrigger`, and `OpenFireDiscipline` instead of routing every payoff through Gunspark generation.
@@ -33,6 +36,7 @@
 
 ### Fixed
 
+- `PenguinLogisticsParcel` now creates mutable combat card instances before adding cross-character Rare cards to hand, fixing a crash when it rolled canonical cards such as `Hyperbeam`.
 - `QuickdrawDrill` now returns quietly when the draw pile contains no Rapid Fire cards instead of opening an empty selection grid.
 - `SparkRecycle` removes selected hand cards from combat before drawing replacements.
 - `Overclock` no longer relies on lingering card-instance state for temporary attack cost reduction.

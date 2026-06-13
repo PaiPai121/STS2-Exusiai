@@ -147,5 +147,8 @@
   "MYFIRSTMOD-WARFARINS_PLASMA_POWER.description": "本回合获得[blue]{Amount}[/blue]点力量。",
   "MYFIRSTMOD-WARFARINS_PLASMA_POWER.smartDescription": "本回合获得[blue]{Amount}[/blue]点力量。",
   "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.title": "新约交叉火力",
-  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "造成{Damage:diff()}点伤害。给予{VulnerablePower:diff()}层易伤和{WeakPower:diff()}层虚弱。将1张枪火火花加入手牌。"
+  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "造成{Damage:diff()}点伤害。给予{VulnerablePower:diff()}层易伤和{WeakPower:diff()}层虚弱。将1张枪火火花加入手牌。",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.title": "企鹅物流快递箱",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.description": "从{Preview:diff()}张随机任意职业稀有牌中选择{Cards}张加入手牌。它们本回合费用变为0。",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.select": "从快递箱中选择[blue]{MaxCount}[/blue]张牌。"
 }

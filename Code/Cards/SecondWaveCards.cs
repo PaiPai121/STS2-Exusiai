@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
@@ -19,9 +20,12 @@ namespace MyFirstMod.Code.Cards;
 
 static class ExusiaiCombatHistory
 {
+    private static readonly Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> RapidFirePlayedByPlayer = [];
+    private static readonly Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> GunsparksPlayedByPlayer = [];
+
     public static int CardsPlayedThisTurn(MyFirstModCardModel card)
     {
-        var state = card.CombatState;
+        var state = GetCombatState(card);
         if (state == null)
             return 0;
 
@@ -32,7 +36,11 @@ static class ExusiaiCombatHistory
 
     public static int GunsparksPlayedThisTurn(MyFirstModCardModel card)
     {
-        var state = card.CombatState;
+        int trackedCount = TrackedGunsparksPlayedThisTurn(card);
+        if (trackedCount > 0)
+            return trackedCount;
+
+        var state = GetCombatState(card);
         if (state == null)
             return 0;
 
@@ -44,14 +52,96 @@ static class ExusiaiCombatHistory
 
     public static int RapidFireCardsPlayedThisTurn(MyFirstModCardModel card)
     {
-        var state = card.CombatState;
+        int trackedCount = TrackedRapidFireCardsPlayedThisTurn(card);
+        if (trackedCount > 0)
+            return trackedCount;
+
+        var state = GetCombatState(card);
         if (state == null)
             return 0;
 
+        // Fallback for older cards already in combat before this tracker existed.
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
             e.HappenedThisTurn(state) &&
             e.CardPlay.Card.Owner == card.Owner &&
             e.CardPlay.Card.Keywords.Contains(MyKeywords.RapidFire));
+    }
+
+    public static void RecordRapidFirePlayed(MyFirstModCardModel card)
+    {
+        RecordThisTurn(card, RapidFirePlayedByPlayer);
+    }
+
+    public static void RecordGunsparkPlayed(MyFirstModCardModel card)
+    {
+        RecordThisTurn(card, GunsparksPlayedByPlayer);
+    }
+
+    private static int TrackedRapidFireCardsPlayedThisTurn(MyFirstModCardModel card)
+    {
+        return TrackedThisTurn(card, RapidFirePlayedByPlayer);
+    }
+
+    private static int TrackedGunsparksPlayedThisTurn(MyFirstModCardModel card)
+    {
+        return TrackedThisTurn(card, GunsparksPlayedByPlayer);
+    }
+
+    private static void RecordThisTurn(
+        MyFirstModCardModel card,
+        Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
+    {
+        var owner = card.Owner;
+        var state = GetCombatState(card);
+        if (owner == null || state == null)
+            return;
+
+        if (tracker.TryGetValue(owner, out var entry) &&
+            ReferenceEquals(entry.CombatState, state) &&
+            entry.RoundNumber == state.RoundNumber)
+        {
+            tracker[owner] = (state, state.RoundNumber, entry.Count + 1);
+            return;
+        }
+
+        tracker[owner] = (state, state.RoundNumber, 1);
+    }
+
+    private static int TrackedThisTurn(
+        MyFirstModCardModel card,
+        Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
+    {
+        var owner = card.Owner;
+        var state = GetCombatState(card);
+        if (owner == null || state == null)
+            return 0;
+
+        if (!tracker.TryGetValue(owner, out var entry))
+            return 0;
+
+        if (!ReferenceEquals(entry.CombatState, state) || entry.RoundNumber != state.RoundNumber)
+            return 0;
+
+        return entry.Count;
+    }
+
+    public static bool HasGunsparkInHand(MyFirstModCardModel card)
+    {
+        return GetCombatState(card) != null &&
+            card.Owner != null &&
+            PileType.Hand.GetPile(card.Owner).Cards.Any(handCard => handCard is Gunspark);
+    }
+
+    public static bool AnyLivingEnemyIsVulnerable(MyFirstModCardModel card)
+    {
+        return GetCombatState(card)?.Enemies.Any(enemy =>
+            enemy.IsAlive &&
+            (enemy.GetPower<VulnerablePower>()?.Amount ?? 0) > 0) ?? false;
+    }
+
+    private static CombatState? GetCombatState(MyFirstModCardModel card)
+    {
+        return card.CombatState ?? card.Owner?.Creature?.CombatState;
     }
 }
 
@@ -115,6 +205,7 @@ public class HaloFeint : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Halo Feint"), ("description", "Gain {Block:diff()} Block. If you have a Gunspark in hand, draw {Cards:diff()} card.")];
     public HaloFeint() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.HasGunsparkInHand(this);
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -172,6 +263,7 @@ public class MarkedAdvance : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new BlockVar(5, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Marked Advance"), ("description", "Deal {Damage:diff()} damage. If the target has Vulnerable, gain {Block:diff()} Block.")];
     public MarkedAdvance() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.AnyLivingEnemyIsVulnerable(this);
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -262,6 +354,7 @@ public class SparkAegis : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Spark Aegis"), ("description", "Gain {Block:diff()} Block. If you played a Gunspark this turn, gain {Block:diff()} Block again.")];
     public SparkAegis() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.GunsparksPlayedThisTurn(this) > 0;
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -279,6 +372,7 @@ public class RelayFootwork : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Relay Footwork"), ("description", "Gain {Block:diff()} Block. If you played Rapid Fire this turn, gain [blue]4[/blue] Block.")];
     public RelayFootwork() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.RapidFireCardsPlayedThisTurn(this) > 0;
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -296,6 +390,7 @@ public class SpottersCover : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Spotter's Cover"), ("description", "Gain {Block:diff()} Block. If the target has Vulnerable, draw {Cards:diff()} card.")];
     public SpottersCover() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.AnyLivingEnemyIsVulnerable(this);
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -332,6 +427,7 @@ public class SparkCrossfire : RapidFireCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Spark Crossfire"), ("description", "Deal {Damage:diff()} damage. If you played a Gunspark this turn, deal {Damage:diff()} damage again.")];
     public SparkCrossfire() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.GunsparksPlayedThisTurn(this) > 0;
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -407,6 +503,7 @@ public class HaloRelay : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Halo Relay"), ("description", "Gain {Block:diff()} Block. If you played Rapid Fire this turn, draw {Cards:diff()} card.")];
     public HaloRelay() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.RapidFireCardsPlayedThisTurn(this) > 0;
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -502,6 +599,7 @@ public class RhythmTrigger : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10, ValueProp.Move), new CardsVar(1)];
     public override List<(string, string)> Localization => [("title", "Rhythm Trigger"), ("description", "Deal {Damage:diff()} damage. If you played Rapid Fire this turn, draw {Cards:diff()} cards.")];
     public RhythmTrigger() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.RapidFireCardsPlayedThisTurn(this) > 0;
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
@@ -527,6 +625,7 @@ public class FinalSalvo : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new CardsVar(3)];
     public override List<(string, string)> Localization => [("title", "Final Salvo"), ("description", "Deal {Damage:diff()} damage [blue]{Hits}[/blue] times. +1 hit for each Gunspark played this turn, up to +3.")];
     public FinalSalvo() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.GunsparksPlayedThisTurn(this) > 0;
 
     public override void AddExtraArgsToDescription(LocString description)
     {

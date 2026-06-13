@@ -147,5 +147,8 @@
   "MYFIRSTMOD-WARFARINS_PLASMA_POWER.description": "Gain [blue]{Amount}[/blue] Strength this turn.",
   "MYFIRSTMOD-WARFARINS_PLASMA_POWER.smartDescription": "Gain [blue]{Amount}[/blue] Strength this turn.",
   "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.title": "New Covenant Crossfire",
-  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "Deal {Damage:diff()} damage. Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak. Add 1 Gunspark."
+  "MYFIRSTMOD-SANCTIFIED_CROSSFIRE.description": "Deal {Damage:diff()} damage. Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak. Add 1 Gunspark.",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.title": "Penguin Logistics Parcel",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.description": "Choose {Cards} of {Preview:diff()} random Rare cards from any character. Add them to your hand; they cost 0 this turn.",
+  "MYFIRSTMOD-PENGUIN_LOGISTICS_PARCEL.select": "Choose [blue]{MaxCount}[/blue] cards from the parcel."
 }

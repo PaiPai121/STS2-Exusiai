@@ -126,6 +126,7 @@ public class RapidStance : MyFirstModCardModel
     public override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new BlockVar(6, ValueProp.Move)];
     public override List<(string, string)> Localization => [("title", "Rapid Stance"), ("description", "Draw {Cards:diff()} card. Gain {Block:diff()} Block. If you played Rapid Fire this turn, draw 1 card.")];
     public RapidStance() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true) { }
+    public override bool ShouldShowActivationHighlight() => ExusiaiCombatHistory.RapidFireCardsPlayedThisTurn(this) > 0;
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CardPileCmd.Draw(c, DynamicVars.Cards.IntValue, Owner);
@@ -321,6 +322,8 @@ public class Gunspark : MyFirstModCardModel
     public Gunspark() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, false) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
+        ExusiaiCombatHistory.RecordGunsparkPlayed(this);
+
         if (p.Target != null)
         {
             int bonusDamage = Owner.Creature.GetPower<IgnitionProtocolPower>()?.Amount ?? 0;

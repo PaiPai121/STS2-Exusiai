@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace MyFirstMod.Code;
 
-public abstract class MyFirstModCardModel : CustomCardModel
+public abstract partial class MyFirstModCardModel : CustomCardModel
 {
     private sealed class UpgradeHighlightedVar : DynamicVar
     {
@@ -20,6 +20,9 @@ public abstract class MyFirstModCardModel : CustomCardModel
 
     public override string PortraitPath => ResolvePortraitPath();
     public override IEnumerable<string> ExtraRunAssetPaths => [PortraitPath];
+
+    public virtual bool ShouldShowActivationHighlight() => false;
+    public override bool ShouldGlowGoldInternal => ShouldShowActivationHighlight();
 
     protected MyFirstModCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary, bool autoAdd = true)
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary, autoAdd)

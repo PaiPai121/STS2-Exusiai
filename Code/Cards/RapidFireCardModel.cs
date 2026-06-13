@@ -33,6 +33,8 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
         if (!_hasRapidFire)
             return;
 
+        ExusiaiCombatHistory.RecordRapidFirePlayed(this);
+
         // Do not generate follow-up cards when combat is ending.
         var combatState = CombatState;
         if (combatState != null)
