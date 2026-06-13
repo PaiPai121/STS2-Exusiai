@@ -21,7 +21,7 @@ public class SanctifiedCrossfire : RapidFireCardModel
     public override CardPoolModel VisualCardPool => ModelDb.CardPool<ExusiaiCardPool>();
 
     public override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(16, ValueProp.Move),
+        new DamageVar(12, ValueProp.Move),
         new PowerVar<VulnerablePower>(2),
         new PowerVar<WeakPower>(1)
     ];
@@ -52,7 +52,7 @@ public class SanctifiedCrossfire : RapidFireCardModel
 
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(8);
+        DynamicVars.Damage.UpgradeValueBy(4);
         DynamicVars["VulnerablePower"].UpgradeValueBy(1);
     }
 }

@@ -22,6 +22,7 @@
 - Reworked `RelayFootwork` into a pure defensive Rapid Fire follow-up: it now gains 5/8 Block and gains 4 more Block if a Rapid Fire card was played this turn, instead of drawing a card.
 - Tuned `SparkCrossfire` down from 5/7 to 4/6 damage to keep post-Gunspark Rapid Fire turns from over-scaling through both the original card and its copy.
 - Strengthened `SanctifiedCrossfire` from 10/14 damage plus 1 Gunspark to 16/24 damage, 2/3 Vulnerable, 1 Weak, and 1 Gunspark so the Archaic Tooth transformation has boss-reward impact comparable to `Bash` becoming `Break`.
+- Tuned `SanctifiedCrossfire` down from 16/24 to 12/16 damage while keeping Rapid Fire, 2/3 Vulnerable, 1 Weak, and 1 generated Gunspark.
 - Changed Exusiai's Dusty Tome event reward from the temporary `SanctifiedCrossfire` fallback to `PenguinLogisticsParcel`, keeping `SanctifiedCrossfire` exclusive to Archaic Tooth.
 - Added native yellow card-edge activation highlights for conditional cards when their bonus text is currently live.
 - Retuned `GunslingerRush` from 7/10 damage plus 2/3 Block to 5/8 damage plus 5/7 Block so it no longer strictly outclasses starter `Crossfire`.
