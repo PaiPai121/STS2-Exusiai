@@ -1,9 +1,11 @@
 using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MyFirstMod.Code;
 
@@ -16,25 +18,33 @@ public class AngelsBlessingPower : CustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
-    public override List<(string, string)> Localization => [("title", "Angel's Blessing"), ("description", "Whenever you play [blue]{Amount}[/blue] cards, draw 1 card."), ("smartDescription", "Whenever you play [blue]{Amount}[/blue] cards, draw 1 card.")];
+    public override List<(string, string)> Localization => [("title", "Angel's Blessing"), ("description", "Play [blue]{Amount}[/blue] more cards to draw 1 card."), ("smartDescription", "Play [blue]{Amount}[/blue] more cards to draw 1 card.")];
 
-    private int _cardsPlayedThisTurn;
+    private int _triggerThreshold;
 
     [SavedProperty]
-    public int CardsPlayedThisTurn
+    public int TriggerThreshold
     {
-        get => _cardsPlayedThisTurn;
+        get => _triggerThreshold;
         set
         {
             AssertMutable();
-            _cardsPlayedThisTurn = value;
+            _triggerThreshold = value;
         }
+    }
+
+    public override Task AfterApplied(Creature? source, CardModel? card)
+    {
+        if (TriggerThreshold <= 0)
+            TriggerThreshold = Math.Max(1, Amount);
+
+        return Task.CompletedTask;
     }
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (Owner.Player == player)
-            CardsPlayedThisTurn = 0;
+            ResetCountdown();
 
         return Task.CompletedTask;
     }
@@ -45,8 +55,11 @@ public class AngelsBlessingPower : CustomPowerModel
         if (cardPlay.Card.Owner != Owner.Player) return;
         if (Amount <= 0) return;
 
-        CardsPlayedThisTurn++;
-        if (CardsPlayedThisTurn % Amount != 0) return;
+        Amount--;
+        if (Amount > 0) return;
+
+        Flash();
+        ResetCountdown();
 
         if (Owner.Player == null)
             return;
@@ -55,5 +68,13 @@ public class AngelsBlessingPower : CustomPowerModel
             return;
 
         await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
+    }
+
+    private void ResetCountdown()
+    {
+        if (TriggerThreshold <= 0)
+            TriggerThreshold = Math.Max(1, Amount);
+
+        Amount = TriggerThreshold;
     }
 }
