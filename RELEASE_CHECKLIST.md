@@ -84,6 +84,12 @@ $env:NEXUS_API_KEY = '<personal Nexus API key>'
 .\tools\Get-NexusUpdateGroups.ps1 -ModUrl 'https://www.nexusmods.com/<game_domain>/mods/<mod_id>'
 ```
 
+If the update group id is already known, verify it directly:
+
+```powershell
+.\tools\Get-NexusUpdateGroups.ps1 -UpdateGroupId '<existing file update group id>'
+```
+
 For repeat releases, save both values to the user-level Exusiai Nexus config file:
 
 ```powershell

@@ -3,6 +3,7 @@ param(
     [string]$GameDomain,
     [string]$GameScopedModId,
     [string]$ModId,
+    [string]$UpdateGroupId,
     [string]$ApiKey,
     [string]$ConfigPath
 )
@@ -41,6 +42,35 @@ $headers = @{
 function Invoke-NexusGet {
     param([Parameter(Mandatory = $true)][string]$Uri)
     Invoke-RestMethod -Method Get -Uri $Uri -Headers $headers
+}
+
+function Show-UpdateGroupVersions {
+    param([Parameter(Mandatory = $true)][string]$GroupId)
+
+    $versionsResponse = Invoke-NexusGet -Uri "$apiBase/file-update-groups/$GroupId/versions"
+    $versions = @($versionsResponse.data.versions)
+    if ($versions.Count -eq 0) {
+        Write-Host "  No versions."
+        return
+    }
+
+    $versions |
+        Sort-Object { [decimal]$_.position } |
+        Select-Object `
+            @{Name = "VersionId"; Expression = { $_.id }},
+            Position,
+            @{Name = "FileId"; Expression = { $_.file.id }},
+            @{Name = "FileGameScopedId"; Expression = { $_.file.game_scoped_id }},
+            @{Name = "FileName"; Expression = { $_.file.name }},
+            @{Name = "Version"; Expression = { $_.file.version }},
+            @{Name = "Category"; Expression = { $_.file.file_category }} |
+        Format-Table -AutoSize
+}
+
+if (-not [string]::IsNullOrWhiteSpace($UpdateGroupId)) {
+    Write-Host "Update group versions for ${UpdateGroupId}:"
+    Show-UpdateGroupVersions -GroupId $UpdateGroupId
+    return
 }
 
 if ([string]::IsNullOrWhiteSpace($ModId)) {
@@ -83,22 +113,5 @@ foreach ($group in $groups) {
         LastUploadedAt = $group.last_file_uploaded_at
     } | Format-List
 
-    $versionsResponse = Invoke-NexusGet -Uri "$apiBase/file-update-groups/$($group.id)/versions"
-    $versions = @($versionsResponse.data.versions)
-    if ($versions.Count -eq 0) {
-        Write-Host "  No versions."
-        continue
-    }
-
-    $versions |
-        Sort-Object { [decimal]$_.position } |
-        Select-Object `
-            @{Name = "VersionId"; Expression = { $_.id }},
-            Position,
-            @{Name = "FileId"; Expression = { $_.file.id }},
-            @{Name = "FileGameScopedId"; Expression = { $_.file.game_scoped_id }},
-            @{Name = "FileName"; Expression = { $_.file.name }},
-            @{Name = "Version"; Expression = { $_.file.version }},
-            @{Name = "Category"; Expression = { $_.file.file_category }} |
-        Format-Table -AutoSize
+    Show-UpdateGroupVersions -GroupId $group.id
 }
