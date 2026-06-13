@@ -65,3 +65,29 @@ Current release manifest:
 - Confirm cards display localized names and art in English and Chinese.
 - Confirm the public beta branch separately, or clearly mark the release as stable-branch tested only.
 - Check the newest log for mod-related missing assets or exceptions.
+
+## Nexus Upload
+
+List the Nexus file update groups for the published mod:
+
+```powershell
+$env:NEXUS_API_KEY = '<personal Nexus API key>'
+.\tools\Get-NexusUpdateGroups.ps1 -ModUrl 'https://www.nexusmods.com/<game_domain>/mods/<mod_id>'
+```
+
+Create the release zip:
+
+```powershell
+.\tools\Package-Exusiai.ps1
+```
+
+Upload the zip as a new version of the existing Nexus file update group:
+
+```powershell
+$env:NEXUS_API_KEY = '<personal Nexus API key>'
+$env:NEXUS_UPDATE_GROUP_ID = '<existing file update group id>'
+.\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.3.zip -Description 'Release notes here.'
+```
+
+Use `-ArchiveExistingFile` if the previous version should be archived when the new version is created.
+Do not commit API keys or local Nexus IDs unless they are intentionally public metadata.
