@@ -111,13 +111,33 @@ $env:NEXUS_API_KEY = '<personal Nexus API key>'
 .\tools\Get-NexusUpdateGroups.ps1 -ModUrl 'https://www.nexusmods.com/<game_domain>/mods/<mod_id>'
 ```
 
-Create the release zip:
+One-command release from the currently deployed and already play-tested files:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -Yes -Description 'Release notes here.'
+```
+
+By default this packages `D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai` directly. This is the preferred path after an in-game validation pass because it publishes the same DLL/PCK/manifest bytes that the game just loaded.
+
+Use a dry run to verify the package without uploading:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -DryRun
+```
+
+Use a source rebuild only when intentionally publishing fresh build output rather than the currently tested deployed files:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -Source Build -Yes -Description 'Release notes here.'
+```
+
+Manual package-only path:
 
 ```powershell
 .\tools\Package-Exusiai.ps1
 ```
 
-Upload the zip as a new version of the existing Nexus file update group:
+Manual upload-only path:
 
 ```powershell
 .\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.8.zip -Description 'Release notes here.'
