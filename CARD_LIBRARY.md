@@ -59,7 +59,7 @@
 | HaloCover | 光环掩护 | 技能 | 罕见 | 1 | 自身 | 消耗、生成 Gunspark | 获得 12 点格挡并将 1/2 张枪火火花加入手牌 | 升级改为增加火花数量，保留爆发防御与 token 衔接 |
 | DeliveryGuaranteed | 使命必达！ | 技能 | 稀有 | 2 | 自身 | 消耗 | 从抽牌堆随机展示 5/6 张牌；选择其中至多 2/3 张，将复制加入手牌，本回合费用变为 0，并获得虚无与消耗 | 从精准弃牌堆复制改为随机抽牌堆展示，保留小卡组压缩后的高上限，但降低两张同名牌轻易自循环的概率 |
 | FullAuto | 全自动 | 攻击 | 稀有 | 2/1 | 单体敌人 | 速射、火花结算 | 发射手牌和抽牌堆中的所有枪火火花；每发射 1 张枪火火花，抽 1 张牌 | 批量结算已有火花并补手牌；“发射”不视为打出火花，因此不触发火花回路或点火协议成长 |
-| BulletHell | 枪林弹雨 | 攻击 | 稀有 | 2 | 单体敌人 | 生成 Gunspark | 造成 16/21 点伤害并将 2/3 张枪火火花加入手牌 | 降低单次爆发并移除消耗，改成可重复的稀有火花攻击，而不是另一张一次性终端牌 |
+| BulletHell | 枪林弹雨 | 攻击 | 稀有 | 2 | 单体敌人 | 生成 Gunspark | 造成 16/22 点伤害并将 3/4 张枪火火花加入手牌 | 降低单次爆发并移除消耗，改成可重复的稀有火花攻击，而不是另一张一次性终端牌 |
 | FireControl | 火控校准 | 能力 | 稀有 | 2/1 | 自身 | Power、生成 Gunspark | 获得 4 点格挡；每回合开始时，将 1 张枪火火花加入手牌 | 升级改为降费，降低打出当回合的节奏亏损，不继续提高火花引擎上限 |
 | AngelicReload | 天使装填 | 技能 | 稀有 | 1 | 自身 | 生成 Gunspark | 获得 5 点格挡并将 2/3 张枪火火花加入手牌 | 移除消耗并降低基础数值，作为可循环稀有装填支撑，而不是一次性爆发 |
 | TerminalVolley | 终端齐射 | 攻击 | 稀有 | 3 | 全体敌人 | 消耗、生成 Gunspark | 对所有敌人造成 18/24 点伤害并将 2 张枪火火花加入手牌 | 保留为少数一次性 AOE 终端牌，火花数量不再随升级提高 |
@@ -114,7 +114,7 @@
 | 第一幕普通战，未成型 | 起始卡组抓到交叉火力、打击、打击、防御、防御，3 能量 | 交叉火力本体 1 费 7 伤；若再花 1 能量打出速射复制件，则合计约 14 总伤。常见 3 能量输出线为交叉火力本体 + 复制件 + 1 张打击，约 20 总伤；防御线可改为交叉火力本体 + 2 张防御，约 7 输出 + 10 格挡 | 起始强度可接受，速射提供“多一张可打的同牌”而不是免费伤害；还不是成型 combo |
 | 小卡组火花回合 | 已有 IgnitionProtocol 和升级 SparkCircuit；手牌有 PointBlankShot+、TacticalSidestep+、若干火花，3 能量 | 点火后火花约从 5、6、7 递增；2 张火花触发回路抽牌并补火花，PointBlankShot+ 和 TacticalSidestep+ 提供即时供给。单回合常见输出可到 25-40，并带 7 格挡和 1-2 次抽牌 | 小卡组强回合成立；CoverReload 改为弃牌堆供给后，爆发回合更依赖即时入口而不是所有防御牌都当场点火 |
 | 连锁攻击回合 | ChainReaction 后接 InterleavedFire、PointBlankShot、Gunspark、速射复制牌 | ChainReaction 本体 8；之后每张攻击追加 2/3。3-5 张后续攻击时，额外伤害约 6-15，配合 SweepMode 可进一步转成 AOE | 连锁反应能奖励小卡组和 0 费牌，但需要后续攻击密度，单独抓不失控 |
-| 过载稀有爆发 | 已有 Overclock，手牌 FullAuto、BulletHell 或 TerminalVolley，且有一个速射复制可接 | 过载回合可免费打 2/3 张攻击。FullAuto 基础约 15/18，BulletHell 约 16/21 + 2/3 张火花，TerminalVolley 约 18/24 AOE + 2 张火花；若火花已有点火加成，后续输出提高 | 稀有爆发仍有吸引力，但已降低“稀有攻击互相导火花”的爆发密度 |
+| 过载稀有爆发 | 已有 Overclock，手牌 FullAuto、BulletHell 或 TerminalVolley，且有一个速射复制可接 | 过载回合可免费打 2/3 张攻击。FullAuto 基础约 15/18，BulletHell 约 16/22 + 3/4 张火花，TerminalVolley 约 18/24 AOE + 2 张火花；若火花已有点火加成，后续输出提高 | 稀有爆发仍有吸引力，但已降低“稀有攻击互相导火花”的爆发密度 |
 | DeliveryGuaranteed 小卡组回合 | 抽牌堆被压缩到 5-8 张，且包含 PointBlankShot+、BreakthroughVector 或 FullAuto；当前手牌有 DeliveryGuaranteed 和触发型 Power | 2 能量随机展示 5/6 张，再选择 2/3 张 0 费复制牌，能集中触发 ChainReaction、SweepMode、AngelsBlessing，并重打火花生成牌 | 支持“小卡组通过配合打强输出”的目标；压缩牌库后的稳定性是玩家经营奖励，大牌库中不再轻易形成同名牌无限 |
 | 第二批锁定多段回合 | 手牌 TracerRounds、LockOnOrder 或 SanctifiedCrossfire，接 CrossfirePattern、FinalSalvo 或若干 Gunspark | 易伤后，CrossfirePattern 从 8/10 提升到约 12/15；FinalSalvo 基础 21/24，若本回合已打 2 张火花则约 35/40，再受易伤放大 | 有明确强回合，但需要先投入标记和火花铺垫；FinalSalvo 追加段数封顶，避免点火协议后无限滚雪球 |
 | 第二批节奏回合 | 小卡组已有 0 费 InterleavedFire、PointBlankShot、Gunspark，最后打 TempoBurst | 此前打出 4 张牌时，TempoBurst 约 9/12 伤；此前打出 7 张牌时约 12/15 伤 | 作为 1 费中段结算牌合格，但不会替代稀有终端；强度取决于低费密度 |

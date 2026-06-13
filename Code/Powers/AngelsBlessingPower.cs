@@ -1,10 +1,10 @@
-﻿using BaseLib.Abstracts;
+using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MyFirstMod.Code;
 
 namespace MyFirstMod.Code.Powers;
@@ -12,6 +12,7 @@ namespace MyFirstMod.Code.Powers;
 public class AngelsBlessingPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
+    public override bool IsInstanced => true;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
@@ -19,10 +20,21 @@ public class AngelsBlessingPower : CustomPowerModel
 
     private int _cardsPlayedThisTurn;
 
+    [SavedProperty]
+    public int CardsPlayedThisTurn
+    {
+        get => _cardsPlayedThisTurn;
+        set
+        {
+            AssertMutable();
+            _cardsPlayedThisTurn = value;
+        }
+    }
+
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (Owner.Player == player)
-            _cardsPlayedThisTurn = 0;
+            CardsPlayedThisTurn = 0;
 
         return Task.CompletedTask;
     }
@@ -33,8 +45,8 @@ public class AngelsBlessingPower : CustomPowerModel
         if (cardPlay.Card.Owner != Owner.Player) return;
         if (Amount <= 0) return;
 
-        _cardsPlayedThisTurn++;
-        if (_cardsPlayedThisTurn % Amount != 0) return;
+        CardsPlayedThisTurn++;
+        if (CardsPlayedThisTurn % Amount != 0) return;
 
         if (Owner.Player == null)
             return;

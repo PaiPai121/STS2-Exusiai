@@ -295,7 +295,7 @@ public class FullAuto : MyFirstModCardModel
 [Pool(typeof(ExusiaiCardPool))]
 public class BulletHell : MyFirstModCardModel
 {
-    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move), new CardsVar(3)];
+    public override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(16, ValueProp.Move), new CardsVar(3)];
     public override List<(string, string)> Localization => [("title", "Bullet Hell"), ("description", "Deal {Damage:diff()} damage. Add {Cards:diff()} Gunsparks to your hand.")];
     public BulletHell() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
@@ -308,7 +308,7 @@ public class BulletHell : MyFirstModCardModel
     }
     public override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(7);
+        DynamicVars.Damage.UpgradeValueBy(6);
         DynamicVars.Cards.UpgradeValueBy(1);
     }
 }
