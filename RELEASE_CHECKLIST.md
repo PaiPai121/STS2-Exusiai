@@ -53,7 +53,7 @@ Current release manifest:
 
 - id: `exusiai`
 - name: `Exusiai`
-- version: `v1.0.4`
+- version: `v1.0.8`
 - dll: `Exusiai.dll`
 - dependency: `BaseLib`
 
@@ -120,7 +120,7 @@ Create the release zip:
 Upload the zip as a new version of the existing Nexus file update group:
 
 ```powershell
-.\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.4.zip -Description 'Release notes here.'
+.\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.8.zip -Description 'Release notes here.'
 ```
 
 Use `-ArchiveExistingFile` if the previous version should be archived when the new version is created.
