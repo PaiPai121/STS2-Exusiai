@@ -73,6 +73,34 @@ Copy-Item -LiteralPath 'D:\work_console\MyFirstMod\Exusiai.pck' -Destination 'D:
 
 The exporter currently prints known Godot noise about `sts2` assembly lookup. Treat the export as successful when `Exusiai.pck` is written.
 
+## Release
+
+Use the one-command release script after validating the mod in game:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -Yes -Description 'Release notes here.'
+```
+
+By default, the script packages the currently deployed files from:
+
+```text
+D:\SteamLibrary\steamapps\common\Slay the Spire 2\mods\Exusiai
+```
+
+This is intentional: after an in-game test pass, the release zip should contain the same `Exusiai.dll`, `Exusiai.pck`, and `Exusiai.json` bytes that the game just loaded.
+
+To verify the package without uploading to Nexus:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -DryRun
+```
+
+Dry runs write to `dist\dry-run\` so they do not overwrite the real release zip. Use `-Source Build` only when intentionally publishing freshly rebuilt output instead of the deployed, play-tested files:
+
+```powershell
+.\tools\Release-Exusiai.ps1 -Source Build -Yes -Description 'Release notes here.'
+```
+
 ## Core Features
 
 - Custom playable character: Exusiai.
