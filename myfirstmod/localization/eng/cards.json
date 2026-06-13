@@ -10,7 +10,7 @@
   "MYFIRSTMOD-TACTICAL_RETREAT.title": "Tactical Retreat",
   "MYFIRSTMOD-TACTICAL_RETREAT.description": "Gain {Block:diff()} Block. Draw {Cards:diff()} card.",
   "MYFIRSTMOD-ANGELS_BLESSING.title": "Angel's Blessing",
-  "MYFIRSTMOD-ANGELS_BLESSING.description": "Each turn, whenever you play {Cards:inverseDiff()} cards, draw 1 card.",
+  "MYFIRSTMOD-ANGELS_BLESSING.description": "Whenever you play {Cards:inverseDiff()} cards, draw 1 card.",
   "MYFIRSTMOD-OVERCLOCK.title": "Overclock",
   "MYFIRSTMOD-OVERCLOCK.description": "This turn, your next {Cards:diff()} Attacks cost 0. Every other turn, refresh this. Additional Overclocks increase future refreshes.",
   "MYFIRSTMOD-DELIVERY_GUARANTEED.title": "Guaranteed Delivery!",

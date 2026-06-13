@@ -22,7 +22,7 @@ public class AngelsBlessing : MyFirstModCardModel
         new CardsVar(5)
     ];
 
-    public override List<(string, string)> Localization => [("title", "Angel's Blessing"), ("description", "Each turn, whenever you play {Cards:inverseDiff()} cards, draw 1 card.")];
+    public override List<(string, string)> Localization => [("title", "Angel's Blessing"), ("description", "Whenever you play {Cards:inverseDiff()} cards, draw 1 card.")];
 
     public AngelsBlessing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
