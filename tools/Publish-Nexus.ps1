@@ -74,19 +74,117 @@ function Invoke-NexusJson {
 }
 
 $zip = Get-Item -LiteralPath $ZipPath
+$curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+if (-not $curl) {
+    throw "curl.exe is required for Nexus presigned multipart uploads."
+}
 
-Write-Host "Creating Nexus upload session for $($zip.Name)..."
-$uploadResponse = Invoke-NexusJson -Method Post -Uri "$apiBase/uploads" -Body @{
+Write-Host "Creating Nexus multipart upload session for $($zip.Name)..."
+$uploadResponse = Invoke-NexusJson -Method Post -Uri "$apiBase/uploads/multipart" -Body @{
     size_bytes = $zip.Length
     filename = $zip.Name
 }
 $upload = $uploadResponse.data
-if ([string]::IsNullOrWhiteSpace($upload.presigned_url)) {
-    throw "Nexus did not return a presigned upload URL."
+if (-not $upload.part_presigned_urls -or [string]::IsNullOrWhiteSpace([string]$upload.complete_presigned_url)) {
+    throw "Nexus did not return multipart upload URLs."
 }
 
-Write-Host "Uploading zip bytes..."
-Invoke-RestMethod -Method Put -Uri $upload.presigned_url -InFile $zip.FullName -ContentType "application/zip" | Out-Null
+$partSize = [int64]$upload.part_size_bytes
+if ($partSize -le 0) {
+    throw "Nexus returned an invalid multipart part size: $partSize"
+}
+
+$tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("exusiai-nexus-upload-" + [guid]::NewGuid().ToString("N"))
+New-Item -ItemType Directory -Path $tempRoot -Force | Out-Null
+try {
+    $parts = @()
+    $buffer = New-Object byte[] (4MB)
+    $inputStream = [System.IO.File]::OpenRead($zip.FullName)
+    try {
+        $partNumber = 1
+        while ($inputStream.Position -lt $inputStream.Length) {
+            $partPath = Join-Path $tempRoot ("part-{0:D4}.bin" -f $partNumber)
+            $remainingInPart = [Math]::Min($partSize, $inputStream.Length - $inputStream.Position)
+            $outputStream = [System.IO.File]::Create($partPath)
+            try {
+                while ($remainingInPart -gt 0) {
+                    $readSize = [int][Math]::Min($buffer.Length, $remainingInPart)
+                    $read = $inputStream.Read($buffer, 0, $readSize)
+                    if ($read -le 0) {
+                        break
+                    }
+                    $outputStream.Write($buffer, 0, $read)
+                    $remainingInPart -= $read
+                }
+            }
+            finally {
+                $outputStream.Dispose()
+            }
+
+            $parts += [pscustomobject]@{
+                Number = $partNumber
+                Path = $partPath
+                Url = [string]$upload.part_presigned_urls[$partNumber - 1]
+                HeaderPath = Join-Path $tempRoot ("part-{0:D4}.headers" -f $partNumber)
+            }
+            $partNumber++
+        }
+    }
+    finally {
+        $inputStream.Dispose()
+    }
+
+    foreach ($part in $parts) {
+        Write-Host "Uploading part $($part.Number) of $($parts.Count)..."
+        & $curl.Source `
+            --fail `
+            --silent `
+            --show-error `
+            --request PUT `
+            --dump-header $part.HeaderPath `
+            --upload-file $part.Path `
+            $part.Url
+        if ($LASTEXITCODE -ne 0) {
+            throw "Multipart part $($part.Number) upload failed with exit code $LASTEXITCODE."
+        }
+
+        $etagLine = Get-Content -LiteralPath $part.HeaderPath | Where-Object { $_ -match '^ETag:\s*(.+)\s*$' } | Select-Object -Last 1
+        if (-not $etagLine -or $etagLine -notmatch '^ETag:\s*(.+)\s*$') {
+            throw "Multipart part $($part.Number) response did not include an ETag."
+        }
+        $part | Add-Member -NotePropertyName ETag -NotePropertyValue ($Matches[1].Trim()) -Force
+    }
+
+    $xmlPath = Join-Path $tempRoot "complete-multipart.xml"
+    $xmlLines = @("<CompleteMultipartUpload>")
+    foreach ($part in $parts) {
+        $escapedEtag = [System.Security.SecurityElement]::Escape($part.ETag)
+        $xmlLines += "  <Part>"
+        $xmlLines += "    <PartNumber>$($part.Number)</PartNumber>"
+        $xmlLines += "    <ETag>$escapedEtag</ETag>"
+        $xmlLines += "  </Part>"
+    }
+    $xmlLines += "</CompleteMultipartUpload>"
+    Set-Content -LiteralPath $xmlPath -Value $xmlLines -Encoding ASCII
+
+    Write-Host "Completing multipart upload $($upload.id)..."
+    & $curl.Source `
+        --fail `
+        --silent `
+        --show-error `
+        --request POST `
+        --header "Content-Type: application/xml" `
+        --data-binary "@$xmlPath" `
+        ([string]$upload.complete_presigned_url) | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Multipart completion failed with exit code $LASTEXITCODE."
+    }
+}
+finally {
+    if (Test-Path -LiteralPath $tempRoot) {
+        Remove-Item -LiteralPath $tempRoot -Recurse -Force
+    }
+}
 
 Write-Host "Finalising upload $($upload.id)..."
 Invoke-NexusJson -Method Post -Uri "$apiBase/uploads/$($upload.id)/finalise" | Out-Null
@@ -124,5 +222,5 @@ if (-not [string]::IsNullOrWhiteSpace($PreviousVersionId)) {
 }
 
 Write-Host "Creating new Nexus update group version..."
-$versionResponse = Invoke-NexusJson -Method Post -Uri "$apiBase/file-update-groups/$UpdateGroupId/versions" -Body $body
+$versionResponse = Invoke-NexusJson -Method Post -Uri "$apiBase/mod-file-update-groups/$UpdateGroupId/versions" -Body $body
 $versionResponse.data
