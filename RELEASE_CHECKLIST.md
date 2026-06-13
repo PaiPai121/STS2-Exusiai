@@ -68,6 +68,36 @@ Current release manifest:
 
 ## Nexus Upload
 
+### Nexus Credentials
+
+Get `NEXUS_API_KEY` from the Nexus Mods website while signed in:
+
+- Open Nexus Mods.
+- Go to account settings / preferences.
+- Open the API or personal API key section.
+- Copy the personal API key.
+
+Get `NEXUS_UPDATE_GROUP_ID` from the existing published mod after the API key is available:
+
+```powershell
+$env:NEXUS_API_KEY = '<personal Nexus API key>'
+.\tools\Get-NexusUpdateGroups.ps1 -ModUrl 'https://www.nexusmods.com/<game_domain>/mods/<mod_id>'
+```
+
+For repeat releases, save both values to the user-level Exusiai Nexus config file:
+
+```powershell
+.\tools\Configure-Nexus.ps1 -ApiKey '<personal Nexus API key>' -ModUrl 'https://www.nexusmods.com/<game_domain>/mods/<mod_id>'
+```
+
+The configuration script is PowerShell-based and cross-platform. It writes the config outside the repository:
+
+- Windows: `%APPDATA%\Exusiai\nexus-release.env`
+- macOS: `~/Library/Application Support/Exusiai/nexus-release.env`
+- Linux: `${XDG_CONFIG_HOME:-~/.config}/exusiai/nexus-release.env`
+
+Use `-ProcessOnly` if credentials should only be set for the current PowerShell process and not written to disk.
+
 List the Nexus file update groups for the published mod:
 
 ```powershell
@@ -84,8 +114,6 @@ Create the release zip:
 Upload the zip as a new version of the existing Nexus file update group:
 
 ```powershell
-$env:NEXUS_API_KEY = '<personal Nexus API key>'
-$env:NEXUS_UPDATE_GROUP_ID = '<existing file update group id>'
 .\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.4.zip -Description 'Release notes here.'
 ```
 

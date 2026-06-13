@@ -6,26 +6,39 @@ param(
     [string]$FileName = "Exusiai",
     [string]$Description,
     [string]$FileCategory = "main",
-    [string]$UpdateGroupId = $env:NEXUS_UPDATE_GROUP_ID,
-    [string]$PreviousVersionId = $env:NEXUS_PREVIOUS_VERSION_ID,
+    [string]$UpdateGroupId,
+    [string]$PreviousVersionId,
     [switch]$ArchiveExistingFile,
-    [string]$ApiKey = $env:NEXUS_API_KEY
+    [string]$ApiKey,
+    [string]$ConfigPath
 )
 
 $ErrorActionPreference = "Stop"
 $apiBase = "https://api.nexusmods.com/v3"
+$projectRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot "NexusConfig.ps1")
+
+$config = if ([string]::IsNullOrWhiteSpace($ConfigPath)) {
+    Read-ExusiaiNexusConfig
+}
+else {
+    Read-ExusiaiNexusConfig -ConfigPath $ConfigPath
+}
+
+$ApiKey = Resolve-ExusiaiNexusValue -ExplicitValue $ApiKey -EnvName "NEXUS_API_KEY" -ConfigKey "NEXUS_API_KEY" -Config $config
+$UpdateGroupId = Resolve-ExusiaiNexusValue -ExplicitValue $UpdateGroupId -EnvName "NEXUS_UPDATE_GROUP_ID" -ConfigKey "NEXUS_UPDATE_GROUP_ID" -Config $config
+$PreviousVersionId = Resolve-ExusiaiNexusValue -ExplicitValue $PreviousVersionId -EnvName "NEXUS_PREVIOUS_VERSION_ID" -ConfigKey "NEXUS_PREVIOUS_VERSION_ID" -Config $config
 
 if ([string]::IsNullOrWhiteSpace($ApiKey)) {
-    throw "Set NEXUS_API_KEY or pass -ApiKey. Do not commit API keys."
+    throw "Set NEXUS_API_KEY, pass -ApiKey, or run tools/Configure-Nexus.ps1. Do not commit API keys."
 }
 if ([string]::IsNullOrWhiteSpace($UpdateGroupId)) {
-    throw "Set NEXUS_UPDATE_GROUP_ID or pass -UpdateGroupId."
+    throw "Set NEXUS_UPDATE_GROUP_ID, pass -UpdateGroupId, or run tools/Configure-Nexus.ps1."
 }
 if (-not (Test-Path -LiteralPath $ZipPath -PathType Leaf)) {
     throw "Zip file not found: $ZipPath"
 }
 
-$projectRoot = Split-Path -Parent $PSScriptRoot
 if ([string]::IsNullOrWhiteSpace($Version)) {
     $manifest = Get-Content -LiteralPath (Join-Path $projectRoot "Exusiai.json") -Raw | ConvertFrom-Json
     $Version = [string]$manifest.version

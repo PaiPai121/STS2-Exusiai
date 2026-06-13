@@ -3,14 +3,25 @@ param(
     [string]$GameDomain,
     [string]$GameScopedModId,
     [string]$ModId,
-    [string]$ApiKey = $env:NEXUS_API_KEY
+    [string]$ApiKey,
+    [string]$ConfigPath
 )
 
 $ErrorActionPreference = "Stop"
 $apiBase = "https://api.nexusmods.com/v3"
+. (Join-Path $PSScriptRoot "NexusConfig.ps1")
+
+$config = if ([string]::IsNullOrWhiteSpace($ConfigPath)) {
+    Read-ExusiaiNexusConfig
+}
+else {
+    Read-ExusiaiNexusConfig -ConfigPath $ConfigPath
+}
+
+$ApiKey = Resolve-ExusiaiNexusValue -ExplicitValue $ApiKey -EnvName "NEXUS_API_KEY" -ConfigKey "NEXUS_API_KEY" -Config $config
 
 if ([string]::IsNullOrWhiteSpace($ApiKey)) {
-    throw "Set NEXUS_API_KEY or pass -ApiKey. Do not commit API keys."
+    throw "Set NEXUS_API_KEY, pass -ApiKey, or run tools/Configure-Nexus.ps1. Do not commit API keys."
 }
 
 if (-not [string]::IsNullOrWhiteSpace($ModUrl)) {
