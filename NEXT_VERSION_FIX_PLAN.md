@@ -15,6 +15,10 @@ Scope: follow-up content and UX pass after the Exusiai ancient-event crash fix a
 - [x] In-game verification: Gunspark-played condition glow works.
 - [x] In-game verification: Gunspark-in-hand condition glow works.
 - [x] In-game verification: Vulnerable-enemy condition glow works after `LockOnOrder`.
+- [x] Overclock behavior and text clarified: extra Overclocks increase future refreshes instead of creating independent timers.
+- [x] Final Salvo now shows current hit count through a dynamic `Hits` value.
+- [x] Reticle Calibrator now shows a saved attack-progress counter.
+- [x] Long English card text was shortened for the first pass, including Overclock, Vector Reboot, Spark Recycle, Quickdraw Drill, and Final Salvo.
 - [x] Static validation: `tools/Validate-Exusiai.ps1` passes.
 - [x] Build validation: `dotnet build MyFirstMod.csproj /p:ModsPath=dist/build-check/` passes.
 - [x] Local deploy validation: `build.bat` successfully copied `Exusiai.dll`, `Exusiai.pck`, and `Exusiai.json` to the local Steam mod directory.
@@ -94,7 +98,7 @@ Final design direction:
 - Upgrade behavior: choose 3 of 5 random Rare cards.
 - Generated cards do not gain Ethereal or Exhaust; if not played this turn, they remain in the combat at normal cost.
 
-## P1 Clarifications
+## P1 Clarifications - Completed / Monitoring
 
 ### Overclock Stacking and Cost
 
@@ -103,16 +107,16 @@ Reports:
 - Base cost is currently 2; player asks whether it should become 3.
 - Multiple Overclocks overlap instead of stacking free attack counts.
 
-Plan:
+Status: implemented as explicit non-independent refresh scaling. Base cost remains 2 for now.
 
-- Decide final cost first.
-- Decide stacking model:
-  - non-stacking cycle with explicit text
-  - stacking free-attack count
-  - independent timers per Overclock
-- Preferred short-term fix: keep current behavior if balanced, but make the description or tooltip explicit that multiple Overclocks do not stack.
+Current behavior:
 
-Expected result: players can predict whether a second Overclock adds value.
+- Playing Overclock grants this turn's free-attack window.
+- Future refresh size increases with additional Overclocks.
+- Additional Overclocks do not create independent timers.
+- Text explicitly says additional Overclocks increase future refreshes.
+
+Monitoring result: players can predict whether a second Overclock adds value; balance can still be revisited after more full-run data.
 
 ### Ignition Protocol Modifier Interactions
 
@@ -126,43 +130,35 @@ Plan:
 
 Expected result: tooltip value and actual Gunspark damage scale consistently.
 
-## P2 Text and UX Polish
+## P2 Text and UX Polish - Completed / Monitoring
 
 ### Shorten Long English Card Text
 
 Report: some English cards have wall-of-text descriptions.
 
-Plan:
+Status: first pass complete.
 
-- Audit English card descriptions over roughly 130-150 characters.
-- Shorten text by removing repeated keyword explanations and using consistent terms.
-- Avoid changing mechanics in the same patch unless necessary.
+Updated examples:
 
-Candidates to inspect first:
-
-- Delivery Guaranteed
 - Vector Reboot
+- Spark Recycle
+- Quickdraw Drill
 - Final Salvo
 - Overclock
-- Full Auto
+
+Follow-up: continue opportunistic text tightening only if a card still wraps poorly in game.
 
 ### Final Salvo Counter
 
 Report: player wants visibility into current hit count after playing Gunsparks.
 
-Plan:
-
-- Add a dynamic counter or description update showing current extra repeats.
-- Ensure counter updates after each Gunspark played.
+Status: implemented. `FinalSalvo` now injects a dynamic `Hits` value into the card description and uses the same value during play.
 
 ### Reticle Calibrator Counter
 
 Report: player suggests a visible counter for when the relic will activate.
 
-Plan:
-
-- Check whether the relic already tracks attack count internally.
-- Add visible relic counter if supported by relic UI conventions.
+Status: implemented. `ReticleCalibrator` now has `ShowCounter`, saved `AttacksPlayed`, and an active status on the attack before triggering.
 
 ### Conditional Card Activation Indicators
 

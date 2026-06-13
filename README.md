@@ -85,7 +85,7 @@ The exporter currently prints known Godot noise about `sts2` assembly lookup. Tr
 
 ## Release Status
 
-Current manifest version: `v1.0.3`.
+Current manifest version: `v1.0.4`.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
