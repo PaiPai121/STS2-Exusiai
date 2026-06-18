@@ -25,13 +25,12 @@ static class ExusiaiCombatHistory
 
     public static int CardsPlayedThisTurn(MyFirstModCardModel card)
     {
-        var state = GetCombatState(card);
-        if (state == null)
+        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
             return 0;
 
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
             e.HappenedThisTurn(state) &&
-            e.CardPlay.Card.Owner == card.Owner);
+            e.CardPlay.Card.Owner == owner);
     }
 
     public static int GunsparksPlayedThisTurn(MyFirstModCardModel card)
@@ -40,13 +39,12 @@ static class ExusiaiCombatHistory
         if (trackedCount > 0)
             return trackedCount;
 
-        var state = GetCombatState(card);
-        if (state == null)
+        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
             return 0;
 
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
             e.HappenedThisTurn(state) &&
-            e.CardPlay.Card.Owner == card.Owner &&
+            e.CardPlay.Card.Owner == owner &&
             e.CardPlay.Card is Gunspark);
     }
 
@@ -56,14 +54,13 @@ static class ExusiaiCombatHistory
         if (trackedCount > 0)
             return trackedCount;
 
-        var state = GetCombatState(card);
-        if (state == null)
+        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
             return 0;
 
         // Fallback for older cards already in combat before this tracker existed.
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
             e.HappenedThisTurn(state) &&
-            e.CardPlay.Card.Owner == card.Owner &&
+            e.CardPlay.Card.Owner == owner &&
             e.CardPlay.Card.Keywords.Contains(MyKeywords.RapidFire));
     }
 
@@ -91,9 +88,7 @@ static class ExusiaiCombatHistory
         MyFirstModCardModel card,
         Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
     {
-        var owner = card.Owner;
-        var state = GetCombatState(card);
-        if (owner == null || state == null)
+        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
             return;
 
         if (tracker.TryGetValue(owner, out var entry) &&
@@ -111,9 +106,7 @@ static class ExusiaiCombatHistory
         MyFirstModCardModel card,
         Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
     {
-        var owner = card.Owner;
-        var state = GetCombatState(card);
-        if (owner == null || state == null)
+        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
             return 0;
 
         if (!tracker.TryGetValue(owner, out var entry))
@@ -127,21 +120,34 @@ static class ExusiaiCombatHistory
 
     public static bool HasGunsparkInHand(MyFirstModCardModel card)
     {
-        return GetCombatState(card) != null &&
-            card.Owner != null &&
-            PileType.Hand.GetPile(card.Owner).Cards.Any(handCard => handCard is Gunspark);
+        return TryGetRuntimeContext(card, out Player owner, out _) &&
+            PileType.Hand.GetPile(owner).Cards.Any(handCard => handCard is Gunspark);
     }
 
     public static bool AnyLivingEnemyIsVulnerable(MyFirstModCardModel card)
     {
-        return GetCombatState(card)?.Enemies.Any(enemy =>
+        return TryGetRuntimeContext(card, out _, out CombatState state) &&
+            state.Enemies.Any(enemy =>
             enemy.IsAlive &&
-            (enemy.GetPower<VulnerablePower>()?.Amount ?? 0) > 0) ?? false;
+            (enemy.GetPower<VulnerablePower>()?.Amount ?? 0) > 0);
     }
 
-    private static CombatState? GetCombatState(MyFirstModCardModel card)
+    private static bool TryGetRuntimeContext(MyFirstModCardModel card, out Player owner, out CombatState state)
     {
-        return card.CombatState ?? card.Owner?.Creature?.CombatState;
+        owner = null!;
+        state = null!;
+
+        if (!card.IsMutable)
+            return false;
+
+        Player? cardOwner = card.Owner;
+        CombatState? cardState = card.CombatState ?? cardOwner?.Creature?.CombatState;
+        if (cardOwner == null || cardState == null)
+            return false;
+
+        owner = cardOwner;
+        state = cardState;
+        return true;
     }
 }
 
