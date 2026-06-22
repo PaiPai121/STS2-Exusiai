@@ -15,7 +15,7 @@ Do not include source folders, `.godot`, logs, or development scripts in the pla
 
 ## Required Dependency
 
-- BaseLib 3.0.1
+- BaseLib 3.3.2
 
 ## Player Install Requirements
 
@@ -53,9 +53,9 @@ Current release manifest:
 
 - id: `exusiai`
 - name: `Exusiai`
-- version: `v1.0.8`
+- version: `v1.0.10`
 - dll: `Exusiai.dll`
-- dependency: `BaseLib`
+- dependency: `BaseLib` `v3.3.2`
 
 ## Final Manual Checks
 
@@ -140,7 +140,7 @@ Manual package-only path:
 Manual upload-only path:
 
 ```powershell
-.\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.8.zip -Description 'Release notes here.'
+.\tools\Publish-Nexus.ps1 -ZipPath .\dist\Exusiai-v1.0.10.zip -Description 'Release notes here.'
 ```
 
 Use `-ArchiveExistingFile` if the previous version should be archived when the new version is created.
