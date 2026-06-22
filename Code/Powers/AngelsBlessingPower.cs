@@ -13,7 +13,7 @@ namespace MyFirstMod.Code.Powers;
 public class AngelsBlessingPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override string CustomPackedIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";
     public override string CustomBigIconPath => "res://myfirstmod/images/powers/AngelsBlessingPower.png";

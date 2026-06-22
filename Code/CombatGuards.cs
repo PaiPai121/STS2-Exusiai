@@ -5,7 +5,7 @@ namespace MyFirstMod.Code;
 
 internal static class CombatGuards
 {
-    public static bool HasLivingEnemy(CombatState? combatState)
+    public static bool HasLivingEnemy(ICombatState? combatState)
     {
         if (combatState == null)
             return false;

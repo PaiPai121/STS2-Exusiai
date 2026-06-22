@@ -42,7 +42,7 @@ static class GeneratedTokenHelper
         for (int i = 0; i < count; i++)
         {
             CardModel spark = combatState.CreateCard<Gunspark>(owner);
-            await CardPileCmd.AddGeneratedCardToCombat(spark, pileType, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(spark, pileType, owner);
         }
     }
 }
@@ -97,7 +97,7 @@ public class ChainReaction : MyFirstModCardModel
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
         }
 
-        await PowerCmd.Apply<ChainReactionPower>(Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<ChainReactionPower>(c, Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
@@ -187,7 +187,7 @@ public class WarfarinsPlasma : MyFirstModCardModel
     {
         await CreatureCmd.Damage(c, Owner.Creature, 3, ValueProp.Unblockable | ValueProp.Unpowered, Owner.Creature, this);
 
-        await PowerCmd.Apply<WarfarinsPlasmaPower>(Owner.Creature, DynamicVars["WarfarinsPlasmaPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<WarfarinsPlasmaPower>(c, Owner.Creature, DynamicVars["WarfarinsPlasmaPower"].IntValue, Owner.Creature, this);
     }
     public override void OnUpgrade() => DynamicVars["WarfarinsPlasmaPower"].UpgradeValueBy(2);
 }
@@ -216,7 +216,7 @@ public class SweepMode : MyFirstModCardModel
     public SweepMode() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true) { }
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        await PowerCmd.Apply<SweepModePower>(Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<SweepModePower>(c, Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
     }
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);
 }

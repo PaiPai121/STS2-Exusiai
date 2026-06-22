@@ -24,22 +24,22 @@ public class WarfarinsPlasmaPower : CustomPowerModel
 
     public override async Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await PowerCmd.Apply<StrengthPower>(target, amount, applier, cardSource, silent: true);
+        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), target, amount, applier, cardSource, silent: true);
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (power == this && amount != Amount)
-            await PowerCmd.Apply<StrengthPower>(Owner, amount, applier, cardSource, silent: true);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, amount, applier, cardSource, silent: true);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (Owner.Side != side)
+        if (!participants.Contains(Owner))
             return;
 
         Flash();
         await PowerCmd.Remove(this);
-        await PowerCmd.Apply<StrengthPower>(Owner, -Amount, Owner, null);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -Amount, Owner, null);
     }
 }

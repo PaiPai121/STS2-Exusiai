@@ -37,7 +37,7 @@ public class FireControlPower : CustomPowerModel
         for (int i = 0; i < Amount; i++)
         {
             CardModel spark = combatState.CreateCard<Gunspark>(player);
-            await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, player);
         }
     }
 }

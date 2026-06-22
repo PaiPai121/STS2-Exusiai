@@ -20,12 +20,12 @@ namespace MyFirstMod.Code.Cards;
 
 static class ExusiaiCombatHistory
 {
-    private static readonly Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> RapidFirePlayedByPlayer = [];
-    private static readonly Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> GunsparksPlayedByPlayer = [];
+    private static readonly Dictionary<Player, (ICombatState CombatState, int RoundNumber, int Count)> RapidFirePlayedByPlayer = [];
+    private static readonly Dictionary<Player, (ICombatState CombatState, int RoundNumber, int Count)> GunsparksPlayedByPlayer = [];
 
     public static int CardsPlayedThisTurn(MyFirstModCardModel card)
     {
-        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
+        if (!TryGetRuntimeContext(card, out Player owner, out ICombatState state))
             return 0;
 
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
@@ -39,7 +39,7 @@ static class ExusiaiCombatHistory
         if (trackedCount > 0)
             return trackedCount;
 
-        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
+        if (!TryGetRuntimeContext(card, out Player owner, out ICombatState state))
             return 0;
 
         return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
@@ -54,7 +54,7 @@ static class ExusiaiCombatHistory
         if (trackedCount > 0)
             return trackedCount;
 
-        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
+        if (!TryGetRuntimeContext(card, out Player owner, out ICombatState state))
             return 0;
 
         // Fallback for older cards already in combat before this tracker existed.
@@ -86,9 +86,9 @@ static class ExusiaiCombatHistory
 
     private static void RecordThisTurn(
         MyFirstModCardModel card,
-        Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
+        Dictionary<Player, (ICombatState CombatState, int RoundNumber, int Count)> tracker)
     {
-        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
+        if (!TryGetRuntimeContext(card, out Player owner, out ICombatState state))
             return;
 
         if (tracker.TryGetValue(owner, out var entry) &&
@@ -104,9 +104,9 @@ static class ExusiaiCombatHistory
 
     private static int TrackedThisTurn(
         MyFirstModCardModel card,
-        Dictionary<Player, (CombatState CombatState, int RoundNumber, int Count)> tracker)
+        Dictionary<Player, (ICombatState CombatState, int RoundNumber, int Count)> tracker)
     {
-        if (!TryGetRuntimeContext(card, out Player owner, out CombatState state))
+        if (!TryGetRuntimeContext(card, out Player owner, out ICombatState state))
             return 0;
 
         if (!tracker.TryGetValue(owner, out var entry))
@@ -126,13 +126,13 @@ static class ExusiaiCombatHistory
 
     public static bool AnyLivingEnemyIsVulnerable(MyFirstModCardModel card)
     {
-        return TryGetRuntimeContext(card, out _, out CombatState state) &&
+        return TryGetRuntimeContext(card, out _, out ICombatState state) &&
             state.Enemies.Any(enemy =>
             enemy.IsAlive &&
             (enemy.GetPower<VulnerablePower>()?.Amount ?? 0) > 0);
     }
 
-    private static bool TryGetRuntimeContext(MyFirstModCardModel card, out Player owner, out CombatState state)
+    private static bool TryGetRuntimeContext(MyFirstModCardModel card, out Player owner, out ICombatState state)
     {
         owner = null!;
         state = null!;
@@ -141,7 +141,7 @@ static class ExusiaiCombatHistory
             return false;
 
         Player? cardOwner = card.Owner;
-        CombatState? cardState = card.CombatState ?? cardOwner?.Creature?.CombatState;
+        ICombatState? cardState = card.CombatState ?? cardOwner?.Creature?.CombatState;
         if (cardOwner == null || cardState == null)
             return false;
 
@@ -164,7 +164,7 @@ public class TracerRounds : MyFirstModCardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-        await PowerCmd.Apply<VulnerablePower>(p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(c, p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
@@ -239,7 +239,7 @@ public class SparkPrimer : MyFirstModCardModel
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
             CardModel spark = CombatState.CreateCard<Gunspark>(Owner);
-            await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Draw, addedByPlayer: true, CardPilePosition.Top);
+            await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Draw, Owner, CardPilePosition.Top);
         }
     }
 
@@ -257,7 +257,7 @@ public class SuppressionSignal : MyFirstModCardModel
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
         if (p.Target != null)
-            await PowerCmd.Apply<VulnerablePower>(p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(c, p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
@@ -301,7 +301,7 @@ public class FlashpointMark : RapidFireCardModel
         if (p.Target != null)
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(p.Target).Execute(c);
-            await PowerCmd.Apply<VulnerablePower>(p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(c, p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
         }
 
         await TryGenerateRapidFireCopy(c, p);
@@ -322,7 +322,7 @@ public class LockOnOrder : MyFirstModCardModel
         if (p.Target == null)
             return;
 
-        await PowerCmd.Apply<VulnerablePower>(p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(c, p.Target, DynamicVars.Cards.IntValue, Owner.Creature, this);
         await GeneratedTokenHelper.AddGunsparkToHand(this);
     }
 
@@ -578,7 +578,7 @@ public class SparkBarrier : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        await PowerCmd.Apply<SparkBarrierPower>(Owner.Creature, (int)DynamicVars.Block.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<SparkBarrierPower>(c, Owner.Creature, (int)DynamicVars.Block.BaseValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(1);
@@ -593,7 +593,7 @@ public class OpenFireDiscipline : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        await PowerCmd.Apply<RapidFireSupportPower>(Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<RapidFireSupportPower>(c, Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);

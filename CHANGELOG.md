@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.10 - 2026-06-22
+
+### Changed
+
+- Updated the mod manifest to the current dependency format, requiring BaseLib `v3.3.2` and declaring Slay the Spire 2 `v0.107.1` as the minimum supported game version.
+- Adapted power hooks, generated-card registration, power application calls, and combat-state usage for the Slay the Spire 2 `v0.107.1` API changes.
+
+### Fixed
+
+- Fixed the new game-version mod error caused by the old manifest dependency array format.
+- Fixed build breaks from removed or renamed power APIs such as `IsInstanced`, `BeforeTurnEnd`, `AfterTurnEnd`, and the old `AfterPowerAmountChanged` signature.
+
 ## v1.0.8 - 2026-06-13
 
 ### Added

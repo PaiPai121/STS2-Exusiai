@@ -64,7 +64,7 @@ public class DeliveryGuaranteed : MyFirstModCardModel
 
         foreach (CardModel copy in copies)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, Owner);
             copy.InvokeEnergyCostChanged();
         }
     }

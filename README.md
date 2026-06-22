@@ -5,7 +5,7 @@ Exusiai is a Slay the Spire 2 character mod built around fast attacks, Rapid Fir
 ## Requirements
 
 - Slay the Spire 2
-- BaseLib 3.0.1
+- BaseLib 3.3.2
 - Godot/MegaDot 4.5.1 Mono
 - .NET SDK compatible with the project
 
@@ -113,7 +113,7 @@ Dry runs write to `dist\dry-run\` so they do not overwrite the real release zip.
 
 ## Release Status
 
-Current manifest version: `v1.0.8`.
+Current manifest version: `v1.0.10`.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 

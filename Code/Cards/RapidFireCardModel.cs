@@ -70,6 +70,6 @@ public abstract class RapidFireCardModel : MyFirstModCardModel
         copy.AddKeyword(CardKeyword.Exhaust);
 
         // Add the generated copy to hand.
-        await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, Owner);
     }
 }

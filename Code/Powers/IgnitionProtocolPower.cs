@@ -38,6 +38,6 @@ public class IgnitionProtocolPower : CustomPowerModel
             return;
 
         _gunsparksPlayed -= 2;
-        await PowerCmd.Apply<IgnitionProtocolPower>(Owner, 1, Owner, cardPlay.Card);
+        await PowerCmd.Apply<IgnitionProtocolPower>(choiceContext, Owner, 1, Owner, cardPlay.Card);
     }
 }

@@ -39,7 +39,7 @@ public class SparkCapacitor : MyFirstModRelicModel
             return;
 
         CardModel spark = combatState.CreateCard<Gunspark>(player);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, player);
         _usedThisCombat = true;
         Flash();
         Status = RelicStatus.Normal;

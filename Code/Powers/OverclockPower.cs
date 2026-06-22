@@ -117,9 +117,9 @@ public class OverclockPower : CustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (Owner.Side == side)
+        if (participants.Contains(Owner))
         {
             Amount = 0;
             RefreshHandAttackCosts();

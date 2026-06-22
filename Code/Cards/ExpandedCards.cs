@@ -83,7 +83,7 @@ public class SparkCircuit : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await PowerCmd.Apply<SparkCircuitPower>(Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<SparkCircuitPower>(c, Owner.Creature, 1, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
@@ -98,7 +98,7 @@ public class IgnitionProtocol : MyFirstModCardModel
 
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
-        await PowerCmd.Apply<IgnitionProtocolPower>(Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<IgnitionProtocolPower>(c, Owner.Creature, (int)DynamicVars.Damage.BaseValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1);
@@ -154,7 +154,7 @@ public class FireControl : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext c, CardPlay p)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, p);
-        await PowerCmd.Apply<FireControlPower>(Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<FireControlPower>(c, Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
     }
 
     public override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

@@ -33,6 +33,7 @@ public class Overclock : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<OverclockPower>(
+            choiceContext,
             Owner.Creature,
             DynamicVars.Cards.IntValue,
             Owner.Creature,

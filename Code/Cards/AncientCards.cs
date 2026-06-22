@@ -42,8 +42,8 @@ public class SanctifiedCrossfire : RapidFireCardModel
                 .Targeting(cardPlay.Target)
                 .Execute(choiceContext);
 
-            await PowerCmd.Apply<VulnerablePower>(cardPlay.Target, DynamicVars["VulnerablePower"].IntValue, Owner.Creature, this);
-            await PowerCmd.Apply<WeakPower>(cardPlay.Target, DynamicVars["WeakPower"].IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, DynamicVars["VulnerablePower"].IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, DynamicVars["WeakPower"].IntValue, Owner.Creature, this);
         }
 
         await GeneratedTokenHelper.AddGunsparkToHand(this);
@@ -110,7 +110,7 @@ public class PenguinLogisticsParcel : MyFirstModCardModel
             CardModel parcelCard = combatState.CreateCard(candidate, Owner);
             parcelCard.SetToFreeThisTurn();
             parcelCard.SetStarCostUntilPlayed(0);
-            await CardPileCmd.AddGeneratedCardToCombat(parcelCard, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(parcelCard, PileType.Hand, Owner);
             parcelCard.InvokeEnergyCostChanged();
         }
     }

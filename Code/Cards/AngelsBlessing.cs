@@ -31,6 +31,7 @@ public class AngelsBlessing : MyFirstModCardModel
     public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<AngelsBlessingPower>(
+            choiceContext,
             Owner.Creature,
             DynamicVars.Cards.IntValue,
             Owner.Creature,

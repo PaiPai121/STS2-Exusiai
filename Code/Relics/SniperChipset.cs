@@ -44,7 +44,7 @@ public class SniperChipset : MyFirstModRelicModel
             return;
 
         CardModel spark = combatState.CreateCard<Gunspark>(Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(spark, PileType.Hand, Owner);
 
         _usedThisCombat = true;
         Flash();
